@@ -1,16 +1,18 @@
 variable "bucket_config" {
   type = object({
     env = string
-    create = list(object({
-      prefix = string
+    managed = list(object({
+      id   = string
+      name = string
     }))
-    lookup = list(object({
+    existing = list(object({
+      id   = string
       name = string
     }))
   })
   default = {
-    env    = "non-prod"
-    create = []
-    lookup = []
+    env      = "non-prod"
+    managed  = []
+    existing = []
   }
 }
