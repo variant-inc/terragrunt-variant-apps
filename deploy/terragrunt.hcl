@@ -16,22 +16,6 @@ inputs = {
   name         = "jazz-backend-api"
   namespace    = "tesh"
   cluster_name = "variant-dev"
-  chart_value_overrides = [yamlencode({
-    revision = "0.0.1"
-    istio = {
-      ingress = {
-        host = "dev-drivevariant.com"
-      }
-    }
-    deployment = {
-      image = {
-        tag = "064859874041.dkr.ecr.us-east-2.amazonaws.com/jazz-backend/api:0.1.0-cloud-1105-0001.121"
-      }
-    }
-    service = {
-      targetPort = 5001
-    }
-  })]
 
   bucket_config = {
     env = "non-prod"
