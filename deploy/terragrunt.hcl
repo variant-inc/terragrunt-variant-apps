@@ -36,5 +36,5 @@ terraform {
 }
 
 inputs = {
-  aws_resource_name_prefix = "eng"
+  aws_resource_name_prefix = "datascience"
 }

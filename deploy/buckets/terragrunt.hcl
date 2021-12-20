@@ -11,10 +11,10 @@ terraform {
 }
 
 locals {
-  file_path    = "${path_relative_from_include("root")}/../../project/deploy/api.yaml"
-  bucket_input = try(yamldecode(file(local.file_path)).infrastructure.buckets, null)
+  yaml_input   = yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml"))
+  bucket_input = try(local.yaml_input.infrastructure.buckets, null)
 }
 
 inputs = {
-  buckets = local.bucket_input
+  bucket_config = local.bucket_input
 }
