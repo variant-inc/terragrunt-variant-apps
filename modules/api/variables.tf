@@ -9,3 +9,7 @@ variable "chart_values" {
 variable "aws_resource_name_prefix" {
   type = string
 }
+
+variable "namespace" {
+  type = string
+}

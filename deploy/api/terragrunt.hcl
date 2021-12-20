@@ -17,7 +17,14 @@ include "helm_provider" {
 dependency "buckets" {
   config_path = "../buckets"
   mock_outputs = {
-    chart_values : ""
+    chart_values = ""
+  }
+}
+
+dependency "namespace" {
+  config_path = "../namespace"
+  mock_outputs = {
+    namespace_name = "test"
   }
 }
 
@@ -26,12 +33,16 @@ terraform {
 }
 
 locals {
-  chart_user_values = yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml")).chart
+  chart_user_values = try(
+    yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml")).chart,
+    ""
+  )
 }
 
 inputs = {
   chart_values = [
     dependency.buckets.outputs.chart_values,
     yamlencode(local.chart_user_values)
-  ]
+  ],
+  namespace = dependency.namespace.outputs.namespace_name
 }

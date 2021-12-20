@@ -13,7 +13,7 @@ remote_state {
   config = {
     bucket         = get_env("TERRAGRUNT_S3_BUCKET")
     region         = get_env("AWS_DEFAULT_REGION")
-    key            = "${local.deploy_yaml.octopus.space}/${local.deploy_yaml.octopus.group}/${local.deploy_yaml.name}/${path_relative_to_include()}/terraform.tfstate"
+    key            = "${local.deploy_yaml.octopus.space}/${local.deploy_yaml.octopus.group}/${local.deploy_yaml.name}/${path_relative_to_include()}"
     encrypt        = true
     dynamodb_table = get_env("TERRAGRUNT_DYNAMO_TABLE")
   }

@@ -25,6 +25,11 @@ locals {
   })]
   final_values = concat(local.service_account_chart_values, var.chart_values)
 }
+data "kubernetes_namespace" "namespace" {
+  metadata {
+    name = var.namespace
+  }
+}
 
 resource "helm_release" "api" {
   # repository        = "https://variant-inc.github.io/lazy-helm-charts/"
