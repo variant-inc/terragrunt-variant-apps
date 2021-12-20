@@ -21,12 +21,12 @@ dependency "buckets" {
   }
 }
 
-dependency "namespace" {
-  config_path = "../namespace"
-  mock_outputs = {
-    namespace_name = "test"
-  }
-}
+# dependency "namespace" {
+#   config_path = "../namespace"
+#   mock_outputs = {
+#     namespace_name = "test"
+#   }
+# }
 
 terraform {
   source = "../../modules//api"
@@ -43,6 +43,6 @@ inputs = {
   chart_values = [
     dependency.buckets.outputs.chart_values,
     yamlencode(local.chart_user_values)
-  ],
-  namespace = dependency.namespace.outputs.namespace_name
+  ]
+  # namespace = dependency.namespace.outputs.namespace_name
 }
