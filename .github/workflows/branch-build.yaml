@@ -14,6 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup
+        id: setup
         uses: variant-inc/actions-setup@v1
       - name: Octopus
         uses: variant-inc/actions-octopus@v2
