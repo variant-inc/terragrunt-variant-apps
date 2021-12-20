@@ -1,3 +1,7 @@
+locals {
+  deploy_yaml = yamldecode(file("../project/deploy/api.yaml"))
+}
+
 remote_state {
   backend = "s3"
   generate = {
@@ -5,44 +9,30 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    bucket  = "engineering-tf-state20210118220815943200000002"
-    region  = "us-east-1"
-    key     = "space/project-group/project-name/${path_relative_to_include()}/terraform.tfstate"
-    encrypt = true
+    bucket         = get_env("TERRAGRUNT_S3_BUCKET")
+    region         = get_env("AWS_DEFAULT_REGION")
+    key            = "${local.deploy_yaml.octopus.space}/${local.deploy_yaml.octopus.group}/${local.deploy_yaml.name}/${path_relative_to_include()}/terraform.tfstate"
+    encrypt        = true
+    dynamodb_table = get_env("TERRAGRUNT_DYNAMO_TABLE")
+  }
+}
+
+terraform {
+  extra_arguments "varfiles" {
+    commands = [
+      "apply",
+      "plan",
+      "import",
+      "push",
+      "refresh"
+    ]
+
+    optional_var_files = [
+      "${get_terragrunt_dir()}/terraform.tfvars.json"
+    ]
   }
 }
 
 inputs = {
-  name         = "jazz-backend-api"
-  namespace    = "tesh"
-  cluster_name = "variant-dev"
-
-  bucket_config = {
-    env = "non-prod"
-    managed = [
-      {
-        id   = "jazz-test"
-        name = "jazz-test"
-      }
-    ]
-    existing = [
-      {
-        id   = "optimizer"
-        name = "usxopt-ds-dev"
-      }
-    ]
-  }
-
-  user_tags = {
-    team    = "datascience"
-    owner   = "datascience"
-    purpose = "Jazz Backend API"
-  }
-  octopus_tags = {
-    release_channel = "feature"
-    environment     = "development"
-    project_group   = "Default"
-    space           = "Engineering"
-    project         = "jazz-backend-api"
-  }
+  aws_resource_name_prefix = "eng"
 }

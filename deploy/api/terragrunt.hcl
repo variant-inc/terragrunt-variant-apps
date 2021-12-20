@@ -26,27 +26,12 @@ terraform {
 }
 
 locals {
-  chart_defaults = yamlencode({
-    revision = "0.0.1"
-    istio = {
-      ingress = {
-        host = "dev-drivevariant.com"
-      }
-    }
-    deployment = {
-      image = {
-        tag = "064859874041.dkr.ecr.us-east-2.amazonaws.com/jazz-backend/api:0.1.0-cloud-1105-0001.121"
-      }
-    }
-    service = {
-      targetPort = 5001
-    }
-  })
+  chart_user_values = yamldecode(file("${path_relative_from_include("root")}/../project/deploy/api.yaml")).chart
 }
 
 inputs = {
-  chart_value_overrides = [
-    local.chart_defaults,
-    dependency.buckets.outputs.chart_values
+  chart_values = [
+    dependency.buckets.outputs.chart_values,
+    yamlencode(local.chart_user_values)
   ]
 }

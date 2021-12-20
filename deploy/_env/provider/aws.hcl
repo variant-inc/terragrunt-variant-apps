@@ -13,11 +13,6 @@ variable "aws_tags" {
   type = map(string)
 }
 
-variable "aws_resource_name_prefix" {
-  type = string
-  default = "eng"
-}
-
 provider "aws" {
   default_tags {
     tags = var.aws_tags

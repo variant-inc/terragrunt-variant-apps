@@ -18,14 +18,12 @@ terraform {
 locals {
   namespace   = data.kubernetes_namespace.namespace.metadata[0].name
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
-  final_values = concat(
-    [yamlencode({
-      serviceAccount = {
-        roleArn = aws_iam_role.role.arn
-      }
-    })],
-    var.chart_value_overrides
-  )
+  service_account_chart_values = [yamlencode({
+    serviceAccount = {
+      roleArn = aws_iam_role.role.arn
+    }
+  })]
+  final_values = concat(local.service_account_chart_values, var.chart_values)
 }
 
 resource "helm_release" "api" {

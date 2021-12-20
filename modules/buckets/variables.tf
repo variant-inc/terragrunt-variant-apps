@@ -16,3 +16,15 @@ variable "bucket_config" {
     existing = []
   }
 }
+
+variable "octopus_tags" {
+  type = map(string)
+}
+
+variable "user_tags" {
+  type = map(string)
+}
+
+variable "aws_resource_name_prefix" {
+  type = string
+}
