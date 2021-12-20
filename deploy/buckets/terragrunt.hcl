@@ -11,8 +11,8 @@ terraform {
 }
 
 locals {
-  file_path    = file("${path_relative_from_include("root")}/../../project/deploy/api.yaml")
-  bucket_input = try(yamldecode(local.file_path).infrastructure.buckets, null)
+  file_path    = "${path_relative_from_include("root")}/../../project/deploy/api.yaml"
+  bucket_input = try(yamldecode(file(local.file_path)).infrastructure.buckets, null)
 }
 
 inputs = {
