@@ -19,7 +19,7 @@ jobs:
       - name: Octopus
         uses: variant-inc/actions-octopus@v2
         with:
-          space_name: Default
+          space_name: DataScience
           project_name: terragrunt-variant-api
           default_branch: master
           version: ${{ steps.setup.outputs.image_version }}
