@@ -1,3 +1,6 @@
+terragrunt_version_constraint = "~> 0.36.15"
+terraform_version_constraint  = "~> 1.1.0"
+
 locals {
   deploy_yaml = yamldecode(file("../project/deploy/api.yaml"))
 }
