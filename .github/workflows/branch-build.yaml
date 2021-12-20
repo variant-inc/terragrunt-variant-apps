@@ -1,0 +1,24 @@
+---
+name: Publish Tool
+
+on:
+  push:
+
+jobs:
+  branch-build:
+    name: Branch Build
+    runs-on: [ops]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup
+        uses: variant-inc/actions-setup@v1
+      - name: Octopus
+        uses: variant-inc/actions-octopus@v2
+        with:
+          space_name: Default
+          project_name: terragrunt-variant-api
+          default_branch: master
+          version: ${{ steps.setup.outputs.image_version }}
