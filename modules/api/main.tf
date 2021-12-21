@@ -32,10 +32,9 @@ data "kubernetes_namespace" "namespace" {
 }
 
 resource "helm_release" "api" {
-  # repository        = "https://variant-inc.github.io/lazy-helm-charts/"
-  # chart             = "variant-api"
-  # version           = "2.0.0-beta1"
-  chart             = "/Users/hspatel/repos/lazy-helm-charts/charts/variant-api"
+  repository        = "https://variant-inc.github.io/lazy-helm-charts/"
+  chart             = "variant-api"
+  version           = "2.0.0-beta2"
   name              = var.name
   namespace         = local.namespace
   lint              = true
