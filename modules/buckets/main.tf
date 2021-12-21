@@ -27,7 +27,7 @@ locals {
 
 module "buckets" {
   count  = length(var.bucket_config.managed)
-  source = "github.com/variant-inc/terraform-aws-s3"
+  source = "github.com/variant-inc/terraform-aws-s3.git?ref=master"
 
   bucket_prefix = "${var.aws_resource_name_prefix}-${var.bucket_config.managed[count.index].name}"
 }
