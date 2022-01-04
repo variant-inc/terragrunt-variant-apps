@@ -16,10 +16,14 @@ jobs:
       - name: Setup
         id: setup
         uses: variant-inc/actions-setup@v1
-      - name: Octopus
-        uses: variant-inc/actions-octopus@v2
-        with:
-          space_name: DataScience
-          project_name: terragrunt-variant-api
-          default_branch: master
-          version: ${{ steps.setup.outputs.image_version }}
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory pack
+          Move-Item -Path ./deploy -Destination ./pack
+          Move-Item -Path ./modules -Destination ./pack
+          ./.variant/deploy/push_package.ps1 `
+            -PackageName ${{ github.event.repository.name }} `
+            -Version ${{ steps.setup.outputs.image_version }} `
+            -BasePackagePath ./pack
+            -Spaces DataScience
