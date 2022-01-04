@@ -1,3 +1,10 @@
+param (
+    [String] $PackageName,
+    [String] $Version,
+    [String] $BasePackagePath,
+    [String[]] $Spaces
+)
+
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 $WarningPreference = "SilentlyContinue"
@@ -23,13 +30,6 @@ function CommandAliasFunction
 }
 
 Set-Alias -Name ce -Value CommandAliasFunction -Scope script
-
-param (
-    [String] $PackageName,
-    [String] $Version,
-    [String] $BasePackagePath,
-    [String[]] $Spaces
-)
 
 ce octo pack `
     --id="${PackageName}" `
