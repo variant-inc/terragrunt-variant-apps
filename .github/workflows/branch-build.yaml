@@ -26,4 +26,4 @@ jobs:
             -PackageName ${{ github.event.repository.name }} `
             -Version ${{ steps.setup.outputs.image_version }} `
             -BasePackagePath ./pack `
-            -Spaces DataScience
+            -Spaces DataScience,Default
