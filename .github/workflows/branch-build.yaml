@@ -25,5 +25,5 @@ jobs:
           ./.variant/deploy/push_package.ps1 `
             -PackageName ${{ github.event.repository.name }} `
             -Version ${{ steps.setup.outputs.image_version }} `
-            -BasePackagePath ./pack
+            -BasePackagePath ./pack `
             -Spaces DataScience
