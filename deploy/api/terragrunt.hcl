@@ -45,9 +45,9 @@ inputs = {
     dependency.buckets.outputs.chart_values,
     yamlencode(local.chart_user_values)
   ]
-  policies = concat(
+  policies = merge(
     dependency.buckets.outputs.policies,
-    []
+    {}
   )
   # namespace = dependency.namespace.outputs.namespace_name
 }

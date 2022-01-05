@@ -1,7 +1,7 @@
 locals {
   all_buckets = merge(
     {
-      for label, bucket in data.aws_s3_bucket.existing_buckets : "s3-${label}" => {
+      for label, bucket in data.aws_s3_bucket.existing_buckets : label => {
         domain             = bucket.bucket_domain_name
         arn                = bucket.arn
         name               = bucket.bucket
@@ -9,7 +9,7 @@ locals {
       }
     },
     {
-      for label, bucket in data.aws_s3_bucket.managed_buckets : "s3-${label}" => {
+      for label, bucket in data.aws_s3_bucket.managed_buckets : label => {
         domain             = bucket.bucket_domain_name
         arn                = bucket.arn
         name               = bucket.bucket
@@ -18,16 +18,22 @@ locals {
   })
   chart_values = yamlencode({
     deployment = {
-      envVars = concat(
-        [for label, bucket in local.all_buckets : {
-          name  = "VARIANT_BUCKET_${label}_name"
-          value = bucket.name
-        }],
-        [for label, bucket in local.all_buckets : {
-          name  = "VARIANT_BUCKET_${label}_arn"
-          value = bucket.arn
-        }]
-      )
+      envVars = flatten([for label, bucket in local.all_buckets :
+        [
+          {
+            name  = "BUCKET__${label}__name"
+            value = bucket.name
+          },
+          {
+            name  = "BUCKET__${label}__arn"
+            value = bucket.arn
+          },
+          {
+            name  = "BUCKET__${label}__domain"
+            value = bucket.domain
+          }
+        ]
+      ])
     }
   })
 }
@@ -50,7 +56,9 @@ data "aws_s3_bucket" "managed_buckets" {
 }
 
 data "aws_iam_policy_document" "policies" {
-  for_each = local.all_buckets
+  for_each = {
+    for label, bucket in local.all_buckets : "s3-${label}" => bucket
+  }
 
   statement {
     effect = "Allow"
