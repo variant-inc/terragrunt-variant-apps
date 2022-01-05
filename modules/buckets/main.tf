@@ -1,31 +1,31 @@
 locals {
   all_buckets = merge(
     {
-      for key, value in data.aws_s3_bucket.existing_buckets : "s3-${key}" => {
-        domain             = b.bucket_domain_name
-        arn                = b.arn
-        name               = b.bucket
+      for label, bucket in data.aws_s3_bucket.existing_buckets : "s3-${label}" => {
+        domain             = bucket.bucket_domain_name
+        arn                = bucket.arn
+        name               = bucket.bucket
         externally_managed = false
       }
     },
     {
-      for key, value in data.aws_s3_bucket.managed_buckets : "s3-${key}" => {
-        domain             = b.bucket_domain_name
-        arn                = b.arn
-        name               = b.bucket
+      for label, bucket in data.aws_s3_bucket.managed_buckets : "s3-${label}" => {
+        domain             = bucket.bucket_domain_name
+        arn                = bucket.arn
+        name               = bucket.bucket
         externally_managed = true
       }
   })
   chart_values = yamlencode({
     deployment = {
       envVars = concat(
-        [for key, value in local.all_buckets : {
-          name  = "VARIANT_BUCKET_${key}_name"
-          value = value.name
+        [for label, bucket in local.all_buckets : {
+          name  = "VARIANT_BUCKET_${label}_name"
+          value = bucket.name
         }],
-        [for key, value in local.all_buckets : {
-          name  = "VARIANT_BUCKET_${key}_arn"
-          value = value.arn
+        [for label, bucket in local.all_buckets : {
+          name  = "VARIANT_BUCKET_${label}_arn"
+          value = bucket.arn
         }]
       )
     }
