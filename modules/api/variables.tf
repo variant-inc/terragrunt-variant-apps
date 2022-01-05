@@ -15,6 +15,6 @@ variable "namespace" {
 }
 
 variable "policies" {
-  type        = map()
+  type        = map(any)
   description = "Each value in the map should be an aws_iam_policy_document resource"
 }
