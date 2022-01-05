@@ -1,11 +1,11 @@
 variable "bucket_config" {
-  type = map({
-    managed = map({
+  type = object({
+    managed = map(object({
       name = string
-    })
-    existing = map({
+    }))
+    existing = map(object({
       name = string
-    })
+    }))
   })
   default = {
     managed  = {}
