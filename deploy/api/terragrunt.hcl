@@ -18,7 +18,7 @@ dependency "buckets" {
   config_path = "../buckets"
   mock_outputs = {
     chart_values = ""
-    policies = []
+    policies = {}
   }
 }
 

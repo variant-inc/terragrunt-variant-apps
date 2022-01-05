@@ -1,19 +1,15 @@
 variable "bucket_config" {
   type = object({
-    env = string
-    managed = list(object({
-      id   = string
+    managed = map(object({
       name = string
     }))
-    existing = list(object({
-      id   = string
+    existing = map(object({
       name = string
     }))
   })
   default = {
-    env      = "non-prod"
-    managed  = []
-    existing = []
+    managed  = {}
+    existing = {}
   }
 }
 

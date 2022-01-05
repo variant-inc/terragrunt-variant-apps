@@ -76,8 +76,8 @@ resource "aws_iam_role" "role" {
   dynamic "inline_policies" {
     for_each = var.policies
     inline_policy {
-      name  = each.value.policy_id
-      value = each.value
+      name  = each.key
+      value = each.value.json
     }
   }
 }

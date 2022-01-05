@@ -15,6 +15,6 @@ variable "namespace" {
 }
 
 variable "policies" {
-  type        = list(object)
+  type        = map(object)
   description = "Policy documents to be applied inline for the API role"
 }

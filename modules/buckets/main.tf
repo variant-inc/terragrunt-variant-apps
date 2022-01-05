@@ -1,51 +1,57 @@
 locals {
-  all_buckets = concat(
-    [for idx, b in data.aws_s3_bucket.existing_buckets : {
-      id                 = var.bucket_config.existing[idx].id
-      domain             = b.bucket_domain_name
-      arn                = b.arn
-      name               = b.bucket
-      externally_managed = true
-    }],
-    [for idx, b in data.aws_s3_bucket.managed_buckets : {
-      id                 = var.bucket_config.managed[idx].id
-      domain             = b.bucket_domain_name
-      arn                = b.arn
-      name               = b.bucket
-      externally_managed = false
-    }]
-  )
+  all_buckets = merge(
+    {
+      for key, value in data.aws_s3_bucket.existing_buckets : "s3-${key}" => {
+        domain             = b.bucket_domain_name
+        arn                = b.arn
+        name               = b.bucket
+        externally_managed = false
+      }
+    },
+    {
+      for key, value in data.aws_s3_bucket.managed_buckets : "s3-${key}" => {
+        domain             = b.bucket_domain_name
+        arn                = b.arn
+        name               = b.bucket
+        externally_managed = true
+      }
+  })
   chart_values = yamlencode({
     deployment = {
-      envVars = [for b in local.all_buckets : {
-        name  = "VARIANT_BUCKET_${b.id}"
-        value = jsonencode(b)
-      }]
+      envVars = concat(
+        [for key, value in local.all_buckets : {
+          name  = "VARIANT_BUCKET_${key}_name"
+          value = value.name
+        }],
+        [for key, value in local.all_buckets : {
+          name  = "VARIANT_BUCKET_${key}_arn"
+          value = value.arn
+        }]
+      )
     }
   })
 }
 
 module "buckets" {
-  count  = length(var.bucket_config.managed)
-  source = "github.com/variant-inc/terraform-aws-s3.git?ref=master"
+  for_each = var.bucket_config.managed
+  source   = "github.com/variant-inc/terraform-aws-s3.git?ref=master"
 
-  bucket_prefix = "${var.aws_resource_name_prefix}-${var.bucket_config.managed[count.index].name}"
+  bucket_prefix = "${var.aws_resource_name_prefix}-${each.value.name}"
 }
 
 data "aws_s3_bucket" "existing_buckets" {
-  count  = length(var.bucket_config.existing)
-  bucket = var.bucket_config.existing[count.index].name
+  for_each = var.bucket_config.existing
+  bucket   = each.value.name
 }
 
 data "aws_s3_bucket" "managed_buckets" {
-  count  = length(module.buckets)
-  bucket = module.buckets[count.index].bucket_name
+  for_each = module.buckets
+  bucket   = each.value.bucket_name
 }
 
 data "aws_iam_policy_document" "policies" {
   for_each = local.all_buckets
 
-  policy_id = "s3-${each.value.name}"
   statement {
     effect = "Allow"
     actions = [
