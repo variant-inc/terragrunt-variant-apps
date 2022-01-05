@@ -41,3 +41,26 @@ data "aws_s3_bucket" "managed_buckets" {
   count  = length(module.buckets)
   bucket = module.buckets[count.index].bucket_name
 }
+
+data "aws_iam_policy_document" "policies" {
+  for_each = local.all_buckets
+
+  policy_id = "s3-${each.value.name}"
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectAcl",
+      "s3:DeleteObject"
+    ]
+
+    resources = [
+      each.value.arn,
+      "${each.value.arn}/*"
+    ]
+  }
+}

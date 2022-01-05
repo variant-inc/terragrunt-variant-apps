@@ -18,6 +18,7 @@ dependency "buckets" {
   config_path = "../buckets"
   mock_outputs = {
     chart_values = ""
+    policies = []
   }
 }
 
@@ -44,5 +45,9 @@ inputs = {
     dependency.buckets.outputs.chart_values,
     yamlencode(local.chart_user_values)
   ]
+  policies = concat(
+    dependency.buckets.outputs.policies,
+    []
+  )
   # namespace = dependency.namespace.outputs.namespace_name
 }

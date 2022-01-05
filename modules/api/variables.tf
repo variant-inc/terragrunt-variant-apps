@@ -13,3 +13,8 @@ variable "aws_resource_name_prefix" {
 variable "namespace" {
   type = string
 }
+
+variable "policies" {
+  type        = list(object)
+  description = "Policy documents to be applied inline for the API role"
+}

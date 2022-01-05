@@ -72,4 +72,12 @@ resource "aws_iam_role" "role" {
   name                  = "${var.aws_resource_name_prefix}-${var.name}"
   force_detach_policies = true
   assume_role_policy    = data.aws_iam_policy_document.assume_role.json
+
+  dynamic "inline_policies" {
+    for_each = var.policies
+    inline_policy {
+      name  = each.value.policy_id
+      value = each.value
+    }
+  }
 }
