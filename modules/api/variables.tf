@@ -15,6 +15,6 @@ variable "namespace" {
 }
 
 variable "policies" {
-  type        = map(object)
-  description = "Policy documents to be applied inline for the API role"
+  type        = map()
+  description = "Each value in the map should be an aws_iam_policy_document resource"
 }
