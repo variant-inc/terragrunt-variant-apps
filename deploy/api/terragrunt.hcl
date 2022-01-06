@@ -47,6 +47,6 @@ inputs = {
     dependency.buckets.outputs.policies,
     {}
   )
-  image = local.deploy_yaml.image
+  image = "064859874041.dkr.ecr.us-east-2.amazonaws.com/${local.deploy_yaml.image}"
   # namespace = dependency.namespace.outputs.namespace_name
 }
