@@ -15,5 +15,6 @@ locals {
 }
 
 inputs = {
-  bucket_config = try(local.deploy_yaml.infrastructure.buckets, null)
+  managed  = try(local.deploy_yaml.infrastructure.buckets.managed, null)
+  existing = try(local.deploy_yaml.infrastructure.buckets.existing, null)
 }

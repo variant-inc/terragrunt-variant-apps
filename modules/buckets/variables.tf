@@ -1,16 +1,15 @@
-variable "bucket_config" {
-  type = object({
-    managed = map(object({
-      name = string
-    }))
-    existing = map(object({
-      name = string
-    }))
-  })
-  default = {
-    managed  = {}
-    existing = {}
-  }
+variable "managed" {
+  type = map(object({
+    name = string
+  }))
+  default = {}
+}
+
+variable "existing" {
+  type = map(object({
+    name = string
+  }))
+  default = {}
 }
 
 variable "aws_resource_name_prefix" {
