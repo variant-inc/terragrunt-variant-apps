@@ -30,3 +30,15 @@ variable "domain" {
 variable "image" {
   type = string
 }
+
+variable "okta_provider_config" {
+  type = object({
+    org_name = string
+    base_url = string
+  })
+}
+
+variable "authentication_enabled" {
+  type    = bool
+  default = false
+}

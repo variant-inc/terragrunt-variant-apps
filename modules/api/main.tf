@@ -23,7 +23,8 @@ locals {
       roleArn = aws_iam_role.role.arn
     }
   })]
-  final_values = concat(local.service_account_chart_values, var.chart_values)
+  final_values     = concat(local.service_account_chart_values, var.chart_values)
+  oauth_server_url = "https://${var.okta_provider_config.org_name}.${var.okta_provider_config.base_url}/oauth2/default"
 }
 
 data "kubernetes_namespace" "namespace" {
@@ -35,7 +36,7 @@ data "kubernetes_namespace" "namespace" {
 resource "helm_release" "api" {
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-api"
-  version           = "2.0.0-beta2"
+  version           = "2.0.0-beta3"
   name              = var.name
   namespace         = local.namespace
   lint              = true
@@ -56,6 +57,16 @@ resource "helm_release" "api" {
   set {
     name  = "deployment.image.tag"
     value = var.image
+  }
+
+  set {
+    name  = "authentication.enabled"
+    value = var.authentication_enabled
+  }
+
+  set {
+    name  = "authentication.server"
+    value = local.oauth_server_url
   }
 }
 
