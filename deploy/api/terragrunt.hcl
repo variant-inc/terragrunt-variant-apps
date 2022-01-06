@@ -34,8 +34,9 @@ terraform {
 }
 
 locals {
+  deploy_yaml = yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml"))
   chart_user_values = try(
-    yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml")).chart,
+    local.deploy_yaml.chart,
     ""
   )
 }
@@ -49,5 +50,6 @@ inputs = {
     dependency.buckets.outputs.policies,
     {}
   )
+  image = local.deploy_yaml.image
   # namespace = dependency.namespace.outputs.namespace_name
 }

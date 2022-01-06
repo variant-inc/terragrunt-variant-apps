@@ -41,6 +41,21 @@ resource "helm_release" "api" {
   dependency_update = true
 
   values = local.final_values
+
+  set {
+    name  = "revision"
+    value = var.revision
+  }
+
+  set {
+    name  = "istio.ingress.host"
+    value = var.domain
+  }
+
+  set {
+    name  = "deployment.image.tag"
+    value = var.image
+  }
 }
 
 data "aws_iam_policy_document" "assume_role" {
