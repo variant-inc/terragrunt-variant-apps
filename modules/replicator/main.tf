@@ -11,6 +11,12 @@ terraform {
   }
 }
 
+data "kubernetes_namespace" "namespace" {
+  metadata {
+    name = var.namespace
+  }
+}
+
 resource "aws_dynamodb_table_item" "iaac_replicator" {
   table_name = "replicator_octo_projects"
   hash_key   = "Space"
@@ -19,25 +25,25 @@ resource "aws_dynamodb_table_item" "iaac_replicator" {
   item = <<ITEM
 {
   "Space": {
-    "S": "<%= $global:SPACE_NAME %>"
+    "S": "${var.release_data.space}"
   },
   "Project": {
-    "S": "<%= $global:PROJECT_NAME %>"
+    "S": "${var.release_data.project}"
   },
   "GithubRepository": {
-    "S": "<%= $env:GITHUB_REPOSITORY %>"
+    "S": "${var.release_data.repository}"
   },
   "GithubUser": {
-    "S": "<%= $env:GITHUB_ACTOR %>"
+    "S": "${var.release_data.user}"
   },
   "Version": {
-    "S": "<%= $env:VERSION %>"
+    "S": "${var.release_data.version}"
   },
   "Image": {
-    "S": "<%= $env:IMAGE_NAME %>"
+    "S": "${var.release_data.image}"
   },
   "IsInfrastructure": {
-    "S": "<%= $env:IS_INFRASTRUCTURE %>"
+    "S": "${var.release_data.is_infrastructure}"
   }
 }
 ITEM
@@ -46,7 +52,7 @@ ITEM
 
 resource "kubernetes_config_map" "iaac_replicator" {
   metadata {
-    name      = "${var.name}-iaac-replicator"
+    name      = "${var.release_data.project}-iaac-replicator"
     namespace = data.kubernetes_namespace.namespace.metadata[0].name
     labels = {
       "cloudops.iaac/replicator" : "v1"
@@ -54,12 +60,12 @@ resource "kubernetes_config_map" "iaac_replicator" {
   }
 
   data = {
-    "Space" : ""
-    "Project" : ""
-    "GithubRepository" : ""
-    "GithubUser" : "",
-    "Version" : "",
-    "Image" : "",
-    "IsInfrastructure" : ""
+    "Space" : "${var.release_data.space}"
+    "Project" : "${var.release_data.project}"
+    "GithubRepository" : "${var.release_data.repository}"
+    "GithubUser" : "${var.release_data.user}"
+    "Version" : "${var.release_data.version}"
+    "Image" : "${var.release_data.image}"
+    "IsInfrastructure" : "${var.release_data.is_infrastructure}"
   }
 }
