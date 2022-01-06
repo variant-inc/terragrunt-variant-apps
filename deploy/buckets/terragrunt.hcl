@@ -11,10 +11,9 @@ terraform {
 }
 
 locals {
-  yaml_input   = yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml"))
-  bucket_input = try(local.yaml_input.infrastructure.buckets, null)
+  deploy_yaml  = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
 }
 
 inputs = {
-  bucket_config = local.bucket_input
+  bucket_config = try(local.deploy_yaml.infrastructure.buckets, null)
 }

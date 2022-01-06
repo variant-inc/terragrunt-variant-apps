@@ -34,11 +34,8 @@ terraform {
 }
 
 locals {
-  deploy_yaml = yamldecode(file("${path_relative_from_include("root")}/../../project/deploy/api.yaml"))
-  chart_user_values = try(
-    local.deploy_yaml.chart,
-    ""
-  )
+  deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  chart_user_values = try(local.deploy_yaml.chart, "")
 }
 
 inputs = {
