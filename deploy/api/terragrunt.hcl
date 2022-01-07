@@ -47,7 +47,7 @@ inputs = {
     dependency.buckets.outputs.policies,
     {}
   )
-  image = "064859874041.dkr.ecr.us-east-2.amazonaws.com/${local.deploy_yaml.image}"
+  image = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
   authentication_enabled = try(local.deploy_yaml.authentication, false)
   namespace = dependency.namespace.outputs.namespace_name
 }
