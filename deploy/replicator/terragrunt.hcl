@@ -10,6 +10,13 @@ include "kubernetes_provider" {
   path = "${path_relative_to_include()}/../_env/provider/kubernetes.hcl"
 }
 
+dependency "namespace" {
+  config_path = "../namespace"
+  mock_outputs = {
+    namespace_name = ""
+  }
+}
+
 terraform {
   source = "../../modules//replicator"
 }
@@ -20,6 +27,7 @@ locals {
 }
 
 inputs = {
+  namespace = dependency.namespace.outputs.namespace_name
   release_data = {
     space             = local.deploy_yaml.octopus.space
     project           = local.deploy_yaml.name

@@ -6,6 +6,7 @@ locals {
       key = "${local.root.locals.deploy_yaml.octopus.space}/${local.root.locals.deploy_yaml.octopus.group}/namespace"
     }
   )
+  deploy_yaml  = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
 }
 
 remote_state = merge(
@@ -25,4 +26,8 @@ include "kubernetes_provider" {
 
 terraform {
   source = "../../modules//namespace"
+}
+
+inputs = {
+  create_namespace = try(local.deploy_yaml.manage_namespace, true)
 }
