@@ -36,7 +36,6 @@ jobs:
           echo "Pushing to spaces: ${Spaces}"
           echo "::set-output name=spaces::${Spaces}"
       - name: Push Package
-        if: ${{ github.ref != 'refs/heads/master' }}
         shell: pwsh
         run: |
           ./.variant/deploy/push_package.ps1 `
