@@ -23,7 +23,7 @@ jobs:
       - name: Python Setup
         uses: actions/setup-python@v2
       - name: Pre-commit
-      - run: |
+        run: |
           pip install pre-commit
           pre-commit run -a --show-diff-on-failure
       - name: Package
