@@ -2,7 +2,7 @@ repos:
   - repo: git://github.com/antonbabenko/pre-commit-terraform
     rev: v1.62.3
     hooks:
-      # - id: terragrunt_fmt
+      - id: terragrunt_fmt
       - id: terraform_fmt
       - id: terraform_docs
         args:
