@@ -6,7 +6,7 @@ locals {
       key = "${local.root.locals.deploy_yaml.octopus.space}/${local.root.locals.deploy_yaml.octopus.group}/namespace"
     }
   )
-  deploy_yaml  = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
 }
 
 remote_state = merge(

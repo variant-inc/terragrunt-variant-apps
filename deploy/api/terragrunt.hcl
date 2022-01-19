@@ -18,7 +18,7 @@ dependency "buckets" {
   config_path = "../buckets"
   mock_outputs = {
     chart_values = ""
-    policies = {}
+    policies     = {}
   }
 }
 
@@ -34,7 +34,7 @@ terraform {
 }
 
 locals {
-  deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  deploy_yaml       = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
   chart_user_values = try(local.deploy_yaml.chart, "")
 }
 
@@ -47,7 +47,7 @@ inputs = {
     dependency.buckets.outputs.policies,
     {}
   )
-  image = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
+  image                  = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
   authentication_enabled = try(local.deploy_yaml.authentication, false)
-  namespace = dependency.namespace.outputs.namespace_name
+  namespace              = dependency.namespace.outputs.namespace_name
 }
