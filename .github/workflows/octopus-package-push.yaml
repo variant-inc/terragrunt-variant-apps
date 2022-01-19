@@ -11,7 +11,7 @@ env:
 jobs:
   octopus-package-push:
     name: Octopus Package Push
-    runs-on: [ops]
+    runs-on: [test]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -20,12 +20,8 @@ jobs:
       - name: Variant Setup
         id: setup
         uses: variant-inc/actions-setup@v1
-      - name: Python Setup
-        uses: actions/setup-python@v2
       - name: Pre-commit
-        run: |
-          pip install pre-commit
-          pre-commit run -a --show-diff-on-failure
+        run: pre-commit run -a --show-diff-on-failure
       - name: Package
         shell: pwsh
         run: |
