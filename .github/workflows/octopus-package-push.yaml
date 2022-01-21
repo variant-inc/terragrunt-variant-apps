@@ -6,12 +6,12 @@ on:
 
 env:
   BRANCH_SPACES: DataScience,Default
-  RELEASE_SPACES: DataOps,DataScience,Default,DevOps,DriverProduct,Engineering
+  RELEASE_SPACES: DataScience,Default,Engineering
 
 jobs:
   octopus-package-push:
     name: Octopus Package Push
-    runs-on: [test]
+    runs-on: [eks]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
