@@ -16,26 +16,22 @@ locals {
         externally_managed = true
       }
   })
-  chart_values = yamlencode({
-    deployment = {
-      envVars = flatten([for label, bucket in local.all_buckets :
-        [
-          {
-            name  = "BUCKET__${label}__name"
-            value = bucket.name
-          },
-          {
-            name  = "BUCKET__${label}__arn"
-            value = bucket.arn
-          },
-          {
-            name  = "BUCKET__${label}__domain"
-            value = bucket.domain
-          }
-        ]
-      ])
-    }
-  })
+  env_vars = flatten([for label, bucket in local.all_buckets :
+    [
+      {
+        name  = "BUCKET__${label}__name"
+        value = bucket.name
+      },
+      {
+        name  = "BUCKET__${label}__arn"
+        value = bucket.arn
+      },
+      {
+        name  = "BUCKET__${label}__domain"
+        value = bucket.domain
+      }
+    ]
+  ])  
 }
 
 module "buckets" {

@@ -1,5 +1,5 @@
-output "chart_values" {
-  value = local.chart_values
+output "env_vars" {
+  value = local.env_vars
 }
 
 output "all_buckets" {
