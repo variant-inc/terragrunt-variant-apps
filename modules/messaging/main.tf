@@ -45,15 +45,15 @@ module "sqs_queue" {
   create = true
   name        = each.key
   fifo_queue                  = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.fifo_queue : null
-  visibility_timeout_seconds  = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.visibility_timeout_seconds : null
-  message_retention_seconds   = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.message_retention_seconds : null
-  max_message_size            = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.max_message_size : null
-  delay_seconds               = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.delay_seconds : null
-  receive_wait_time_seconds   = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.receive_wait_time_seconds : null
-  redrive_policy              = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.redrive_policy : null
+  visibility_timeout_seconds  = contains(local.topic_sub_keys[each.key], "visibility_timeout_seconds") ? each.value.visibility_timeout_seconds : null
+  message_retention_seconds   = contains(local.topic_sub_keys[each.key], "message_retention_seconds") ? each.value.message_retention_seconds : null
+  max_message_size            = contains(local.topic_sub_keys[each.key], "max_message_size") ? each.value.max_message_size : null
+  delay_seconds               = contains(local.topic_sub_keys[each.key], "delay_seconds") ? each.value.delay_seconds : null
+  receive_wait_time_seconds   = contains(local.topic_sub_keys[each.key], "receive_wait_time_seconds") ? each.value.receive_wait_time_seconds : null
+  redrive_policy              = contains(local.topic_sub_keys[each.key], "redrive_policy") ? each.value.redrive_policy : null
   content_based_deduplication              = contains(local.topic_sub_keys[each.key], "content_based_deduplication") ? each.value.content_based_deduplication : null
   kms_master_key_id                 = data.aws_kms_key.sns_alias.arn
-  kms_data_key_reuse_period_seconds = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.kms_data_key_reuse_period_seconds : null
+  kms_data_key_reuse_period_seconds = contains(local.topic_sub_keys[each.key], "kms_data_key_reuse_period_seconds") ? each.value.kms_data_key_reuse_period_seconds : null
 }
 
 data "aws_iam_policy_document" "topic_subscription_policy" {
