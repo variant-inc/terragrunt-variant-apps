@@ -47,6 +47,8 @@ name: demo-python-flask-variant-api
 octopus:
   space: DataScience
   group: demo
+envVars:
+  special-key: 6576v58fq-v23r-f3r-23fgr2-gf
 ```
 
 ### Github Workflow
