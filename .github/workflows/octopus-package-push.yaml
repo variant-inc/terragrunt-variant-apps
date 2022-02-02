@@ -1,0 +1,45 @@
+---
+name: Octopus Package Push
+
+on:
+  push:
+
+env:
+  BRANCH_SPACES: DataScience,Default
+  RELEASE_SPACES: DataScience,Default,Engineering
+
+jobs:
+  octopus-package-push:
+    name: Octopus Package Push
+    runs-on: [eks]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Variant Setup
+        id: setup
+        uses: variant-inc/actions-setup@v1
+      - name: Pre-commit
+        run: pre-commit run -a --show-diff-on-failure
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory pack
+          Move-Item -Path ./deploy -Destination ./pack
+          Move-Item -Path ./modules -Destination ./pack
+      - name: Determine Destination Spaces
+        id: spaces
+        shell: pwsh
+        run: |
+          $Spaces = If (${Env:GITHUB_REF} -eq "refs/heads/master") { ${Env:RELEASE_SPACES} } Else { ${Env:BRANCH_SPACES} }
+          echo "Pushing to spaces: ${Spaces}"
+          echo "::set-output name=spaces::${Spaces}"
+      - name: Push Package
+        shell: pwsh
+        run: |
+          ./.variant/deploy/push_package.ps1 `
+            -PackageName ${{ github.event.repository.name }} `
+            -Version ${{ steps.setup.outputs.image_version }} `
+            -BasePackagePath ./pack `
+            -Spaces ${{ steps.spaces.outputs.spaces }}
