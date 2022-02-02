@@ -16,7 +16,7 @@ output "sns_topic_publish_policy" {
   value = data.aws_iam_policy_document.sns_publish_policy
 }
 
-output "sqs_queue_subscribe_policy" {
-  value = data.aws_iam_policy_document.queue_subscription_policy
+output "queue_receive_policy" {
+  value = data.aws_iam_policy_document.queue_receive_policy
 }
 

@@ -100,7 +100,7 @@ locals {
 }
 
 data "aws_iam_policy_document" "sns_publish_policy" {
-  for_each  = { "sns_publish_policy" : {} }
+  for_each  = var.topics != {} ? { "sns_publish_policy" : {} } : {}
   policy_id = "SNSTopicsPublish"
   version   = "2012-10-17"
   dynamic "statement" {
@@ -122,8 +122,8 @@ data "aws_iam_policy_document" "sns_publish_policy" {
 }
 
 
-data "aws_iam_policy_document" "queue_subscription_policy" {
-  for_each = { "queue_subscription_policy" : {} }
+data "aws_iam_policy_document" "queue_receive_policy" {
+  for_each = var.topic_subscriptions != {} ? { "queue_subscription_policy" : {} } : {}
   version  = "2012-10-17"
   statement {
     effect    = "Allow"

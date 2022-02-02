@@ -32,9 +32,9 @@ dependency "namespace" {
 dependency "messaging" {
   config_path = "../messaging"
   mock_outputs = {
-    env_vars                   = ""
-    sns_topic_publish_policy   = {}
-    sqs_queue_subscribe_policy = {}
+    env_vars                 = ""
+    sns_topic_publish_policy = {}
+    queue_receive_policy     = {}
   }
 }
 
@@ -67,7 +67,7 @@ inputs = {
   policies = merge(
     dependency.buckets.outputs.policies,
     dependency.messaging.outputs.sns_topic_publish_policy,
-    dependency.messaging.outputs.sqs_queue_subscribe_policy
+    dependency.messaging.outputs.queue_receive_policy
   )
   image                  = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
   authentication_enabled = try(local.deploy_yaml.authentication, false)
