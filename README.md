@@ -35,6 +35,8 @@
 | Property | Type | Required | Default |
 | --- | --- | --- | --- |
 | buckets | [Buckets](modules/buckets/README.md#inputs) | false | N/A |
+| topics | [Topics](modules/messaging/README.md#inputs) | false | N/A |
+| topic_subscriptions | [Topic Subscriptions](modules/messaging/README.md#inputs) | false | N/A |
 
 ## Examples
 

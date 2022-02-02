@@ -31,7 +31,7 @@ locals {
         value = bucket.domain
       }
     ]
-  ])  
+  ])
 }
 
 module "buckets" {

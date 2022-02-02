@@ -28,6 +28,6 @@
 | Name | Description |
 |------|-------------|
 | <a name="output_all_buckets"></a> [all\_buckets](#output\_all\_buckets) | n/a |
-| <a name="output_chart_values"></a> [chart\_values](#output\_chart\_values) | n/a |
+| <a name="output_env_vars"></a> [env\_vars](#output\_env\_vars) | n/a |
 | <a name="output_policies"></a> [policies](#output\_policies) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -15,7 +15,7 @@ locals {
 }
 
 inputs = {
-  topics = try(local.deploy_yaml.infrastructure.topics, {})
+  topics              = try(local.deploy_yaml.infrastructure.topics, {})
   topic_subscriptions = try(local.deploy_yaml.infrastructure.topic_subscriptions, {})
 }
 

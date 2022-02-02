@@ -1,9 +1,9 @@
 variable "topics" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
 
 variable "topic_subscriptions" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }

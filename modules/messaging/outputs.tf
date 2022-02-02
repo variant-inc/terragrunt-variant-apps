@@ -5,7 +5,7 @@ output "sns_topics" {
 
 output "sqs_queues" {
   description = "SQS Queues Output"
-  value = module.sqs_queue.*
+  value       = module.sqs_queue.*
 }
 
 output "env_vars" {
