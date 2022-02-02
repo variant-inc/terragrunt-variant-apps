@@ -1,9 +1,9 @@
 locals {
   topic_keys = {
-    for key, topic in var.topics : key => [keys(var.topics[key])]
+    for key, topic in var.topics : key => keys(var.topics[key])
   }
   topic_sub_keys = {
-    for key, topic in var.topic_subscriptions : key => [keys(var.topic_subscriptions[key])]
+    for key, topic in var.topic_subscriptions : key => keys(var.topic_subscriptions[key])
   }
 }
 
@@ -100,7 +100,7 @@ locals {
 }
 
 data "aws_iam_policy_document" "sns_publish_policy" {
-  for_each  = var.topics != {} ? { "sns_publish_policy" : {} } : {}
+  for_each  = length(keys(var.topics)) > 0 ? { "sns_publish_policy" : {} } : {}
   policy_id = "SNSTopicsPublish"
   version   = "2012-10-17"
   dynamic "statement" {
@@ -123,7 +123,7 @@ data "aws_iam_policy_document" "sns_publish_policy" {
 
 
 data "aws_iam_policy_document" "queue_receive_policy" {
-  for_each = var.topic_subscriptions != {} ? { "queue_subscription_policy" : {} } : {}
+  for_each = length(keys(var.topic_subscriptions)) > 0 ? { "queue_subscription_policy" : {} } : {}
   version  = "2012-10-17"
   statement {
     effect    = "Allow"
