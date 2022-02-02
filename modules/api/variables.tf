@@ -6,6 +6,10 @@ variable "chart_values" {
   type = list(string)
 }
 
+variable "chart_env_vars" {
+  type = list(any)
+}
+
 variable "aws_resource_name_prefix" {
   type = string
 }
@@ -31,11 +35,12 @@ variable "image" {
   type = string
 }
 
-variable "okta_provider_config" {
-  type = object({
-    org_name = string
-    base_url = string
-  })
+variable "okta_org_name" {
+  type = string
+}
+
+variable "okta_base_url" {
+  type = string
 }
 
 variable "authentication_enabled" {

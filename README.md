@@ -35,6 +35,8 @@
 | Property | Type | Required | Default |
 | --- | --- | --- | --- |
 | buckets | [Buckets](modules/buckets/README.md#inputs) | false | N/A |
+| topics | [Topics](modules/messaging/README.md#inputs) | false | N/A |
+| topic_subscriptions | [Topic Subscriptions](modules/messaging/README.md#inputs) | false | N/A |
 
 ## Examples
 
@@ -45,6 +47,8 @@ name: demo-python-flask-variant-api
 octopus:
   space: DataScience
   group: demo
+envVars:
+  special-key: 6576v58fq-v23r-f3r-23fgr2-gf
 ```
 
 ### Github Workflow

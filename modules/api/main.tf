@@ -18,13 +18,18 @@ terraform {
 locals {
   namespace   = data.kubernetes_namespace.namespace.metadata[0].name
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
+  chart_env_vars = [yamlencode({
+    deployment = {
+      envVars = var.chart_env_vars
+    }
+  })]
   service_account_chart_values = [yamlencode({
     serviceAccount = {
       roleArn = aws_iam_role.role.arn
     }
   })]
-  final_values     = concat(local.service_account_chart_values, var.chart_values)
-  oauth_server_url = "https://${var.okta_provider_config.org_name}.${var.okta_provider_config.base_url}/oauth2/default"
+  final_values     = concat(local.service_account_chart_values, local.chart_env_vars, var.chart_values)
+  oauth_server_url = "https://${var.okta_org_name}.${var.okta_base_url}/oauth2/default"
 }
 
 data "kubernetes_namespace" "namespace" {

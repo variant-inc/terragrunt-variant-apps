@@ -17,8 +17,8 @@ include "helm_provider" {
 dependency "buckets" {
   config_path = "../buckets"
   mock_outputs = {
-    chart_values = ""
-    policies     = {}
+    env_vars = ""
+    policies = {}
   }
 }
 
@@ -29,6 +29,15 @@ dependency "namespace" {
   }
 }
 
+dependency "messaging" {
+  config_path = "../messaging"
+  mock_outputs = {
+    env_vars                 = ""
+    sns_topic_publish_policy = {}
+    queue_receive_policy     = {}
+  }
+}
+
 terraform {
   source = "../../modules//api"
 }
@@ -36,16 +45,29 @@ terraform {
 locals {
   deploy_yaml       = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
   chart_user_values = try(local.deploy_yaml.chart, "")
+  env_vars = flatten(
+    [for k, v in local.deploy_yaml.envVars : [
+      {
+        name  = k
+        value = v
+      }
+    ]]
+  )
 }
 
 inputs = {
+  chart_env_vars = concat(
+    local.env_vars,
+    dependency.buckets.outputs.env_vars,
+    dependency.messaging.outputs.env_vars
+  )
   chart_values = [
-    dependency.buckets.outputs.chart_values,
     yamlencode(local.chart_user_values)
   ]
   policies = merge(
     dependency.buckets.outputs.policies,
-    {}
+    dependency.messaging.outputs.sns_topic_publish_policy,
+    dependency.messaging.outputs.queue_receive_policy
   )
   image                  = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
   authentication_enabled = try(local.deploy_yaml.authentication, false)
