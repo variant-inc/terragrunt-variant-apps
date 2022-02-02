@@ -23,7 +23,7 @@ terraform {
 
 locals {
   deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
-  git_inputs  = local.deploy_yaml.git 
+  git_inputs  = local.deploy_yaml.git
 }
 
 inputs = {
