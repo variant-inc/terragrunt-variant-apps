@@ -18,7 +18,7 @@ module "sns_topic" {
   create_sns_topic = true
 
   name                             = each.key
-  display_name                     = each.value.display_name
+  display_name                     = contains(local.topic_keys[each.key], "display_name") ? each.value.display_name : null
   fifo_topic                       = contains(local.topic_keys[each.key], "fifo_topic") ? each.value.fifo_topic : null
   content_based_deduplication      = contains(local.topic_keys[each.key], "content_based_deduplication") ? each.value.content_based_deduplication : null
   delivery_policy                  = contains(local.topic_keys[each.key], "delivery_policy") ? each.value.delivery_policy : null
