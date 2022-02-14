@@ -8,6 +8,28 @@
    * Set the environment variable `TERRAGRUNT_DYNAMO_TABLE` to be the value of `DYNAMO_DB_TABLE`
 2. Create a YAML following the [YAML Spec](#yaml-spec)
 3. Set the environment variable `VARIANT_DEPLOY_YAML_LOCATION` to the location of the YAML
+4. Create terraform.tfvars.json file with the below json and fill in applicable live and dummy values to use in conjuction with make commands
+    ```json
+    {
+      "cluster_name": "live",
+      "namespace": "live",
+      "domain": "live",
+      "name": "live",
+      "revision": "dummy",
+      "user_tags": {
+          "team": "dummy",
+          "owner": "dummy",
+          "purpose": "dummy"
+      },
+      "octopus_tags": {
+          "release_channel": "dummy",
+          "environment": "dummy",
+          "project_group": "dummy",
+          "space": "dummy",
+          "project": "dummy"
+      }
+    }
+    ```
 
 ## YAML Spec
 
