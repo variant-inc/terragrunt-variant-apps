@@ -38,6 +38,15 @@ dependency "messaging" {
   }
 }
 
+dependency "database" {
+  config_path = "../../common//database"
+  mock_outputs = {
+    database = ""
+    username = ""
+    password = ""
+  }
+}
+
 terraform {
   source = "../../../modules/apps//api"
 }
