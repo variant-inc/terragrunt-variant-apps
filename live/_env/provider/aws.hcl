@@ -1,5 +1,5 @@
 dependency "tags" {
-  config_path = "${path_relative_from_include()}/../../tags"
+  config_path = "${path_relative_from_include()}/../../common/tags"
   mock_outputs = {
     tags = {}
   }

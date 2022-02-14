@@ -3,11 +3,11 @@ include "root" {
 }
 
 include "aws_provider" {
-  path = "${path_relative_to_include()}/../_env/provider/aws.hcl"
+  path = "${path_relative_to_include()}/../../_env/provider/aws.hcl"
 }
 
 include "kubernetes_provider" {
-  path = "${path_relative_to_include()}/../_env/provider/kubernetes.hcl"
+  path = "${path_relative_to_include()}/../../_env/provider/kubernetes.hcl"
 }
 
 dependency "namespace" {
@@ -18,7 +18,7 @@ dependency "namespace" {
 }
 
 terraform {
-  source = "../../modules//replicator"
+  source = "../../../modules/common//replicator"
 }
 
 locals {

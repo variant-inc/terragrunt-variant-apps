@@ -1,7 +1,7 @@
 terraform_version_constraint = "~> 1.1.0"
 
 locals {
-  deploy_yaml = yamldecode(file("../../project/deploy/api.yaml"))
+  deploy_yaml = yamldecode(file(get_env("VARIANT_DEPLOY_YAML_LOCATION")))
 }
 
 remote_state {

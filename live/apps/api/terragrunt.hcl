@@ -3,50 +3,51 @@ include "root" {
 }
 
 include "aws_provider" {
-  path = "${path_relative_to_include()}/../_env/provider/aws.hcl"
+  path = "${path_relative_to_include()}/../../_env/provider/aws.hcl"
 }
 
 include "kubernetes_provider" {
-  path = "${path_relative_to_include()}/../_env/provider/kubernetes.hcl"
+  path = "${path_relative_to_include()}/../../_env/provider/kubernetes.hcl"
 }
 
 include "helm_provider" {
-  path = "${path_relative_to_include()}/../_env/provider/helm.hcl"
+  path = "${path_relative_to_include()}/../../_env/provider/helm.hcl"
 }
 
 dependency "buckets" {
-  config_path = "../buckets"
+  config_path = "../../common/buckets"
   mock_outputs = {
-    env_vars = ""
+    env_vars = []
     policies = {}
   }
 }
 
 dependency "namespace" {
-  config_path = "../namespace"
+  config_path = "../../common/namespace"
   mock_outputs = {
     namespace_name = ""
   }
 }
 
 dependency "messaging" {
-  config_path = "../messaging"
+  config_path = "../../common/messaging"
   mock_outputs = {
-    env_vars                 = ""
+    env_vars                 = []
     sns_topic_publish_policy = {}
     queue_receive_policy     = {}
   }
 }
 
 terraform {
-  source = "../../modules//api"
+  source = "../../../modules/apps//api"
 }
 
 locals {
-  deploy_yaml       = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
-  chart_user_values = try(local.deploy_yaml.chart, "")
+  deploy_yaml          = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  chart_user_values    = try(local.deploy_yaml.chart, "")
+  env_vars_user_values = try(local.deploy_yaml.envVars, {})
   env_vars = flatten(
-    [for k, v in local.deploy_yaml.envVars : [
+    [for k, v in local.env_vars_user_values : [
       {
         name  = k
         value = v
