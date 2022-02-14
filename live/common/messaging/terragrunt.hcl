@@ -3,11 +3,11 @@ include "root" {
 }
 
 include "aws_provider" {
-  path = "${path_relative_to_include()}/../_env/provider/aws.hcl"
+  path = "${path_relative_to_include()}/../../_env/provider/aws.hcl"
 }
 
 terraform {
-  source = "../../modules//messaging"
+  source = "../../../modules/common//messaging"
 }
 
 locals {
