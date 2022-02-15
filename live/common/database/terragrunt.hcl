@@ -12,15 +12,14 @@ terraform {
 
 locals {
   deploy_yaml    = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
-  db             = try(local.deploy_yaml.infrastructure.db, { "count" : 0 })
-  create_any     = try(local.db, {}) == {} ? true : false
-  database_count = local.create_any == true ? 1 : 0
+  create_database =  try(local.deploy_yaml.infrastructure.database.create_database, false)
+  database_count = local.create_database == true ? 1 : 0
 }
 
 inputs = {
-  create_database = true
   database_count  = local.database_count
-  database_name   = try(local.db.db_name, "")
-  extensions      = try(local.db.extensions, [])
-  role_name       = try(local.deploy_yaml.name, "")
+  create_database = local.create_database
+  database_name   = try(local.deploy_yaml.infrastructure.database.db_name, "")
+  extensions      = try(local.deploy_yaml.infrastructure.database.extensions, [])
+  role_name       = try(local.deploy_yaml.infrastructure.database.name, "")
 }
