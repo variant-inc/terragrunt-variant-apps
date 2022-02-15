@@ -3,16 +3,16 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 3.69.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.7.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.74 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.8 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_dynamodb_table_item.iaac_replicator](https://registry.terraform.io/providers/hashicorp/aws/3.69.0/docs/resources/dynamodb_table_item) | resource |
-| [kubernetes_config_map.iaac_replicator](https://registry.terraform.io/providers/hashicorp/kubernetes/2.7.1/docs/resources/config_map) | resource |
-| [kubernetes_namespace.namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/2.7.1/docs/data-sources/namespace) | data source |
+| [aws_dynamodb_table_item.iaac_replicator](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table_item) | resource |
+| [kubernetes_config_map.iaac_replicator](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [kubernetes_namespace.namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/namespace) | data source |
 
 ## Inputs
 
