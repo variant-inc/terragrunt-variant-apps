@@ -38,7 +38,7 @@ module "buckets" {
   for_each = var.managed
   source   = "github.com/variant-inc/terraform-aws-s3.git?ref=master"
 
-  bucket_prefix = "${var.aws_resource_name_prefix}-${each.value.name}"
+  bucket_prefix = "${var.aws_resource_name_prefix}${each.value.name}"
 }
 
 data "aws_s3_bucket" "existing_buckets" {
