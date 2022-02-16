@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.74"
-    }
-  }
-}
-
 locals {
   topic_keys = {
     for key, topic in var.topics : key => keys(var.topics[key])
@@ -26,7 +17,7 @@ module "sns_topic" {
   for_each         = var.topics
   create_sns_topic = true
 
-  name                             = "${var.aws_resource_name_prefix}${each.key}"
+  name                             = each.key
   display_name                     = contains(local.topic_keys[each.key], "display_name") ? each.value.display_name : null
   fifo_topic                       = contains(local.topic_keys[each.key], "fifo_topic") ? each.value.fifo_topic : null
   content_based_deduplication      = contains(local.topic_keys[each.key], "content_based_deduplication") ? each.value.content_based_deduplication : null
@@ -47,14 +38,16 @@ module "sqs_queue" {
   version                           = "~> 2.0"
   for_each                          = var.topic_subscriptions
   create                            = true
-  name                              = "${var.aws_resource_name_prefix}${each.key}"
+  name                              = each.key
   fifo_queue                        = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.fifo_queue : null
   visibility_timeout_seconds        = contains(local.topic_sub_keys[each.key], "visibility_timeout_seconds") ? each.value.visibility_timeout_seconds : null
   message_retention_seconds         = contains(local.topic_sub_keys[each.key], "message_retention_seconds") ? each.value.message_retention_seconds : null
   max_message_size                  = contains(local.topic_sub_keys[each.key], "max_message_size") ? each.value.max_message_size : null
   delay_seconds                     = contains(local.topic_sub_keys[each.key], "delay_seconds") ? each.value.delay_seconds : null
   receive_wait_time_seconds         = contains(local.topic_sub_keys[each.key], "receive_wait_time_seconds") ? each.value.receive_wait_time_seconds : null
+  policy                            = contains(local.topic_sub_keys[each.key], "policy") ? each.value.policy : null
   redrive_policy                    = contains(local.topic_sub_keys[each.key], "redrive_policy") ? each.value.redrive_policy : null
+  redrive_allow_policy              = contains(local.topic_sub_keys[each.key], "redrive_allow_policy") ? each.value.redrive_allow_policy : null
   content_based_deduplication       = contains(local.topic_sub_keys[each.key], "content_based_deduplication") ? each.value.content_based_deduplication : null
   kms_master_key_id                 = data.aws_kms_key.sns_alias.arn
   kms_data_key_reuse_period_seconds = contains(local.topic_sub_keys[each.key], "kms_data_key_reuse_period_seconds") ? each.value.kms_data_key_reuse_period_seconds : null
@@ -96,11 +89,10 @@ resource "aws_sqs_queue_policy" "topic_subscription_policy_binding" {
 
 
 resource "aws_sns_topic_subscription" "topic_subscription" {
-  for_each             = var.topic_subscriptions
-  topic_arn            = data.aws_sns_topic.topics_to_subscribe[each.key].arn
-  protocol             = "sqs"
-  endpoint             = module.sqs_queue[each.key].this_sqs_queue_arn
-  raw_message_delivery = contains(local.topic_sub_keys[each.key], "raw_message_delivery") ? each.value.raw_message_delivery : false
+  for_each  = var.topic_subscriptions
+  topic_arn = data.aws_sns_topic.topics_to_subscribe[each.key].arn
+  protocol  = "sqs"
+  endpoint  = module.sqs_queue[each.key].this_sqs_queue_arn
 }
 
 locals {

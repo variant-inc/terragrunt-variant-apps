@@ -1,40 +1,5 @@
-## YAML Input
-In your .variant/api.yml config, define the following YAML values.
-Note that either topics or topic_subscriptions should be defined.
-
-```yaml
-infrastructure:
-  topics:
-    <TOPIC_NAME>(.fifo):
-      # Optional parameters
-      display_name: ""
-      fifo_topic: false
-      content_based_deduplication: false
-      delivery_policy: {}
-      sqs_success_feedback_role_arn: ""
-      sqs_success_feedback_sample_rate: 0
-      sqs_failure_feedback_role_arn: ""
-  topic_subscriptions:
-    <QUEUE_NAME>(.fifo):
-      topic_name: ""
-      # Optional Parameters
-      raw_message_delivery: false
-      fifo_queue: false
-      visibility_timeout_seconds: 0
-      message_retention_seconds: 0
-      max_message_size: 0
-      delay_seconds: 0
-      receive_wait_time_seconds: 0
-      redrive_policy: {}
-      content_based_deduplication: false
-      kms_data_key_reuse_period_seconds: 0
-```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.74 |
 
 ## Modules
 
@@ -60,7 +25,6 @@ infrastructure:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | Prefix of team name to be applied to created resources. | `string` | n/a | yes |
 | <a name="input_topic_subscriptions"></a> [topic\_subscriptions](#input\_topic\_subscriptions) | Map of topic subscription objects. Accepts the following values as keys in each object: [fifo\_queue, visibility\_timeout\_seconds, message\_retention\_seconds, max\_message\_size, delay\_seconds, receive\_wait\_time\_seconds, redrive\_policy, content\_based\_deduplication, kms\_data\_key\_reuse\_period\_seconds] | `map(any)` | `{}` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | Map of topic objects. Accepts the following values as keys in each object: [display\_name, fifo\_topic, content\_based\_deduplication, delivery\_policy, sqs\_success\_feedback\_role\_arn, sqs\_success\_feedback\_sample\_rate, sqs\_failure\_feedback\_role\_arn] | `map(any)` | `{}` | no |
 
