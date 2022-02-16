@@ -1,3 +1,8 @@
+variable "aws_resource_name_prefix" {
+  type        = string
+  description = "Prefix of team name to be applied to created resources."
+}
+
 variable "topics" {
   type        = map(any)
   default     = {}

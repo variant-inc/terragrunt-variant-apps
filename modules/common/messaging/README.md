@@ -18,6 +18,7 @@ infrastructure:
     <QUEUE_NAME>(.fifo):
       topic_name: ""
       # Optional Parameters
+      raw_message_delivery: false
       fifo_queue: false
       visibility_timeout_seconds: 0
       message_retention_seconds: 0
@@ -55,6 +56,7 @@ infrastructure:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | Prefix of team name to be applied to created resources. | `string` | n/a | yes |
 | <a name="input_topic_subscriptions"></a> [topic\_subscriptions](#input\_topic\_subscriptions) | Map of topic subscription objects. Accepts the following values as keys in each object: [fifo\_queue, visibility\_timeout\_seconds, message\_retention\_seconds, max\_message\_size, delay\_seconds, receive\_wait\_time\_seconds, redrive\_policy, content\_based\_deduplication, kms\_data\_key\_reuse\_period\_seconds] | `map(any)` | `{}` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | Map of topic objects. Accepts the following values as keys in each object: [display\_name, fifo\_topic, content\_based\_deduplication, delivery\_policy, sqs\_success\_feedback\_role\_arn, sqs\_success\_feedback\_sample\_rate, sqs\_failure\_feedback\_role\_arn] | `map(any)` | `{}` | no |
 
