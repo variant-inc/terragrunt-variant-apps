@@ -2,15 +2,15 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.74"
+      version = "3.69.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.8"
+      version = "2.7.1"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.4"
+      version = "2.4.1"
     }
   }
 }
@@ -101,7 +101,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "role" {
-  name                  = "${var.aws_resource_name_prefix}${var.name}"
+  name                  = "${var.aws_resource_name_prefix}-${var.name}"
   force_detach_policies = true
   assume_role_policy    = data.aws_iam_policy_document.assume_role.json
 

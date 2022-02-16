@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  BRANCH_SPACES: DataScience,Default,Engineering
+  BRANCH_SPACES: DataScience,Default
   RELEASE_SPACES: DataScience,Default,Engineering
 
 jobs:
