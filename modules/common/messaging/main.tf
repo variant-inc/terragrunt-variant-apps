@@ -47,7 +47,7 @@ module "sqs_queue" {
   version                           = "~> 2.0"
   for_each                          = var.topic_subscriptions
   create                            = true
-  name                              = each.key
+  name                              = "${var.aws_resource_name_prefix}${each.key}"
   fifo_queue                        = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.fifo_queue : null
   visibility_timeout_seconds        = contains(local.topic_sub_keys[each.key], "visibility_timeout_seconds") ? each.value.visibility_timeout_seconds : null
   message_retention_seconds         = contains(local.topic_sub_keys[each.key], "message_retention_seconds") ? each.value.message_retention_seconds : null
