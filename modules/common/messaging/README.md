@@ -1,34 +1,3 @@
-## YAML Input
-In your .variant/api.yml config, define the following YAML values.
-Note that either topics or topic_subscriptions should be defined.
-
-```yaml
-infrastructure:
-  topics:
-    <TOPIC_NAME>(.fifo):
-      # Optional parameters
-      display_name: ""
-      fifo_topic: false
-      content_based_deduplication: false
-      delivery_policy: {}
-      sqs_success_feedback_role_arn: ""
-      sqs_success_feedback_sample_rate: 0
-      sqs_failure_feedback_role_arn: ""
-  topic_subscriptions:
-    <QUEUE_NAME>(.fifo):
-      topic_name: ""
-      # Optional Parameters
-      raw_message_delivery: false
-      fifo_queue: false
-      visibility_timeout_seconds: 0
-      message_retention_seconds: 0
-      max_message_size: 0
-      delay_seconds: 0
-      receive_wait_time_seconds: 0
-      redrive_policy: {}
-      content_based_deduplication: false
-      kms_data_key_reuse_period_seconds: 0
-```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
