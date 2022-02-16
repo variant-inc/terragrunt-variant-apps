@@ -26,7 +26,7 @@ module "sns_topic" {
   for_each         = var.topics
   create_sns_topic = true
 
-  name                             = each.key
+  name                             = "${var.aws_resource_name_prefix}${each.key}"
   display_name                     = contains(local.topic_keys[each.key], "display_name") ? each.value.display_name : null
   fifo_topic                       = contains(local.topic_keys[each.key], "fifo_topic") ? each.value.fifo_topic : null
   content_based_deduplication      = contains(local.topic_keys[each.key], "content_based_deduplication") ? each.value.content_based_deduplication : null
@@ -47,7 +47,7 @@ module "sqs_queue" {
   version                           = "~> 2.0"
   for_each                          = var.topic_subscriptions
   create                            = true
-  name                              = each.key
+  name                              = "${var.aws_resource_name_prefix}${each.key}"
   fifo_queue                        = contains(local.topic_sub_keys[each.key], "fifo_queue") ? each.value.fifo_queue : null
   visibility_timeout_seconds        = contains(local.topic_sub_keys[each.key], "visibility_timeout_seconds") ? each.value.visibility_timeout_seconds : null
   message_retention_seconds         = contains(local.topic_sub_keys[each.key], "message_retention_seconds") ? each.value.message_retention_seconds : null
@@ -96,10 +96,11 @@ resource "aws_sqs_queue_policy" "topic_subscription_policy_binding" {
 
 
 resource "aws_sns_topic_subscription" "topic_subscription" {
-  for_each  = var.topic_subscriptions
-  topic_arn = data.aws_sns_topic.topics_to_subscribe[each.key].arn
-  protocol  = "sqs"
-  endpoint  = module.sqs_queue[each.key].this_sqs_queue_arn
+  for_each             = var.topic_subscriptions
+  topic_arn            = data.aws_sns_topic.topics_to_subscribe[each.key].arn
+  protocol             = "sqs"
+  endpoint             = module.sqs_queue[each.key].this_sqs_queue_arn
+  raw_message_delivery = contains(local.topic_sub_keys[each.key], "raw_message_delivery") ? each.value.raw_message_delivery : false
 }
 
 locals {
