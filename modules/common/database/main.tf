@@ -36,16 +36,16 @@ data "aws_iam_policy_document" "policies" {
 
 locals {
   env_vars = [for label, database in module.database :
-   [ 
-     {
-       name = "database__${label}__name"
-       value = database.database
-     },
-     {
-       name = "user__${label}__name"
-       value = database.user
-     }
-   ]
-   ]
+    [
+      {
+        name  = "database__${label}__name"
+        value = database.database
+      },
+      {
+        name  = "user__${label}__name"
+        value = database.user
+      }
+    ]
+  ]
 
 }
