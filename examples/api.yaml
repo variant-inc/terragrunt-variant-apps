@@ -1,0 +1,25 @@
+# Creates the following resources
+## Octopus project named demo-local-app in demo Group
+## Helm release of variant-api chart named demo-local-app
+## S3 Bucket with prefix of devops-demo-local-api
+## SQS QUEUE with name devops-test-topic-local-subscription and subscribed
+## to SNS topic of name devops-test-topic-local
+name: demo-local-app
+octopus:
+  space: DevOps
+  group: demo
+infrastructure:
+  buckets:
+    managed:
+      demo:
+        name: demo-local-api
+  topic_subscriptions:
+    test-topic-local-subscription:
+      topic_name: devops-test-topic-local
+authentication: true
+envVars:
+  AWS_REGION: us-east-1
+chart:
+  service:
+    targetPort: 5000
+image: demo/python-flask-variant-api:0.1.0-cloud-1419-sns-s0001.91
