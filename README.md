@@ -1,118 +1,41 @@
-# Terragrunt Variant Apps
+# Variant Apps Terragrunt Module
 
-## Testing
+Contents
+- [Setup github action workflow](#setup-github-workflow)
+- [Define Variant Apps YAML file](#define-variant-apps-yaml-file)
+- [YAML Spec](./YAML.md) 
 
-1. Determine the destination Octopus Space
-   * Find the Variable Set "Terraform State Backup"
-   * Set the environment variable `TERRAGRUNT_S3_BUCKET` to be the value of `S3_BUCKET`
-   * Set the environment variable `TERRAGRUNT_DYNAMO_TABLE` to be the value of `DYNAMO_DB_TABLE`
-2. Create a YAML following the [YAML Spec](#yaml-spec)
-3. Set the environment variable `VARIANT_DEPLOY_YAML_LOCATION` to the location of the YAML
-4. Create terraform.tfvars.json file with the below json and fill in applicable live and dummy values to use in conjuction with make commands
-    ```json
-    {
-      "cluster_name": "live",
-      "namespace": "live",
-      "domain": "live",
-      "name": "live",
-      "revision": "dummy",
-      "user_tags": {
-          "team": "dummy",
-          "owner": "dummy",
-          "purpose": "dummy"
-      },
-      "octopus_tags": {
-          "release_channel": "dummy",
-          "environment": "dummy",
-          "project_group": "dummy",
-          "space": "dummy",
-          "project": "dummy"
-      }
-    }
-    ```
+<br>
 
-## YAML Spec
+## Setup github workflow
+Variant Apps Terragrunt Module is available for use with actions-octopus =< v3(-beta)
 
-### Main Deploy YAML
+```yaml
+- name: Lazy Action Octopus
+  uses: variant-inc/actions-octopus@v3-beta
+  with:
+    default_branch: ${{ env.MASTER_BRANCH }}
+    version: ${{ steps.lazy-setup.outputs.image_version }}
+    package_read_token: ${{ secrets.PKG_READ }}
+    ecr_repository: ${{ env.ECR_REPOSITORY }}
+```
 
-| Property | Type | Required | Default |
-| --- | --- | --- | --- |
-| name | string | true | N/A |
-| octopus | [Octopus](#octopus) | true | N/A |
-| authentication | bool | false | false |
-| infrastructure | [Infrastructure](#infrastructure) | false | N/A |
-| chart | map | false | N/A |
+Refer [octopus action](https://github.com/variant-inc/actions-octopus/blob/master/README.md) for help settting up Varaint Github Actions.
 
-### Object Reference
+<br>
 
-#### Octopus
+## Define Variant Apps YAML file
 
-| Property | Type | Required | Default |
-| --- | --- | --- | --- |
-| space | string | true | N/A |
-| group | string | true | N/A |
+The Variant Apps YAML file defines your entire deployment. This includes Variant helm charts and infrastructure. Create your file with relative path of `.variant/deploy/api.yaml`. 
 
-#### Infrastructure
-
-| Property | Type | Required | Default |
-| --- | --- | --- | --- |
-| buckets | [Buckets](modules/buckets/README.md#inputs) | false | N/A |
-| topics | [Topics](modules/messaging/README.md#inputs) | false | N/A |
-| topic_subscriptions | [Topic Subscriptions](modules/messaging/README.md#inputs) | false | N/A |
-
-## Examples
-
-### Deploy YAML
+Minimum required variables to create an Octopus project and an internal api. See [Variant Deploy YAML Spec](./YAML.md) for full attribute reference.
 
 ```yaml
 name: demo-python-flask-variant-api
 octopus:
-  space: DataScience
+  space: Default
   group: demo
-envVars:
-  special-key: 6576v58fq-v23r-f3r-23fgr2-gf
-```
-
-### Github Workflow
-
-```yaml
-name: Build & Push to Octopus
-on:
-  push:
-
-env:
-  MASTER_BRANCH: master
-  AWS_REGION: us-east-1
-  AWS_DEFAULT_REGION: us-east-1
-  ECR_REPOSITORY: demo/python-flask-variant-api
-
-jobs:
-  build:
-    name: Build Image and Push to Octo
-    runs-on: [eks]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Lazy Setup
-        uses: variant-inc/actions-setup@v1
-        id: lazy-setup
-
-      - name: Lazy action steps
-        id: lazy-action
-        uses: variant-inc/actions-python@v1
-        with:
-          dockerfile_dir_path: "."
-          ecr_repository: ${{ env.ECR_REPOSITORY }}
-          test_framework: pytest
-
-      - name: Lazy Action Octopus
-        uses: variant-inc/actions-octopus@v3-beta
-        with:
-          default_branch: ${{ env.MASTER_BRANCH }}
-          version: ${{ steps.lazy-setup.outputs.image_version }}
-          package_read_token: ${{ secrets.PKG_READ }}
-          ecr_repository: ${{ env.ECR_REPOSITORY }}
+chart:
+  service:
+    targetPort: 5000
 ```
