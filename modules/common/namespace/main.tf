@@ -1,3 +1,16 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.74"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.8"
+    }
+  }
+}
+
 resource "null_resource" "create_namespace" {
   provisioner "local-exec" {
     working_dir = path.module

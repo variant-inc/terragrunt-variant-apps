@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.74"
+    }
+  }
+}
+
 locals {
   all_buckets = merge(
     {
@@ -36,9 +45,9 @@ locals {
 
 module "buckets" {
   for_each = var.managed
-  source   = "github.com/variant-inc/terraform-aws-s3.git?ref=master"
+  source   = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.1.0"
 
-  bucket_prefix = "${var.aws_resource_name_prefix}-${each.value.name}"
+  bucket_prefix = "${var.aws_resource_name_prefix}${each.value.name}"
 }
 
 data "aws_s3_bucket" "existing_buckets" {
