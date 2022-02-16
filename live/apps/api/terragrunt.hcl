@@ -44,7 +44,7 @@ terraform {
 
 locals {
   deploy_yaml          = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
-  chart_user_values    = try(local.deploy_yaml.chart, "")
+  chart_user_values    = try(local.deploy_yaml.chart, {})
   env_vars_user_values = try(local.deploy_yaml.envVars, {})
   env_vars = flatten(
     [for k, v in local.env_vars_user_values : [

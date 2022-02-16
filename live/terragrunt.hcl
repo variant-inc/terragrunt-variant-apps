@@ -34,7 +34,3 @@ terraform {
     ]
   }
 }
-
-inputs = {
-  aws_resource_name_prefix = "datascience"
-}

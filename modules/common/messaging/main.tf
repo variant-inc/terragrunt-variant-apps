@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.74"
+    }
+  }
+}
+
 locals {
   topic_keys = {
     for key, topic in var.topics : key => keys(var.topics[key])
