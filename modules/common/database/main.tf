@@ -19,11 +19,12 @@ module "database" {
 }
 
 data "aws_iam_policy_document" "policies" {
+  count = var.create_database ? 1 : 0
   version = "2012-10-17"
   statement {
     effect = "Allow"
     resources = [
-      "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${module.database.database_id[0]}/${var.role_name}"
+      "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${module.database.database_id}/${var.role_name}"
     ]
     actions = [
       "rds-db:connect"
