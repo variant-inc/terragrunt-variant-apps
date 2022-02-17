@@ -1,15 +1,15 @@
 output "database" {
-  value       = module.database[*].database
+  value       = module.database.database
   description = "Name of the Database"
 }
 
 output "user" {
-  value       = module.database[*].user
+  value       = module.database.user
   description = "Name of the User"
 }
 
 output "password" {
-  value       = module.database[*].password
+  value       = module.database.password
   sensitive   = true
   description = "Password of the User"
 }

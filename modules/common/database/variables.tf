@@ -1,22 +1,31 @@
-variable "database_count" {
-  type = number
+variable "create_database" {
+  type        = bool
+  description = "Value to create database"
 }
 
-variable "create_database" {}
-
-variable "database_name" {}
+variable "db_name" {
+  type        = string
+  description = "Name of the database"
+}
 
 variable "extensions" {
-  type = list(string)
+  type        = list(string)
+  description = "Extensions for the database"
 }
 
-variable "role_name" {}
+variable "role_name" {
+  type        = string
+  description = "Database user name "
+}
 
 variable "cluster_name" {
-  default = "variant-dev"
+  type        = string
+  default     = "variant-dev"
+  description = "Name of the cluster"
 }
 
 variable "aws_region" {
-  type    = string
-  default = "us-east-1"
+  type        = string
+  default     = "us-east-1"
+  description = "AWS region"
 }
