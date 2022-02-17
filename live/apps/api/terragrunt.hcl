@@ -41,8 +41,7 @@ dependency "messaging" {
 dependency "database" {
   config_path = "../../common//database"
   mock_outputs = {
-    database = ""
-    username = ""
+    env_vars = []
     password = ""
   }
 }
