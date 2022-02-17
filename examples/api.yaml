@@ -1,25 +1,28 @@
 # Creates the following resources
- ## Octopus project named demo-local-app in demo Group
- ## Helm release of variant-api chart named demo-local-app
- ## S3 Bucket with prefix of devops-demo-local-api
- ## SQS QUEUE with name devops-test-topic-local-subscription and subscribed
- ## to SNS topic of name devops-test-topic-local
- name: demo-local-app
- octopus:
-   space: DevOps
-   group: demo
- infrastructure:
-   buckets:
-     managed:
-       demo:
-         name: demo-local-api
-   topic_subscriptions:
-     test-topic-local-subscription:
-       topic_name: devops-test-topic-local
- authentication: true
- envVars:
-   AWS_REGION: us-east-1
- chart:
-   service:
-     targetPort: 5000
- image: demo/python-flask-variant-api:0.1.0-cloud-1419-sns-s0001.91 
+## Octopus project named demo-app in demo Group
+## Helm release of variant-api chart named demo-app
+## S3 Bucket with prefix of devops-demo-api-bucket-***
+## SNS topic of name devops-test-topic
+name: demo-app
+octopus:
+  space: DevOps
+  group: demo
+infrastructure:
+  buckets:
+    managed:
+      demo:
+        name: demo-api-bucket
+  topics:
+    test-topic:
+      display_name: "This is a demo SNS topic"
+authentication: true
+envVars:
+  AWS_REGION: us-east-1
+chart:
+  service:
+    targetPort: 5000
+image: demo/python-flask-variant-api:sns-example
+## Will expose /<octopus.group>/<name>/sns GET method 
+## to send test messages to SNS topic,
+## and expose /<octopus.group>/<name>/s3 GET method
+## to validate s3 bucket was created
