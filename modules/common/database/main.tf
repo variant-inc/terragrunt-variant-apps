@@ -19,7 +19,7 @@ module "database" {
 }
 
 data "aws_iam_policy_document" "policies" {
-  count = var.create_database ? 1 : 0
+  count   = var.create_database ? 1 : 0
   version = "2012-10-17"
   statement {
     effect = "Allow"
