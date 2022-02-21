@@ -43,6 +43,7 @@ dependency "database" {
   mock_outputs = {
     env_vars = []
     password = ""
+    policies = {}
   }
 }
 
