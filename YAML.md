@@ -44,6 +44,7 @@ chart:
 | buckets | [Buckets](#buckets) | false | N/A | S3 Buckets to optionally create and reference in your deployment
 | topics | [Topics](#topics) | false | N/A | Create SNS Topics with optional configuration. |
 | topic_subscriptions | [Topic Subscriptions](#topic-subscriptions) | false | N/A | Create SQS Queues and subscribe to an SNS Topics with options |
+| database | [Database](#database) | false | N/A | Database creation with extensions and read-only-user |
 <br>
 
 ### Buckets
@@ -63,6 +64,25 @@ infrastructure:
 
 Exposed Environment Variables
 - Name: Reference as `BUCKET__<BUCKET_KEY>__name`
+
+<br>
+
+### Database
+
+Supported attributes
+
+```yaml
+infrastructure:
+  database:
+    create_database: <Boolean to Create Datatase>
+    db_name: <Database Name>
+    extensions: <Database Extensions>
+    name: <Database User Name>
+```
+
+Exposed Environment Variables
+- database name: referenced as DATABASE__NAME 
+- database user: referenced asDATABASE__USER 
 
 <br>
 
