@@ -15,7 +15,7 @@ output "password" {
 }
 
 output "policies" {
-  value = {"${module.database.database}-policies" : data.aws_iam_policy_document.policies}
+  value = { "${module.database.database}-policies" : data.aws_iam_policy_document.policies }
 }
 
 output "env_vars" {
