@@ -57,6 +57,3 @@ terraform.rc
 
 /terraform.tfvars.json
 /tests
-
-# General
-.DS_Store
