@@ -38,15 +38,6 @@ dependency "messaging" {
   }
 }
 
-dependency "database" {
-  config_path = "../../common//database"
-  mock_outputs = {
-    env_vars = []
-    password = ""
-    policies = {}
-  }
-}
-
 terraform {
   source = "../../../modules/apps//api"
 }
@@ -69,8 +60,7 @@ inputs = {
   chart_env_vars = concat(
     local.env_vars,
     dependency.buckets.outputs.env_vars,
-    dependency.messaging.outputs.env_vars,
-    dependency.database.outputs.env_vars
+    dependency.messaging.outputs.env_vars
   )
   chart_values = [
     yamlencode(local.chart_user_values)
@@ -78,9 +68,7 @@ inputs = {
   policies = merge(
     dependency.buckets.outputs.policies,
     dependency.messaging.outputs.sns_topic_publish_policy,
-    dependency.messaging.outputs.queue_receive_policy,
-    dependency.database.outputs.policies
-
+    dependency.messaging.outputs.queue_receive_policy
   )
   image                  = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
   authentication_enabled = try(local.deploy_yaml.authentication, false)
