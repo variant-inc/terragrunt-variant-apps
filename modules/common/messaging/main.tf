@@ -56,7 +56,6 @@ module "sqs_queue" {
   receive_wait_time_seconds         = contains(local.topic_sub_keys[each.key], "receive_wait_time_seconds") ? each.value.receive_wait_time_seconds : null
   policy                            = contains(local.topic_sub_keys[each.key], "policy") ? each.value.policy : null
   redrive_policy                    = contains(local.topic_sub_keys[each.key], "redrive_policy") ? each.value.redrive_policy : null
-  redrive_allow_policy              = contains(local.topic_sub_keys[each.key], "redrive_allow_policy") ? each.value.redrive_allow_policy : null
   content_based_deduplication       = contains(local.topic_sub_keys[each.key], "content_based_deduplication") ? each.value.content_based_deduplication : null
   kms_master_key_id                 = data.aws_kms_key.sns_alias.arn
   kms_data_key_reuse_period_seconds = contains(local.topic_sub_keys[each.key], "kms_data_key_reuse_period_seconds") ? each.value.kms_data_key_reuse_period_seconds : null
