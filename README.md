@@ -39,3 +39,11 @@ chart:
   service:
     targetPort: 5000
 ```
+
+## Define required Ocotpus Variables 
+
+In the octopus project created by your *.yaml file, define thes variables
+
+- team
+- purpose 
+- owner
