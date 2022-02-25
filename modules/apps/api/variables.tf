@@ -1,3 +1,8 @@
+variable "create" {
+  type    = bool
+  default = false
+}
+
 variable "name" {
   type = string
 }
@@ -6,21 +11,12 @@ variable "chart_values" {
   type = list(string)
 }
 
-variable "chart_env_vars" {
+variable "chart_config_vars" {
   type = list(any)
-}
-
-variable "aws_resource_name_prefix" {
-  type = string
 }
 
 variable "namespace" {
   type = string
-}
-
-variable "policies" {
-  type        = map(any)
-  description = "Each value in the map should be an aws_iam_policy_document resource"
 }
 
 variable "revision" {
@@ -46,4 +42,8 @@ variable "okta_base_url" {
 variable "authentication_enabled" {
   type    = bool
   default = false
+}
+
+variable "role_arn" {
+  type = string
 }

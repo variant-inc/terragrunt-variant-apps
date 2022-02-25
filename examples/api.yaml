@@ -15,10 +15,10 @@ infrastructure:
   topics:
     test-topic:
       display_name: "This is a demo SNS topic"
-authentication: true
-envVars:
+configvVars:
   AWS_REGION: us-east-1
-chart:
+authentication: true
+api:
   service:
     targetPort: 5000
 image: demo/python-flask-variant-api:sns-example

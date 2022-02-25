@@ -18,17 +18,17 @@ terraform {
 locals {
   namespace   = data.kubernetes_namespace.namespace.metadata[0].name
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
-  chart_env_vars = [yamlencode({
+  chart_config_vars = [yamlencode({
     configVars = {
-      for v in var.chart_env_vars : v.name => v.value
+      for v in var.chart_config_vars : v.name => v.value
     }
   })]
   service_account_chart_values = [yamlencode({
     serviceAccount = {
-      roleArn = aws_iam_role.role.arn
+      roleArn = var.role_arn
     }
   })]
-  final_values     = concat(local.service_account_chart_values, local.chart_env_vars, var.chart_values)
+  final_values     = concat(local.service_account_chart_values, local.chart_config_vars, var.chart_values)
   oauth_server_url = "https://${var.okta_org_name}.${var.okta_base_url}/oauth2/default"
 }
 
@@ -39,10 +39,11 @@ data "kubernetes_namespace" "namespace" {
 }
 
 resource "helm_release" "api" {
+  count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-api"
+  name              = "${var.name}-api"
   version           = "2.0.0"
-  name              = var.name
   namespace         = local.namespace
   lint              = true
   dependency_update = true
@@ -72,44 +73,5 @@ resource "helm_release" "api" {
   set {
     name  = "authentication.server"
     value = local.oauth_server_url
-  }
-}
-
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-
-    principals {
-      type = "Federated"
-      identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${local.oidc_issuer}"
-      ]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "${local.oidc_issuer}:aud"
-      values   = ["sts.amazonaws.com"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "${local.oidc_issuer}:sub"
-      values   = ["system:serviceaccount:${local.namespace}:${var.name}"]
-    }
-  }
-}
-
-resource "aws_iam_role" "role" {
-  name                  = "${var.aws_resource_name_prefix}${var.name}"
-  force_detach_policies = true
-  assume_role_policy    = data.aws_iam_policy_document.assume_role.json
-
-  dynamic "inline_policy" {
-    for_each = var.policies
-    content {
-      name   = inline_policy.key
-      policy = inline_policy.value.json
-    }
   }
 }
