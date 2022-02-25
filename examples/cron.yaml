@@ -1,0 +1,56 @@
+# Creates the following resources
+## Octopus project named demo-app in demo Group
+## Helm release of variant-api chart named demo-app
+## S3 Bucket with prefix of devops-demo-api-bucket-***
+name: demo-app
+octopus:
+  space: DevOps
+  group: demo
+infrastructure:
+  buckets:
+    managed:
+      demo:
+        name: demo-cron-bucket
+configVars:
+  AWS_REGION: us-east-1
+cron:
+  istio:
+    egress: 
+      - name: some-external-database
+        addresses:
+          - "10.0.0.1"
+        ports:
+          - number: 5432
+            protocol: TCP
+  cronJob:
+    schedule: "*/2 * * * *"
+    resources:
+      limits:
+        cpu: 1
+        memory: 768Mi
+      requests:
+        cpu: .1
+        memory: 384Mi
+    args: []
+    podAnnotations: {}
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "date; echo Hello from the K8s cluster"
+  secrets: []
+  secretVars:
+    foo: bar
+  nodeSelector:
+    purpose: prime-test
+    env: dpl
+  tolerations:
+    - key: "lee-test"
+  affinity: {}
+  node:
+    create: false
+    instanceType: t3.medium
+    ttlSecondsUntilExpired: 2592000
+    ttlSecondsAfterEmpty: 1800
+
+image: demo/python-flask-variant-api:cron-example
+## Will create a cron job in namspace of <octopus.group>

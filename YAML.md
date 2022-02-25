@@ -5,8 +5,9 @@
 | name | string | true | N/A | Name of the Octopus project and deployment |
 | octopus | [Octopus](#octopus) | true | N/A | Octopus related config |
 | infrastructure | [Infrastructure](#infrastructure) | false | N/A | Object of infratructure configs |
-| chart | [map](#chart) | false | N/A | Value to be applied to selected Helm chart |
-| authentication | bool | false | false | Create authentication for deployment in the Helm Chart |
+| one of: (cron, api) | [Cron](#cron), [Api](#api) | false | N/A | Value to be applied to selected deployment type |
+| confignvVars | [map](#configvars) | false | N/A | User defined environment variables to be added to environment config map of your deployment |
+| authentication | bool | false | false | Create authentication for deployment in the Helm Chart. Valid for only API |
  <br>
 
 ## Octopus
@@ -17,23 +18,59 @@
 | group | string | true | N/A | 
  <br>
 
-## Chart (WIP)
-See supported values for the selected Helm Chart to deploy.
+## Cron/API
 
-Supported Charts
-- [variant-api](https://github.com/variant-inc/lazy-helm-charts/tree/master/charts/variant-api)
+### Cron
+
+See [variant-cron](https://github.com/variant-inc/lazy-helm-charts/tree/variant-cron-1.0.0/charts/variant-cron) for list of acceptable inputs. Usage of cronJob.configVars is reserved. Define user defined environment variables using [yaml.envVars](#envvars).
 
 Example
 ```yaml
-chart:
+cron:
+  cronjob:
+    schedule: "* * * * *"
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "echo do something"
+  nodeSelector:
+    purpose: prime-test
+    env: dpl
+  node:
+    create: true
+    node_type: m3_medium
+```
+
+### API
+
+See [variant-api](https://github.com/variant-inc/lazy-helm-charts/tree/variant-api-2.0.0/charts/variant-api) for list of acceptable inputs. Usage of api.configVars is reserved. Define user defined environment variables using [yaml.envVars](#envvars).
+
+Example
+```yaml
+api:
   service:
     targetPort: 5000
 ```
 <br>
 
-## Authentication (WIP)
+## Authentication
 
-### TODO
+### API
+
+When selecting `authentication: true` when defining an api resource, Istio RBAC resources are created to require a valid JWT token before forwarding a request to your API.
+
+<br>
+
+## Config Variables
+
+Define environment variables to be passed into Helm Release as a ConfigMap.
+
+Example
+```yaml
+configVars:
+  AWS_ENVIRONMENT: us-east-1
+  HERE_API_KEY: #{HERE_API_KEY}
+```
 
 <br>
 
@@ -109,7 +146,6 @@ infrastructure:
       receive_wait_time_seconds: 0
       policy: ""
       redrive_policy: ""
-      redrive_allow_policy: ""
       content_based_deduplication: false
       kms_data_key_reuse_period_seconds: 0
 ```
