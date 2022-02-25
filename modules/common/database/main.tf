@@ -8,6 +8,7 @@ locals {
 
 
 module "database" {
+  count           = var.create_any ? 1 : 0
   source          = "github.com/variant-inc/terraform-postgres-database?ref=v1"
   create_database = var.create_database
   extensions      = var.extensions
@@ -19,15 +20,17 @@ module "database" {
 }
 
 data "aws_db_instance" "physical_db" {
+  count                  = var.create_any ? 1 : 0
   db_instance_identifier = var.cluster_name
 }
 
 data "aws_iam_policy_document" "policies" {
+  count   = var.create_any ? 1 : 0
   version = "2012-10-17"
   statement {
     effect = "Allow"
     resources = [
-      "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${data.aws_db_instance.physical_db.resource_id}/${var.role_name}"
+      "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${data.aws_db_instance.physical_db[0].resource_id}/${var.role_name}"
     ]
     actions = [
       "rds-db:connect"
@@ -39,11 +42,11 @@ locals {
   env_vars = [
     {
       name  = "DATABASE__name"
-      value = module.database.database
+      value = try(module.database[0].database, "")
     },
     {
       name  = "DATABASE__user"
-      value = module.database.user
+      value = try(module.database[0].user, "")
     }
   ]
 }

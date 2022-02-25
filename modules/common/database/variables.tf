@@ -8,6 +8,11 @@ variable "db_name" {
   description = "Name of the database"
 }
 
+variable "create_any" {
+  type        = bool
+  description = "To create database or a role"
+}
+
 variable "extensions" {
   type        = list(string)
   description = "Extensions for the database"

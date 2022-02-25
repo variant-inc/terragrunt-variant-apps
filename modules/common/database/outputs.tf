@@ -1,21 +1,21 @@
 output "database" {
-  value       = module.database.database
+  value       = try(module.database[0].database, "")
   description = "Name of the Database"
 }
 
 output "user" {
-  value       = module.database.user
+  value       = try(module.database[0].user, "")
   description = "Name of the User"
 }
 
 output "password" {
-  value       = module.database.password
+  value       = try(module.database[0].password, "")
   sensitive   = true
   description = "Password of the User"
 }
 
 output "policies" {
-  value = { "${module.database.database}-policies" : data.aws_iam_policy_document.policies }
+  value = { try("${module.database[0].database}-policies", "") : try(data.aws_iam_policy_document.policies, "") }
 }
 
 output "env_vars" {
