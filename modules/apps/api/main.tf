@@ -19,8 +19,8 @@ locals {
   namespace   = data.kubernetes_namespace.namespace.metadata[0].name
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
   chart_env_vars = [yamlencode({
-    deployment = {
-      envVars = var.chart_env_vars
+    configVars = {
+      for v in var.chart_env_vars : v.name => v.value
     }
   })]
   service_account_chart_values = [yamlencode({
@@ -41,7 +41,7 @@ data "kubernetes_namespace" "namespace" {
 resource "helm_release" "api" {
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-api"
-  version           = "2.0.0-beta3"
+  version           = "2.0.0"
   name              = var.name
   namespace         = local.namespace
   lint              = true
