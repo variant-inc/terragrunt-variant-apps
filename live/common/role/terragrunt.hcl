@@ -24,6 +24,13 @@ dependency "namespace" {
   }
 }
 
+dependency "database" {
+  config_path = "../../common//database"
+  mock_outputs = {
+    policies = {}
+  }
+}
+
 dependency "messaging" {
   config_path = "../../common/messaging"
   mock_outputs = {
@@ -40,7 +47,8 @@ inputs = {
   policies = merge(
     dependency.buckets.outputs.policies,
     dependency.messaging.outputs.sns_topic_publish_policy,
-    dependency.messaging.outputs.queue_receive_policy
+    dependency.messaging.outputs.queue_receive_policy,
+    dependency.database.outputs.policies
   )
   namespace = dependency.namespace.outputs.namespace_name
 }
