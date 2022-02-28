@@ -42,7 +42,7 @@ resource "helm_release" "api" {
   count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-api"
-  name              = "${var.name}-api"
+  name              = "${var.name}"
   version           = "2.0.0"
   namespace         = local.namespace
   lint              = true
