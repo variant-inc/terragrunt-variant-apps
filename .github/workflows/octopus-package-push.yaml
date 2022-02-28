@@ -5,8 +5,8 @@ on:
   push:
 
 env:
-  BRANCH_SPACES: DataScience,Default,Engineering
-  RELEASE_SPACES: DataScience,Default,Engineering
+  BRANCH_SPACES: DataScience,Default,Engineering,DevOps
+  RELEASE_SPACES: DataScience,Default,Engineering,DevOps
 
 jobs:
   octopus-package-push:
