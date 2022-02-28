@@ -18,6 +18,7 @@ dependency "buckets" {
   config_path = "../../common/buckets"
   mock_outputs = {
     env_vars = []
+    policies = {}
   }
 }
 
@@ -31,7 +32,9 @@ dependency "namespace" {
 dependency "messaging" {
   config_path = "../../common/messaging"
   mock_outputs = {
-    env_vars = []
+    env_vars                 = []
+    sns_topic_publish_policy = {}
+    queue_receive_policy     = {}
   }
 }
 
@@ -42,13 +45,21 @@ dependency "role" {
   }
 }
 
+dependency "tags" {
+  config_path = "../../common/tags"
+  mock_outputs = {
+    tags = {}
+  }
+}
+
 terraform {
-  source = "../../../modules/apps//api"
+  source = "../../../modules/apps//cron"
 }
 
 locals {
   deploy_yaml             = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
-  chart_user_values       = try(local.deploy_yaml.api, {})
+  chart_user_values       = try(local.deploy_yaml.cron, {})
+  create                  = local.chart_user_values == {} ? false : true
   config_vars_user_values = try(local.deploy_yaml.configVars, {})
   config_vars = flatten(
     [for k, v in local.config_vars_user_values : [
@@ -58,7 +69,6 @@ locals {
       }
     ]]
   )
-  create = local.chart_user_values == {} ? false : true
 }
 
 inputs = {
@@ -71,8 +81,8 @@ inputs = {
   chart_values = [
     yamlencode(local.chart_user_values)
   ]
-  role_arn               = dependency.role.outputs.role_arn
-  image                  = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
-  authentication_enabled = try(local.deploy_yaml.authentication, false)
-  namespace              = dependency.namespace.outputs.namespace_name
+  role_arn  = dependency.role.outputs.role_arn
+  image     = "064859874041.dkr.ecr.us-east-1.amazonaws.com/${local.deploy_yaml.image}"
+  namespace = dependency.namespace.outputs.namespace_name
+  tags      = dependency.tags.outputs.tags
 }

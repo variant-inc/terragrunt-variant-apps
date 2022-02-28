@@ -28,8 +28,12 @@ locals {
       roleArn = var.role_arn
     }
   })]
-  final_values     = concat(local.service_account_chart_values, local.chart_config_vars, var.chart_values)
-  oauth_server_url = "https://${var.okta_org_name}.${var.okta_base_url}/oauth2/default"
+
+  final_values = concat(
+    local.service_account_chart_values,
+    local.chart_config_vars,
+    var.chart_values
+  )
 }
 
 data "kubernetes_namespace" "namespace" {
@@ -38,12 +42,13 @@ data "kubernetes_namespace" "namespace" {
   }
 }
 
-resource "helm_release" "api" {
+resource "helm_release" "cron" {
   count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
-  chart             = "variant-api"
-  name              = "${var.name}-api"
-  version           = "2.0.0"
+  chart             = "variant-cron"
+  version           = "1.0.1"
+  cleanup_on_fail   = true
+  name              = "${var.name}-cron"
   namespace         = local.namespace
   lint              = true
   dependency_update = true
@@ -56,22 +61,20 @@ resource "helm_release" "api" {
   }
 
   set {
-    name  = "istio.ingress.host"
-    value = var.domain
-  }
-
-  set {
-    name  = "deployment.image.tag"
+    name  = "cronJob.image.tag"
     value = var.image
   }
 
   set {
-    name  = "authentication.enabled"
-    value = var.authentication_enabled
+    name  = "CLUSTER_NAME"
+    value = var.cluster_name
   }
 
-  set {
-    name  = "authentication.server"
-    value = local.oauth_server_url
+  dynamic "set" {
+    for_each = var.tags
+    content {
+      name  = "tags.${set.key}"
+      value = set.value
+    }
   }
 }

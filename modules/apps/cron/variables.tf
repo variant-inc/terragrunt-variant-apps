@@ -19,11 +19,8 @@ variable "namespace" {
   type = string
 }
 
-variable "revision" {
-  type = string
-}
 
-variable "domain" {
+variable "revision" {
   type = string
 }
 
@@ -31,19 +28,10 @@ variable "image" {
   type = string
 }
 
-variable "okta_org_name" {
-  type = string
-}
-
-variable "okta_base_url" {
-  type = string
-}
-
-variable "authentication_enabled" {
-  type    = bool
-  default = false
-}
-
 variable "role_arn" {
   type = string
+}
+
+variable "tags" {
+  type = map(string)
 }
