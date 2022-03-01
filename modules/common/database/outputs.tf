@@ -15,7 +15,7 @@ output "password" {
 }
 
 output "policies" {
-  value = var.create_any ? {"data":data.aws_iam_policy_document.policies[0]} : {}
+  value = var.create_any ? { "data" : data.aws_iam_policy_document.policies[0] } : {}
 }
 
 output "env_vars" {
