@@ -15,7 +15,7 @@ output "password" {
 }
 
 output "policies" {
-  value = { try("${module.database[0].database}-policies", "") : try(data.aws_iam_policy_document.policies, "") }
+  value = var.create_any ? {"data":data.aws_iam_policy_document.policies[0]} : {}
 }
 
 output "env_vars" {
