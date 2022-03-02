@@ -21,6 +21,14 @@ dependency "buckets" {
   }
 }
 
+dependency "database" {
+  config_path = "../../common//database"
+  mock_outputs = {
+    env_vars = []
+    password = ""
+  }
+}
+
 dependency "namespace" {
   config_path = "../../common/namespace"
   mock_outputs = {
@@ -66,7 +74,8 @@ inputs = {
   chart_config_vars = concat(
     local.config_vars,
     dependency.buckets.outputs.env_vars,
-    dependency.messaging.outputs.env_vars
+    dependency.messaging.outputs.env_vars,
+    dependency.database.outputs.env_vars
   )
   chart_values = [
     yamlencode(local.chart_user_values)
