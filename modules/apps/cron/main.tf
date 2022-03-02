@@ -48,7 +48,7 @@ resource "helm_release" "cron" {
   chart             = "variant-cron"
   version           = "1.0.1"
   cleanup_on_fail   = true
-  name              = "${var.name}-cron"
+  name              = var.name
   namespace         = local.namespace
   lint              = true
   dependency_update = true
