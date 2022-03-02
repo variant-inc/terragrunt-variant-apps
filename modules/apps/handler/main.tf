@@ -48,7 +48,7 @@ resource "helm_release" "handler" {
   chart             = "variant-handler"
   version           = "1.0.1"
   cleanup_on_fail   = true
-  name              = "${var.name}-handler"
+  name              = var.name
   namespace         = local.namespace
   lint              = true
   dependency_update = true
