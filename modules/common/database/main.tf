@@ -46,6 +46,14 @@ locals {
     {
       name  = "DATABASE__user"
       value = try(module.database[0].user, "")
+    },
+    {
+      name  = "DATABASE__host"
+      value = local.creds["host"]
+    },
+    {
+      name  = "DATABASE__password"
+      value = try(module.database[0].password, "")
     }
   ]
 }
