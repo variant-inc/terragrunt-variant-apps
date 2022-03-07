@@ -2,7 +2,12 @@
 name: Octopus Package Push
 
 on:
+  workflow_dispatch:
   push:
+    branches:
+      - master
+  release:
+    types: ["created"]
 
 env:
   BRANCH_SPACES: DataScience,Default,Engineering,DevOps
