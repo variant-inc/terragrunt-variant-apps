@@ -21,4 +21,5 @@ output "policies" {
 output "env_vars" {
   description = "Environment variables for app use."
   value       = local.env_vars
+  sensitive   = true
 }
