@@ -1,0 +1,19 @@
+## Creates the following resources
+## Octopus project named demo-app in demo Group
+## Helm release of variant-api chart named demo-app
+name: demo-app
+octopus:
+  space: DevOps
+  group: demo
+api:
+  service:
+    targetPort: 5000
+  configVars:
+    AWS_REGION: us-east-1
+  secretVars:
+    FAIRWINDS_ADMIN_TOKEN: #{FAIRWINDS_ADMIN_TOKEN}
+  awsSecrets:
+    - name: eng-secret-in-aws
+# configVars denoted by a map
+# secretVars denoted by a map
+# awsSecrets denoted by a list

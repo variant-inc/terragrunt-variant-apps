@@ -6,7 +6,6 @@
 | octopus | [Octopus](#octopus) | true | N/A | Octopus related config |
 | infrastructure | [Infrastructure](#infrastructure) | false | N/A | Object of infratructure configs |
 | one of: (cron, api) | [Cron](#cron), [Api](#api) | false | N/A | Value to be applied to selected deployment type |
-| confignvVars | [map](#configvars) | false | N/A | User defined environment variables to be added to environment config map of your deployment |
 | authentication | bool | false | false | Create authentication for deployment in the Helm Chart. Valid for only API |
  <br>
 
