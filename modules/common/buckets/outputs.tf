@@ -11,5 +11,5 @@ output "policies" {
 }
 
 output "config_maps" {
-  value = [for cm in kubernetes_config_map.managed_buckets : cm.metadata.name]
+  value = [for label, cm in kubernetes_config_map.managed_buckets : cm.metadata.name]
 }
