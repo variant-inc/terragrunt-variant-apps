@@ -24,3 +24,14 @@ variable "app_name" {
 variable "namespace" {
   type = string
 }
+
+variable "existing_from_project" {
+  type = list(object(
+    {
+      project_group = string
+      project_name  = string
+      bucket_prefix = string
+    }
+  ))
+  default = []
+}

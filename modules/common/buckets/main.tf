@@ -45,7 +45,8 @@ locals {
       }
     ]
   ])
-  managed_map = { for bucket in var.managed : bucket.prefix => bucket }
+  managed_map  = { for bucket in var.managed : bucket.prefix => bucket }
+  existing_map = { for existing in var.existing_from_project : existing.bucket_prefix => existing }
 }
 
 module "buckets" {
@@ -98,8 +99,27 @@ resource "kubernetes_config_map" "managed_buckets" {
   }
 
   data = {
-    "BUCKET__${each.key}__name" = each.value.bucket_domain_name
     "BUCKET__${each.key}__arn"  = each.value.arn
     "BUCKET__${each.key}__name" = each.value.bucket
   }
+}
+
+data "kubernetes_config_map" "existing_buckets" {
+  for_each = local.existing_map
+
+  metadata {
+    name      = "${each.value.project_name}-bucket-${each.key}"
+    namespace = each.value.project_group
+  }
+}
+
+resource "kubernetes_config_map" "existing_buckets" {
+  for_each = data.kubernetes_config_map.existing_buckets
+
+  metadata {
+    name      = "${var.app_name}-bucketref-${each.key}"
+    namespace = var.namespace
+  }
+
+  data = each.value.data
 }
