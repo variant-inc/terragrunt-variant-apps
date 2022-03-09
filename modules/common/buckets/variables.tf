@@ -5,13 +5,6 @@ variable "managed" {
   default = []
 }
 
-variable "existing" {
-  type = map(object({
-    name = string
-  }))
-  default = {}
-}
-
 variable "aws_resource_name_prefix" {
   type = string
 }
@@ -25,7 +18,7 @@ variable "namespace" {
   type = string
 }
 
-variable "existing_from_project" {
+variable "existing" {
   type = list(object(
     {
       project_group = string

@@ -17,7 +17,7 @@ include "helm_provider" {
 dependency "buckets" {
   config_path = "../../common/buckets"
   mock_outputs = {
-    env_vars = []
+    config_maps = []
   }
 }
 
@@ -73,12 +73,16 @@ inputs = {
   create = local.create
   chart_config_vars = concat(
     local.config_vars,
-    dependency.buckets.outputs.env_vars,
     dependency.messaging.outputs.env_vars,
     dependency.database.outputs.env_vars
   )
   chart_values = [
-    yamlencode(local.chart_user_values)
+    yamlencode(local.chart_user_values),
+    yamlencode({
+      configMaps = concat(
+        dependency.buckets.outputs.config_maps
+      )
+    })
   ]
   role_arn               = dependency.role.outputs.role_arn
   image                  = local.deploy_yaml.git.image
