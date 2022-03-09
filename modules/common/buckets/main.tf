@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.74"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.8"
+    }
   }
 }
 
@@ -41,10 +45,11 @@ locals {
       }
     ]
   ])
+  managed_map = { for bucket in var.managed : bucket.prefix => bucket }
 }
 
 module "buckets" {
-  for_each = var.managed
+  for_each = local.managed_map
   source   = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.1.0"
 
   bucket_prefix = "${var.aws_resource_name_prefix}${each.value.name}"
@@ -81,5 +86,20 @@ data "aws_iam_policy_document" "policies" {
       each.value.arn,
       "${each.value.arn}/*"
     ]
+  }
+}
+
+resource "kubernetes_config_map" "managed_buckets" {
+  for_each = data.aws_s3_bucket.managed_buckets
+
+  metadata {
+    name      = "${var.app_name}-bucket-${local.managed_map[each.key]}"
+    namespace = var.namespace
+  }
+
+  data = {
+    "BUCKET__${each.key}__name" = each.value.bucket_domain_name
+    "BUCKET__${each.key}__arn"  = each.value.arn
+    "BUCKET__${each.key}__name" = each.value.bucket
   }
 }

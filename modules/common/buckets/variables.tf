@@ -1,8 +1,8 @@
 variable "managed" {
-  type = map(object({
-    name = string
+  type = list(object({
+    prefix = string
   }))
-  default = {}
+  default = []
 }
 
 variable "existing" {
@@ -13,5 +13,14 @@ variable "existing" {
 }
 
 variable "aws_resource_name_prefix" {
+  type = string
+}
+
+variable "app_name" {
+  type        = string
+  description = "Release name of app"
+}
+
+variable "namespace" {
   type = string
 }

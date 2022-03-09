@@ -9,3 +9,7 @@ output "all_buckets" {
 output "policies" {
   value = data.aws_iam_policy_document.policies
 }
+
+output "config_maps" {
+  value = [for cm in kubernetes_config_map.managed_buckets : cm.metadata.name]
+}

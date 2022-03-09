@@ -6,6 +6,17 @@ include "aws_provider" {
   path = "${path_relative_to_include()}/../../_env/provider/aws.hcl"
 }
 
+include "kubernetes_provider" {
+  path = "${path_relative_to_include()}/../../_env/provider/kubernetes.hcl"
+}
+
+dependency "namespace" {
+  config_path = "../../common/namespace"
+  mock_outputs = {
+    namespace_name = ""
+  }
+}
+
 terraform {
   source = "../../../modules/common//buckets"
 }
@@ -15,6 +26,8 @@ locals {
 }
 
 inputs = {
-  managed  = try(local.deploy_yaml.infrastructure.buckets.managed, {})
-  existing = try(local.deploy_yaml.infrastructure.buckets.existing, {})
+  managed   = try(local.deploy_yaml.infrastructure.buckets.managed, [])
+  existing  = try(local.deploy_yaml.infrastructure.buckets.existing, {})
+  app_name  = local.deploy_yaml.name
+  namespace = dependency.namespace.outputs.namespace_name
 }
