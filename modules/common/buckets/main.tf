@@ -52,7 +52,7 @@ module "buckets" {
   for_each = local.managed_map
   source   = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.1.0"
 
-  bucket_prefix = "${var.aws_resource_name_prefix}${each.value.name}"
+  bucket_prefix = "${var.aws_resource_name_prefix}${each.value.prefix}"
 }
 
 data "aws_s3_bucket" "existing_buckets" {
