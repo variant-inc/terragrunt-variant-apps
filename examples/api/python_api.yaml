@@ -1,4 +1,4 @@
-# Creates the following resources
+## Creates the following resources
 ## Octopus project named demo-app in demo Group
 ## Helm release of variant-api chart named demo-app
 ## S3 Bucket with prefix of devops-demo-api-bucket-***
@@ -15,13 +15,12 @@ infrastructure:
   topics:
     test-topic:
       display_name: "This is a demo SNS topic"
-configvVars:
-  AWS_REGION: us-east-1
 authentication: true
 api:
   service:
     targetPort: 5000
-image: demo/python-flask-variant-api:sns-example
+  configVars:
+    AWS_REGION: us-east-1
 ## Will expose /<octopus.group>/<name>/sns GET method 
 ## to send test messages to SNS topic,
 ## and expose /<octopus.group>/<name>/s3 GET method

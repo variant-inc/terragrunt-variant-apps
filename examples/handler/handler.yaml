@@ -1,0 +1,22 @@
+## Creates the following resources
+## Octopus project named xpress-technologies-importer in freight-acquisition Group
+## Helm release of variant-api chart named xpress-technologies-importer
+## S3 Bucket with prefix of xpress-technologies-importer-***
+name: xpress-technologies-importer
+octopus:
+  space: Engineering
+  group: freight-acquisition
+infrastructure:
+  buckets:
+    managed:
+      broker:
+        name: xpress-technologies-importer
+handler:
+  configVars:
+    TEST: from-git
+    BootstrapServers: "#{kafka_bootstrap_servers}"
+    SaslUsername: "#{kafka_sasl_username}"
+  secretVars:
+    SaslPassword: "#{kafka_sasl_password}"
+## Creates ConfigVars and "#{}" is replaced by variable substitute in Octopus
+## Creates SecretVars and "#{}" is replaced by variable substitute in Octopus

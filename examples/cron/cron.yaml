@@ -11,8 +11,6 @@ infrastructure:
     managed:
       demo:
         name: demo-cron-bucket
-configVars:
-  AWS_REGION: us-east-1
 cron:
   istio:
     egress: 
@@ -40,6 +38,8 @@ cron:
   secrets: []
   secretVars:
     foo: bar
+  configVars:
+    AWS_REGION: us-east-1
   nodeSelector:
     purpose: prime-test
     env: dpl
@@ -51,6 +51,4 @@ cron:
     instanceType: t3.medium
     ttlSecondsUntilExpired: 2592000
     ttlSecondsAfterEmpty: 1800
-
-image: demo/python-flask-variant-api:cron-example
 ## Will create a cron job in namspace of <octopus.group>
