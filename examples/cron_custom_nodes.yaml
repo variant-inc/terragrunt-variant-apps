@@ -1,0 +1,30 @@
+name: demo-variant-cron
+octopus:
+  space: Default
+  group: demo
+infrastructure:
+  buckets:
+    managed:
+      demo:
+        name: demo-cron-bucket
+cron:
+  istio:
+    egress: 
+      - name: some-external-database
+        addresses:
+          - "10.0.0.1"
+        ports:
+          - number: 5432
+            protocol: TCP
+  cronJob:
+    schedule: "5 * * * *"
+    resources:
+      limits:
+        cpu: 1
+        memory: 768Mi
+      requests:
+        cpu: .1
+        memory: 384Mi
+  node:
+    create: true
+    instanceType: r5.xlarge
