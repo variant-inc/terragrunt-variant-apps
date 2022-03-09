@@ -1,0 +1,22 @@
+# Creates the following resources
+## Octopus project named demo-app in demo Group
+## Helm release of variant-api chart named demo-app
+## S3 Bucket with prefix of devops-demo-api-bucket-***
+name: demo-app-handler
+octopus:
+  space: DevOps
+  group: demo
+infrastructure:
+  topics:
+    test-handler-topic:
+      display_name: "This is a demo SNS topic"
+  topic_subscriptions:
+    test-handler-subscription:
+      message_retention_seconds: 604800
+      visibility_timeout_seconds: 30
+      receive_wait_time_seconds: 20
+configVars:
+  AWS_REGION: us-east-1
+handler:
+  service:
+    targetPort: 5000
