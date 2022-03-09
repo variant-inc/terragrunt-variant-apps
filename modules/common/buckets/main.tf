@@ -93,7 +93,7 @@ resource "kubernetes_config_map" "managed_buckets" {
   for_each = data.aws_s3_bucket.managed_buckets
 
   metadata {
-    name      = "${var.app_name}-bucket-${local.managed_map[each.key]}"
+    name      = "${var.app_name}-bucket-${each.key}"
     namespace = var.namespace
   }
 
