@@ -35,7 +35,7 @@ cron:
       - "/bin/sh"
       - "-c"
       - "date; echo Hello from the K8s cluster"
-  secrets: []
+  awsSecrets: []
   secretVars:
     foo: bar
   configVars:
@@ -46,9 +46,4 @@ cron:
   tolerations:
     - key: "lee-test"
   affinity: {}
-  node:
-    create: false
-    instanceType: t3.medium
-    ttlSecondsUntilExpired: 2592000
-    ttlSecondsAfterEmpty: 1800
 ## Will create a cron job in namspace of <octopus.group>
