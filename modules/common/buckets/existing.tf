@@ -27,6 +27,8 @@ resource "kubernetes_config_map" "existing" {
 
 // Create a read policy for the existing buckets
 data "aws_iam_policy_document" "existing" {
+  count = length(var.existing) > 0 ? 1 : 0
+
   statement {
     effect = "Allow"
     actions = [

@@ -1,8 +1,14 @@
-output "policies" {
-  value = {
-    s3-managed  = data.aws_iam_policy_document.managed
-    s3-existing = data.aws_iam_policy_document.existing
+locals {
+  existing_policy = length(data.aws_iam_policy_document.existing) == 0 ? {} : {
+    s3-existing = data.aws_iam_policy_document.existing[0]
   }
+  managed_policy = length(data.aws_iam_policy_document.managed) == 0 ? {} : {
+    s3-managed = data.aws_iam_policy_document.managed[0]
+  }
+}
+
+output "policies" {
+  value = merge(local.existing_policy, local.managed_policy)
 }
 
 output "config_maps" {

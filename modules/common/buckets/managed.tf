@@ -34,6 +34,8 @@ resource "kubernetes_config_map" "managed" {
 
 // Create a read/write policy for the managed buckets
 data "aws_iam_policy_document" "managed" {
+  count = length(var.managed) > 0 ? 1 : 0
+
   statement {
     effect = "Allow"
     actions = [
