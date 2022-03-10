@@ -86,8 +86,8 @@ data "aws_iam_policy_document" "policies" {
     ]
 
     resources = [
-      each.value["BUCKET__${label}__arn"],
-      "${each.value["BUCKET__${label}__arn"]}/*"
+      lookup(each.value, "BUCKET__${label}__arn", null),
+      "${lookup(each.value, "BUCKET__${label}__arn", null)}/*"
     ]
   }
 }
