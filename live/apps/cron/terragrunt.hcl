@@ -75,7 +75,6 @@ inputs = {
   create = local.create
   chart_config_vars = concat(
     local.config_vars,
-    dependency.buckets.outputs.env_vars,
     dependency.messaging.outputs.env_vars
   )
   chart_values = [
