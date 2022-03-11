@@ -24,7 +24,6 @@ infrastructure:
 api:
   authentication:
     enabled: true
-    server: oktapreview.com
   service:
     targetPort: 5000
   configVars:

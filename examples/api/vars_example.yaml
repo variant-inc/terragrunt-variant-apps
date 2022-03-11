@@ -8,6 +8,8 @@ octopus:
 api:
   service:
     targetPort: 5000
+  authentication:
+    enabled: true
   configVars:
     AWS_REGION: us-east-1
   secretVars:

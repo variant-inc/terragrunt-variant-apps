@@ -17,7 +17,6 @@ api:
     AWS_REGION: us-east-1
   authentication:
     enabled: true
-    server: oktapreview.com
   authorization:
     rules:
       to:
