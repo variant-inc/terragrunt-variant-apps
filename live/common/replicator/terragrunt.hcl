@@ -1,5 +1,6 @@
 include "root" {
-  path = find_in_parent_folders()
+  path   = find_in_parent_folders()
+  expose = true
 }
 
 include "aws_provider" {
@@ -11,18 +12,18 @@ include "kubernetes_provider" {
 }
 
 dependency "namespace" {
-  config_path = "../namespace"
+  config_path = "${path_relative_from_include("root")}/common/namespace"
   mock_outputs = {
     namespace_name = ""
   }
 }
 
 terraform {
-  source = "../../../modules/common//replicator"
+  source = "${path_relative_from_include("root")}/../modules/common//replicator"
 }
 
 locals {
-  deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  deploy_yaml = include.root.locals.deploy_yaml
   git_inputs  = local.deploy_yaml.git
 }
 

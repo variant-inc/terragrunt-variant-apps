@@ -7,7 +7,7 @@ include "aws_provider" {
 }
 
 terraform {
-  source = "../../../modules/common//database"
+  source = "${path_relative_from_include("root")}/../modules/common//database"
 }
 
 locals {

@@ -7,7 +7,7 @@ include "aws_provider" {
 }
 
 terraform {
-  source = "../../../modules/common//messaging"
+  source = "${path_relative_from_include("root")}/../modules/common//messaging"
 }
 
 locals {
