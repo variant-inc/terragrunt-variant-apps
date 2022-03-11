@@ -55,8 +55,5 @@ inputs = {
       )
     })
   ]
-  role_arn               = dependency.role.outputs.role_arn
-  image                  = local.deploy_yaml.git.image
   authentication_enabled = try(local.deploy_yaml.authentication, false)
-  namespace              = dependency.namespace.outputs.namespace_name
 }

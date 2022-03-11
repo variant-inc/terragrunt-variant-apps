@@ -21,6 +21,13 @@ include "helm_provider" {
   path = "${path_relative_to_include()}/../../_env/provider/helm.hcl"
 }
 
+dependency "tags" {
+  config_path = "../../common/tags"
+  mock_outputs = {
+    tags = {}
+  }
+}
+
 terraform {
   source = "../../../modules/apps//cron"
 }
@@ -49,8 +56,5 @@ inputs = {
   chart_values = [
     yamlencode(local.chart_user_values)
   ]
-  role_arn  = dependency.role.outputs.role_arn
-  image     = local.deploy_yaml.git.image
-  namespace = dependency.namespace.outputs.namespace_name
-  tags      = dependency.tags.outputs.tags
+  tags = dependency.tags.outputs.tags
 }
