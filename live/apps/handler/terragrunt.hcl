@@ -47,7 +47,12 @@ inputs = {
     dependency.messaging.outputs.env_vars
   )
   chart_values = [
-    yamlencode(local.chart_user_values)
+    yamlencode(local.chart_user_values),
+    yamlencode({
+      configMaps = concat(
+        dependency.buckets.outputs.config_maps
+      )
+    })
   ]
   tags = dependency.tags.outputs.tags
 }
