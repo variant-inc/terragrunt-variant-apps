@@ -10,8 +10,8 @@ on:
     types: ["created"]
 
 env:
-  BRANCH_SPACES: DataScience,Default,Engineering,DevOps
-  RELEASE_SPACES: DataScience,Default,Engineering,DevOps
+  BRANCH_SPACES: DataScience,Default,Engineering,DevOps,Mobile,Enterprise
+  RELEASE_SPACES: DataScience,Default,Engineering,DevOps,Mobile,Enterprise
 
 jobs:
   octopus-package-push:
