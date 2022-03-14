@@ -85,11 +85,11 @@ Supported attributes
 infrastructure:
   buckets:
     managed:
-        <BUCKET_KEY>:
-            name: <BUCKET_NAME>
+      - prefix: <BUCKET_NAME>
     existing:
-        <BUCKET_KEY>:
-            name: <BUCKET_NAME>
+      - project_name: <RELEASE_NAME_IN_NAMESPACE>
+        project_group: <NAMESPACE>
+        bucket_prefix: <BUCKET_NAME>
 ```
 
 Exposed Environment Variables
