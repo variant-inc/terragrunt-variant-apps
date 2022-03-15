@@ -94,7 +94,7 @@ infrastructure:
 
 Exposed Environment Variables
 
-- Name: Reference as `BUCKET__<BUCKET_KEY>__name`, `BUCKET__<BUCKET_KEY>__arn`
+- Name: Reference as `BUCKET__<BUCKET_PREFIX>__name`, `BUCKET__<BUCKET_PREFIX>__arn`
 
 ### Topics
 
