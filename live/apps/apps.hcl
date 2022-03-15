@@ -17,7 +17,7 @@ dependency "buckets" {
 }
 
 dependency "database" {
-  config_path = "${get_terragrunt_dir()}/../../common//database"
+  config_path = "${get_terragrunt_dir()}/../../common/database"
   mock_outputs = {
     env_vars = []
     password = ""
