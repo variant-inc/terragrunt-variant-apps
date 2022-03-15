@@ -3,6 +3,7 @@
 ## Helm release of variant-api chart named demo-app
 ## S3 Bucket with prefix of devops-demo-api-bucket-***
 ## SNS topic of name devops-test-topic
+## Creates Postgres Database with name "sample-db" and role "sample-role"
 name: demo-app
 octopus:
   space: DevOps
@@ -10,13 +11,22 @@ octopus:
 infrastructure:
   buckets:
     managed:
-      demo:
-        name: demo-api-bucket
+      - prefix: demo-flask-api
+    existing:
+      - project_name: demo-python-flask-variant-api
+        project_group: demo
+        bucket_prefix: demo-flask-api
   topics:
     test-topic:
       display_name: "This is a demo SNS topic"
-authentication: true
+  database:
+    create_database: true
+    db_name: sample-db
+    extensions: ["postgis"]
+    name: sample-role
 api:
+  authentication:
+    enabled: true
   service:
     targetPort: 5000
   configVars:

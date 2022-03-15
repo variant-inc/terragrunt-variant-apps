@@ -1,0 +1,23 @@
+## Creates the following resources
+## Octopus project named demo-app in demo Group
+## Helm release of variant-api chart named demo-app
+name: demo-app
+octopus:
+  space: DevOps
+  group: demo
+api:
+  service:
+    targetPort: 5000
+  authentication:
+    enabled: true
+  configVars:
+    AWS_REGION: us-east-1
+  istio:
+    egress:
+     - name: fairwinds-api
+       hosts:
+         - "insights.fairwinds.com"
+       ports:
+         - number: 443
+           protocol: HTTPS
+## Creates istio egress gateway to insights.fairwinds.com
