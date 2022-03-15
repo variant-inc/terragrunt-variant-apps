@@ -160,4 +160,4 @@ infrastructure:
 
 Exposed Environment Variables
 
-- Name: Reference as `DATABASE__name`
+- Name: Reference as `DATABASE__name`, `DATABASE__user`, `DATABASE__host`, `DATABASE__password`
