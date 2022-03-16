@@ -1,6 +1,6 @@
-locals {
-  root        = read_terragrunt_config(find_in_parent_folders())
-  deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+include "root" {
+  path   = find_in_parent_folders()
+  expose = true
 }
 
 include "aws_provider" {
@@ -11,6 +11,14 @@ include "kubernetes_provider" {
   path = "${path_relative_to_include()}/../../_env/provider/kubernetes.hcl"
 }
 
+locals {
+  deploy_yaml = include.root.locals.deploy_yaml
+}
+
 terraform {
-  source = "../../../modules/common//namespace"
+  source = "${path_relative_from_include("root")}/../modules/common//namespace"
+}
+
+inputs = {
+  namespace = local.deploy_yaml.octopus.group
 }

@@ -11,28 +11,28 @@ include "kubernetes_provider" {
 }
 
 dependency "buckets" {
-  config_path = "../../common/buckets"
+  config_path = "${path_relative_from_include("root")}/common/buckets"
   mock_outputs = {
     policies = {}
   }
 }
 
 dependency "namespace" {
-  config_path = "../../common/namespace"
+  config_path = "${path_relative_from_include("root")}/common/namespace"
   mock_outputs = {
     namespace_name = ""
   }
 }
 
 dependency "database" {
-  config_path = "../../common//database"
+  config_path = "${path_relative_from_include("root")}/common//database"
   mock_outputs = {
     policies = {}
   }
 }
 
 dependency "messaging" {
-  config_path = "../../common/messaging"
+  config_path = "${path_relative_from_include("root")}/common/messaging"
   mock_outputs = {
     sns_topic_publish_policy = {}
     queue_receive_policy     = {}
@@ -40,7 +40,7 @@ dependency "messaging" {
 }
 
 terraform {
-  source = "../../../modules/common//role"
+  source = "${path_relative_from_include("root")}/../modules/common//role"
 }
 
 inputs = {
