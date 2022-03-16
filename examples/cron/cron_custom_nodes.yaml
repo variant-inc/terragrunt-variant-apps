@@ -1,3 +1,8 @@
+# Creates the following resources
+## Octopus project named demo-cron in demo Group
+## Helm release of variant-cron chart named demo-app
+## S3 Bucket with prefix of ops-demo-cron-bucket-***
+## Deploys Cron Job on custom node group
 name: demo-variant-cron
 octopus:
   space: Default
@@ -8,23 +13,10 @@ infrastructure:
       demo:
         name: demo-cron-bucket
 cron:
-  istio:
-    egress: 
-      - name: some-external-database
-        addresses:
-          - "10.0.0.1"
-        ports:
-          - number: 5432
-            protocol: TCP
   cronJob:
-    schedule: "#{crontab_schedule}"
-    resources:
-      limits:
-        cpu: 1
-        memory: 768Mi
-      requests:
-        cpu: .1
-        memory: 384Mi
+    schedule: "*/2 * * * *"
+    command:
+      - "job.sh"
   node:
     create: true
-    instanceType: "#{instance_type}"
+    instanceType: r5.xlarge
