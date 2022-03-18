@@ -20,7 +20,7 @@ resource "kubernetes_config_map" "existing" {
   for_each = data.kubernetes_config_map.existing
 
   metadata {
-    name      = "${var.app_name}-bucket-${each.key}"
+    name      = "${var.app_name}-bucket-${each.value.prefix}"
     namespace = var.namespace
   }
 
