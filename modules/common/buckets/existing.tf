@@ -1,6 +1,6 @@
 locals {
   // Convert the list of inputs into map where each key is the bucket prefix
-  existing_with_cm_map = { for existing in var.existing : existing.bucket_prefix => defaults(existing, { read_only = true }) if existing.bucket_prefix != null }
+  existing_with_cm_map = { for existing in var.existing : existing.reference => defaults(existing, { read_only = true }) if existing.bucket_prefix != null }
   existing_wo_cm_map   = { for bucket in var.existing : bucket.reference => defaults(bucket, { read_only = true }) if bucket.full_name != null }
 }
 
