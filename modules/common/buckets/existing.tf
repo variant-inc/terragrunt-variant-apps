@@ -20,11 +20,25 @@ resource "kubernetes_config_map" "existing" {
   for_each = data.kubernetes_config_map.existing
 
   metadata {
-    name      = "${var.app_name}-bucketref-${each.key}"
+    name      = "${var.app_name}-bucket-${each.key}"
     namespace = var.namespace
   }
 
   data = each.value.data
+}
+
+resource "kubernetes_config_map" "existing2" {
+  for_each = local.existing_wo_cm_map
+
+  metadata {
+    name      = "${var.app_name}-bucket-${each.key}"
+    namespace = var.namespace
+  }
+
+  data = {
+    "BUCKET__${each.key}__arn"  = "arn:aws:s3:::${each.value.full_name}"
+    "BUCKET__${each.key}__name" = each.value.full_name
+  }
 }
 
 locals {
@@ -60,7 +74,6 @@ data "aws_iam_policy_document" "existing" {
       ]
     }
   }
-
 
   dynamic "statement" {
     for_each = local.existing_wo_cm_map
