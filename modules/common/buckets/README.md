@@ -21,7 +21,6 @@
 | [kubernetes_config_map.managed](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [aws_iam_policy_document.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_s3_bucket.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) | data source |
 | [kubernetes_config_map.existing](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/config_map) | data source |
 
 ## Inputs
@@ -31,7 +30,7 @@
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Release name of the app | `string` | n/a | yes |
 | <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | Team prefix to prepend to managed buckets | `string` | n/a | yes |
 | <a name="input_existing"></a> [existing](#input\_existing) | Existing buckets needing reference by the app | <pre>list(object(<br>    {<br>      full_name     = optional(string)<br>      reference     = optional(string)<br>      read_only     = optional(bool)<br>      project_group = optional(string)<br>      project_name  = optional(string)<br>      bucket_prefix = optional(string)<br>    }<br>  ))</pre> | `[]` | no |
-| <a name="input_managed"></a> [managed](#input\_managed) | Buckets to be created and managed by terragrunt | <pre>list(object({<br>    prefix = string<br>  }))</pre> | `[]` | no |
+| <a name="input_managed"></a> [managed](#input\_managed) | Buckets to be created and managed by terragrunt | <pre>list(object({<br>    prefix    = string<br>    reference = string<br>  }))</pre> | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
 
 ## Outputs
