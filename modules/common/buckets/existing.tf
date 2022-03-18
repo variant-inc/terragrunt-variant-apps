@@ -81,8 +81,8 @@ data "aws_iam_policy_document" "existing" {
       effect  = "Allow"
       actions = statement.value.read_only ? local.read_only_policy : local.rw_policy
       resources = [
-        statement.value.full_name,
-        "${statement.value.full_name}/*"
+        "arn:aws:s3:::${statement.value.full_name}",
+        "arn:aws:s3:::${statement.value.full_name}/*"
       ]
     }
   }
