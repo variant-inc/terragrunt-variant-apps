@@ -1,7 +1,8 @@
 variable "managed" {
   description = "Buckets to be created and managed by terragrunt"
   type = list(object({
-    prefix = string
+    prefix    = string
+    reference = string
   }))
   default = []
 }

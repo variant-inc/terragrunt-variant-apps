@@ -1,6 +1,6 @@
 locals {
   // Convert the list of inputs into map where each key is the bucket prefix
-  existing_with_cm_map = { for existing in var.existing : existing.reference => defaults(existing, { read_only = true }) if existing.bucket_prefix != null }
+  existing_with_cm_map = { for existing in var.existing : existing.bucket_prefix => defaults(existing, { read_only = true }) if existing.bucket_prefix != null }
   existing_wo_cm_map   = { for bucket in var.existing : bucket.reference => defaults(bucket, { read_only = true }) if bucket.full_name != null }
 }
 
@@ -20,7 +20,7 @@ resource "kubernetes_config_map" "existing" {
   for_each = data.kubernetes_config_map.existing
 
   metadata {
-    name      = "${var.app_name}-bucket-${each.value.prefix}"
+    name      = "${var.app_name}-bucket-${each.key}"
     namespace = var.namespace
   }
 
@@ -69,8 +69,8 @@ data "aws_iam_policy_document" "existing" {
       effect  = "Allow"
       actions = statement.value.read_only ? local.read_only_policy : local.rw_policy
       resources = [
-        lookup(kubernetes_config_map.existing[statement.key].data, "BUCKET__${statement.key}__arn", null),
-        "${lookup(kubernetes_config_map.existing[statement.key].data, "BUCKET__${statement.key}__arn", null)}/*"
+        lookup(kubernetes_config_map.existing[statement.key].data, "BUCKET__${statement.value.reference}__arn", null),
+        "${lookup(kubernetes_config_map.existing[statement.key].data, "BUCKET__${statement.value.reference}__arn", null)}/*"
       ]
     }
   }
