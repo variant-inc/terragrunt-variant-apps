@@ -24,7 +24,7 @@ resource "kubernetes_config_map" "managed" {
   data = {
     "BUCKET__${each.value.reference}__arn"  = module.buckets[each.key].bucket_arn
     "BUCKET__${each.value.reference}__name" = module.buckets[each.key].bucket_name
-    "BUCKET__${each.key}" = module.buckets[each.key].bucket_name
+    "BUCKET__${each.value.prefix}"          = module.buckets[each.key].bucket_name
   }
 }
 
