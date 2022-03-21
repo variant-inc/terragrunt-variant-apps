@@ -24,7 +24,10 @@ resource "kubernetes_config_map" "existing" {
     namespace = var.namespace
   }
 
-  data = each.value.data
+  data = {
+    "BUCKET__${existing_with_cm_map[each.key].reference}__arn"  = "aws;:/sa3${lookup(each.value.data, "BUCKET__${each.key}__name", null)}"
+    "BUCKET__${existing_with_cm_map[each.key].reference}__name" = lookup(each.value.data, "BUCKET__${each.key}__name", null)
+  }
 }
 
 resource "kubernetes_config_map" "existing2" {
