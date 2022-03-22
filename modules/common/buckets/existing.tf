@@ -24,10 +24,13 @@ resource "kubernetes_config_map" "existing" {
     namespace = var.namespace
   }
 
-  data = each.value.data
+  data = {
+    "BUCKET__${local.existing_with_cm_map[each.key].reference}__arn"  = "arn:aws:s3:::${lookup(each.value.data, "BUCKET__${each.key}", "")}"
+    "BUCKET__${local.existing_with_cm_map[each.key].reference}__name" = lookup(each.value.data, "BUCKET__${each.key}", "")
+  }
 }
 
-resource "kubernetes_config_map" "existing2" {
+resource "kubernetes_config_map" "existing_wo_configmap" {
   for_each = local.existing_wo_cm_map
 
   metadata {
