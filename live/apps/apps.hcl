@@ -16,11 +16,10 @@ dependency "buckets" {
   }
 }
 
-dependency "database" {
-  config_path = "${get_terragrunt_dir()}/../../common/database"
+dependency "postgres" {
+  config_path = "${get_terragrunt_dir()}/../../common/postgres"
   mock_outputs = {
-    env_vars = []
-    password = ""
+    config_maps = []
   }
 }
 
@@ -34,7 +33,7 @@ dependency "namespace" {
 dependency "messaging" {
   config_path = "${get_terragrunt_dir()}/../../common/messaging"
   mock_outputs = {
-    env_vars = []
+    config_maps = []
   }
 }
 
