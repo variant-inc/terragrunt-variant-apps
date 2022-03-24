@@ -14,6 +14,8 @@ This document will allow you to provision a database + a database user
 2. Create Read-Only User
 3. Create Database with Extensions
 
+*If no bucket is needed, do not add `postgres` under `infrastructure`*
+
 ## Examples
 
 ### Create Database
