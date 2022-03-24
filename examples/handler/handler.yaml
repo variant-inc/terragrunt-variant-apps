@@ -7,11 +7,12 @@ octopus:
   space: DevOps
   group: demo
 infrastructure:
-  topics:
-    test-handler-topic:
-      display_name: "This is a demo SNS topic"
-  topic_subscriptions:
-    test-handler-subscription:
+  sns_topics:
+    - name: test-topic
+      fifo_topic: false
+  sns_sqs_subscriptions:
+    - name: test-queue
+      topic_name: ops-test-queue
       message_retention_seconds: 604800
       visibility_timeout_seconds: 30
       receive_wait_time_seconds: 20

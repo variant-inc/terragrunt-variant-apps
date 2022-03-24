@@ -102,8 +102,8 @@ Supported attributes. See [aws_sns_topic](https://registry.terraform.io/modules/
 
 ```yaml
 infrastructure:
-  topics:
-    <TOPIC_NAME>: # Add .fifo suffix for FIFO Topics
+  sns_topics:
+    - name: <TOPIC_NAME> # Add .fifo suffix for FIFO Topics
       # Optional parameters
       display_name: null
       fifo_topic: false
@@ -124,8 +124,8 @@ Supported attributes. See [aws/sqs](https://registry.terraform.io/modules/terraf
 
 ```yaml
 infrastructure:
-  topic_subscriptions:
-    <QUEUE_NAME>: # Add .fifo suffix for FIFO QUEUE
+  sns_sqs_subscriptions:
+    - name: <QUEUE_NAME> # Add .fifo suffix for FIFO QUEUE
       topic_name: devops-<TOPIC_NAME> # As exists in AWS (including team prefix)
       # Optional Parameters and defaults
       raw_message_delivery: false
@@ -151,11 +151,11 @@ Supported attributes
 
 ```yaml
 infrastructure:
-  database:
-    create_database: true
-    db_name: sample-db
-    extensions: ["postgis"]
-    name: sample-role
+  postgres:
+    - name: test-database
+      role_name: admin
+      extensions: ["postgis"]
+      reference: test
 ```
 
 Exposed Environment Variables
