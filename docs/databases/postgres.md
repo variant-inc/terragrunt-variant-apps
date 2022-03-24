@@ -1,16 +1,33 @@
-Create database to optionally create and reference in your deployment. This need to be added under infrastructure section with attribute database and support attributes.
+# Database - Postgres
+
+- [Database - Postgres](#database---postgres)
+  - [Examples](#examples)
+    - [Create Database](#create-database)
+    - [Supported attributes under database](#supported-attributes-under-database)
+    - [Exposed environment variables](#exposed-environment-variables)
+
+This document will allow you to provision a database + a database user
+
+1. Create Database
+2. Create Read-Only User
+3. Create Database with Extensions
+
+## Examples
+
+### Create Database
 
 Supported attributes. See [database](https://github.com/variant-inc/terragrunt-variant-apps/blob/master/modules/common/database/README.md)  for valid attribute values. Only the attributes listed here are supported
 
 Here is the example sample to add database to application
 
 ```bash
-  database:
-    create_database: true
-    db_name: "sample-db"
-    extensions: ["postgis"]
-    name: "Sample-test"
+  postgres:
+    - read_only: false
+      name: "sample-db"
+      extensions: ["postgis"]
+      user_name: "Sample-test"
 ```
+
 Here is the sample format to add database to the application.
 
 ```bash

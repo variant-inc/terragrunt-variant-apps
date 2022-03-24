@@ -1,3 +1,5 @@
+# Queues - SNS/SQS
+
 ## SNS
 
 Create SNS Topics with optional configuration. This need to be added under infrastructure section with attribute topics and support attributes. Skipping this section will not add topics to the application configuration.
@@ -11,7 +13,7 @@ Here is the example sample to add topics to application
 ```bash
 infrastructure:
   topics:
-    datascience-test-topic:
+    - name: datascience-test-topic
       display_name: this-is-test
 ```
 
@@ -74,7 +76,7 @@ Here is the example sample to add topic subscriptions to the application.
 ```bash
 infrastructure:
   topic_subscriptions:
-    datascience-test-queue-sub:
+    - name: datascience-test-queue-sub
       topic_name: datascience-test-topic
 ```
 
