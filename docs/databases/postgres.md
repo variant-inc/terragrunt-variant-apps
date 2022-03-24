@@ -3,8 +3,10 @@
 - [Database - Postgres](#database---postgres)
   - [Examples](#examples)
     - [Create Database](#create-database)
-    - [Supported attributes under database](#supported-attributes-under-database)
-    - [Exposed environment variables](#exposed-environment-variables)
+    - [Create Read-Only User](#create-read-only-user)
+    - [Create Database with Extensions](#create-database-with-extensions)
+  - [Supported Attributes](#supported-attributes)
+    - [Exposed Environment Variables](#exposed-environment-variables)
 
 This document will allow you to provision a database + a database user
 
@@ -16,46 +18,81 @@ This document will allow you to provision a database + a database user
 
 ### Create Database
 
-Supported attributes. See [database](https://github.com/variant-inc/terragrunt-variant-apps/blob/master/modules/common/database/README.md)  for valid attribute values. Only the attributes listed here are supported
-
-Here is the example sample to add database to application
-
 ```bash
+infrastructure:
   postgres:
-    - read_only: false
-      name: "sample-db"
-      extensions: ["postgis"]
-      user_name: "Sample-test"
+    - name: test_database
+      role_name: test_user
+      reference: test
 ```
 
-Here is the sample format to add database to the application.
+The application will be deployed with the following `environnement variables`
 
 ```bash
-  database:
-    create_database: true or false
-    db_name: "DB_NAME"
-    extensions: ["EXTENSIONS",..]
-    name: "SAMPLE_NAME"
+BUCKET__test__host = "rds.variant-dev.drivevariant.com"
+BUCKET__test__name = "test_database"
+BUCKET__test__user = "test_user"
+BUCKET__test__password = "test_password"
 ```
 
-### Supported attributes under database
+### Create Read-Only User
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-|  cluster_name | Cluster name | `string` | `"variant-dev"` | no |
-|  create_database | To create database | `any` | n/a | yes |
-|  database_count| Count | `number` | n/a | no |
-|  database_name | Database name | `any` | n/a | yes |
-|  extensions | db extensions | `list(string)` | n/a | yes |
-|  name | Role name | `any` | n/a | no |
+```bash
+infrastructure:
+  postgres:
+    - name: test_database_2
+      role_name: user1
+      reference: test_user_role2
+      read_only: true
+```
 
-### Exposed environment variables
+The application will be deployed with the following `environnement variables`
+
+```bash
+BUCKET__test_user_role2__host = "rds.variant-dev.drivevariant.com"
+BUCKET__test_user_role2__name = "test_database_2"
+BUCKET__test_user_role2__user = "user1"
+BUCKET__test_user_role2__password = "test_2_password"
+```
+
+### Create Database with Extensions
+
+```bash
+infrastructure:
+  postgres:
+    - name: test_database
+      role_name: admin
+      extensions: ["postgis"]
+      reference: test
+```
+
+The application will be deployed with the following `environnement variables`
+
+```bash
+BUCKET__test__host = "rds.variant-dev.drivevariant.com"
+BUCKET__test__name = "test_database"
+BUCKET__test__user = "test_user"
+BUCKET__test__password = "test_password"
+```
+
+## Supported Attributes
+
+The following attributes should be added under
+
+```bash
+infrastructure:
+  postgres:
+```
+
+[Inputs](../modules/common/postgres/README.md#inputs)
+
+### Exposed Environment Variables
 
 Below are the exposed env variables and can be referenced  in the code with below names.
 
-| Env variable       | Description                       |
-|--------------------|-----------------------------------|
-| DATABASE__host     | Env variable to database host     |
-| DATABASE__name     | Env variable to database name     |
-| DATABASE__user     | Env variable to database user     |
-| DATABASE__password | Env variable to database password |
+| Env variable               | Description                          |
+| -------------------------- | ------------------------------------ |
+| POSTGRES__\<ref>__host     | Hostname of the database cluster     |
+| POSTGRES__\<ref>__name     | Name of the Database                 |
+| POSTGRES__\<ref>__user     | Name of the Role in the database     |
+| POSTGRES__\<ref>__password | Password of the Role in the database |

@@ -1,5 +1,14 @@
 # Queues - SNS/SQS
 
+- [Queues - SNS/SQS](#queues---snssqs)
+  - [SNS](#sns)
+    - [topics](#topics)
+    - [Supported attributes under topics](#supported-attributes-under-topics)
+    - [Exposed environment variables](#exposed-environment-variables)
+  - [SQS](#sqs)
+    - [topic_subscriptions](#topic_subscriptions)
+    - [Exposed environment variables](#exposed-environment-variables-1)
+
 ## SNS
 
 Create SNS Topics with optional configuration. This need to be added under infrastructure section with attribute topics and support attributes. Skipping this section will not add topics to the application configuration.
