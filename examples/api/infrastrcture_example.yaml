@@ -16,14 +16,21 @@ infrastructure:
       - project_name: demo-python-flask-variant-api
         project_group: demo
         bucket_prefix: demo-flask-api
-  topics:
-    test-topic:
-      display_name: "This is a demo SNS topic"
-  database:
-    create_database: true
-    db_name: sample-db
-    extensions: ["postgis"]
-    name: sample-role
+  sns_topics:
+    - name: test-topic
+      fifo_topic: false
+  sns_sqs_subscriptions:
+    - name: test-queue
+      topic_name: ops-test-queue
+  postgres:
+    - name: test-database
+      role_name: admin
+      extensions: ["postgis"]
+      reference: test
+    - name: test-database-2
+      role_name: user1
+      reference: test-user-role2
+      read_only: true
 api:
   authentication:
     enabled: true
