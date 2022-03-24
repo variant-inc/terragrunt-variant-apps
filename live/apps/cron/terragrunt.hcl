@@ -48,16 +48,15 @@ locals {
 }
 
 inputs = {
-  create = local.create
-  chart_config_vars = concat(
-    local.config_vars,
-    dependency.messaging.outputs.env_vars
-  )
+  create            = local.create
+  chart_config_vars = local.config_vars
   chart_values = [
     yamlencode(local.chart_user_values),
     yamlencode({
       configMaps = concat(
-        dependency.buckets.outputs.config_maps
+        dependency.buckets.outputs.config_maps,
+        dependency.postgres.outputs.config_maps,
+        dependency.messaging.outputs.config_maps
       )
     })
   ]
