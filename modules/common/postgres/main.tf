@@ -10,7 +10,6 @@ locals {
   creds = jsondecode(data.aws_secretsmanager_secret_version.database.secret_string)
 }
 
-
 module "database" {
   for_each        = local.database_map
   source          = "github.com/variant-inc/terraform-postgres-database?ref=v1"
@@ -48,7 +47,7 @@ resource "kubernetes_config_map" "postgres" {
   for_each = local.database_map
 
   metadata {
-    name      = "${var.app_name}-postgres-${each.key}"
+    name      = "${var.app_name}-postgres-${replace(each.key, "_", "-")}"
     namespace = var.namespace
   }
 

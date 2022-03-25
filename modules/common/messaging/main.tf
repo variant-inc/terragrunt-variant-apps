@@ -8,8 +8,8 @@ terraform {
 }
 
 locals {
-  topic_map              = { for topic in var.topics : topic.name => topic }
-  topic_subscription_map = { for topic_subscription in var.topic_subscriptions : topic_subscription.name => topic_subscription }
+  topic_map              = { for topic in var.sns_topics : topic.name => topic }
+  topic_subscription_map = { for topic_subscription in var.sns_sqs_subscriptions : topic_subscription.name => topic_subscription }
 }
 
 data "aws_kms_key" "sns_alias" {
@@ -42,8 +42,8 @@ resource "kubernetes_config_map" "sns_topics" {
   }
 
   data = {
-    "TOPIC__${each.key}__name" = module.sns_topic[each.key].sns_topic_name
-    "TOPIC__${each.key}__arn"  = module.sns_topic[each.key].sns_topic_arn
+    "SNS__${each.value.reference}__name" = module.sns_topic[each.key].sns_topic_name
+    "SNS__${each.value.reference}__arn"  = module.sns_topic[each.key].sns_topic_arn
   }
 }
 
@@ -151,9 +151,9 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   }
 
   data = {
-    "QUEUE__${each.key}__name" = module.sqs_queue[each.key].this_sqs_queue_name
-    "QUEUE__${each.key}__arn"  = module.sqs_queue[each.key].this_sqs_queue_arn
-    "QUEUE__${each.key}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
+    "SQS__${each.value.reference}__name" = module.sqs_queue[each.key].this_sqs_queue_name
+    "SQS__${each.value.reference}__arn"  = module.sqs_queue[each.key].this_sqs_queue_arn
+    "SQS__${each.value.reference}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
   }
 }
 
@@ -181,35 +181,4 @@ data "aws_iam_policy_document" "queue_receive_policy" {
       "kms:Decrypt"
     ]
   }
-}
-
-locals {
-  topic_env_vars = [for label, topic in module.sns_topic :
-    [
-      {
-        name  = "TOPIC__${label}__name"
-        value = topic.sns_topic_name
-      },
-      {
-        name  = "TOPIC__${label}__arn"
-        value = topic.sns_topic_arn
-      }
-    ]
-  ]
-  queue_env_vars = [for label, queue in module.sqs_queue :
-    [
-      {
-        name  = "QUEUE__${label}__name"
-        value = queue.this_sqs_queue_name
-      },
-      {
-        name  = "QUEUE__${label}__arn"
-        value = queue.this_sqs_queue_arn
-      },
-      {
-        name  = "QUEUE__${label}__url"
-        value = data.aws_sqs_queue.queue_urls[label].url
-      }
-  ]]
-  env_vars = flatten(concat(local.topic_env_vars, local.queue_env_vars))
 }

@@ -1,5 +1,6 @@
 variable "databases" {
   type = any
+  description = "List of Postgres Databases to create. [ name, reference, role_name, read_only (Optional: false), extensions (Optional: []) ]"
 }
 
 variable "aws_region" {
