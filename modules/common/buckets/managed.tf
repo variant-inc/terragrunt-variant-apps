@@ -11,15 +11,10 @@ module "buckets" {
   bucket_prefix = "${var.aws_resource_name_prefix}${each.value.prefix}"
 }
 
-// Get the AWS reference of the created managed buckets
-data "aws_s3_bucket" "managed" {
-  for_each = module.buckets
-  bucket   = each.value.bucket_name
-}
 
 // Create a ConfigMap per managed bucket for this app
 resource "kubernetes_config_map" "managed" {
-  for_each = data.aws_s3_bucket.managed
+  for_each = local.managed_map
 
   metadata {
     name      = "${var.app_name}-bucket-${each.key}"
@@ -27,8 +22,9 @@ resource "kubernetes_config_map" "managed" {
   }
 
   data = {
-    "BUCKET__${each.key}__arn"  = each.value.arn
-    "BUCKET__${each.key}__name" = each.value.bucket
+    "BUCKET__${each.value.reference}__arn"  = module.buckets[each.key].bucket_arn
+    "BUCKET__${each.value.reference}__name" = module.buckets[each.key].bucket_name
+    "BUCKET__${each.value.prefix}"          = module.buckets[each.key].bucket_name
   }
 }
 
@@ -48,9 +44,9 @@ data "aws_iam_policy_document" "managed" {
       "s3:DeleteObject"
     ]
 
-    resources = flatten([for label, configmap in kubernetes_config_map.managed : [
-      lookup(configmap.data, "BUCKET__${label}__arn", null),
-      "${lookup(configmap.data, "BUCKET__${label}__arn", null)}/*"
+    resources = flatten([for k, v in module.buckets : [
+      v.bucket_arn,
+      "${v.bucket_arn}/*"
       ]
     ])
   }

@@ -1,0 +1,16 @@
+---
+name: Pre Commit
+
+on:
+  push:
+
+jobs:
+  pre-commit:
+    name: Pre Commit
+    runs-on: [eks]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Pre-commit
+        run: pre-commit run --color=always --show-diff-on-failure --all-files

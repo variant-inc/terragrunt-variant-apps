@@ -8,9 +8,11 @@ output "sqs_queues" {
   value       = module.sqs_queue.*
 }
 
-output "env_vars" {
-  description = "Environment variables for app use."
-  value       = local.env_vars
+output "config_maps" {
+  value = concat(
+    [for label, cm in kubernetes_config_map.sns_topics : cm.metadata[0].name],
+    [for label, cm in kubernetes_config_map.sns_sqs_subscriptions : cm.metadata[0].name],
+  )
 }
 
 output "sns_topic_publish_policy" {

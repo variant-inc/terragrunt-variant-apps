@@ -14,6 +14,7 @@ output "policies" {
 output "config_maps" {
   value = concat(
     [for label, cm in kubernetes_config_map.managed : cm.metadata[0].name],
-    [for label, cm in kubernetes_config_map.existing : cm.metadata[0].name]
+    [for label, cm in kubernetes_config_map.existing : cm.metadata[0].name],
+    [for label, cm in kubernetes_config_map.existing_wo_configmap : cm.metadata[0].name]
   )
 }

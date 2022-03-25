@@ -1,8 +1,8 @@
 # Creates the following resources
-## Octopus project named demo-app in demo Group
-## Helm release of variant-api chart named demo-app
-## S3 Bucket with prefix of devops-demo-api-bucket-***
-name: demo-app
+## Octopus project named demo-cron in demo Group
+## Helm release of variant-cron chart named demo-app
+## S3 Bucket with prefix of ops-demo-cron-bucket-***
+name: demo-cron
 octopus:
   space: DevOps
   group: demo
@@ -12,38 +12,7 @@ infrastructure:
       demo:
         name: demo-cron-bucket
 cron:
-  istio:
-    egress: 
-      - name: some-external-database
-        addresses:
-          - "10.0.0.1"
-        ports:
-          - number: 5432
-            protocol: TCP
   cronJob:
     schedule: "*/2 * * * *"
-    resources:
-      limits:
-        cpu: 1
-        memory: 768Mi
-      requests:
-        cpu: .1
-        memory: 384Mi
-    args: []
-    podAnnotations: {}
     command:
-      - "/bin/sh"
-      - "-c"
-      - "date; echo Hello from the K8s cluster"
-  awsSecrets: []
-  secretVars:
-    foo: bar
-  configVars:
-    AWS_REGION: us-east-1
-  nodeSelector:
-    purpose: prime-test
-    env: dpl
-  tolerations:
-    - key: "lee-test"
-  affinity: {}
-## Will create a cron job in namspace of <octopus.group>
+      - "job.sh"
