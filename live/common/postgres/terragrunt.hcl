@@ -18,7 +18,7 @@ dependency "namespace" {
 }
 
 terraform {
-  source = "${path_relative_from_include("root")}/../modules/common//messaging"
+  source = "${path_relative_from_include("root")}/../modules/common//postgres"
 }
 
 locals {
@@ -26,10 +26,7 @@ locals {
 }
 
 inputs = {
-  app_name            = local.deploy_yaml.name
-  topics              = try(local.deploy_yaml.infrastructure.sns_topics, {})
-  topic_subscriptions = try(local.deploy_yaml.infrastructure.sns_sqs_subscriptions, {})
-  namespace           = dependency.namespace.outputs.namespace_name
-
+  databases = try(local.deploy_yaml.infrastructure.postgres, [])
+  app_name  = local.deploy_yaml.name
+  namespace = dependency.namespace.outputs.namespace_name
 }
-

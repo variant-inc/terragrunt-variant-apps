@@ -3,10 +3,6 @@ include "root" {
   expose = true
 }
 
-include "aws_provider" {
-  path = "${path_relative_to_include()}/../../_env/provider/aws.hcl"
-}
-
 include "kubernetes_provider" {
   path = "${path_relative_to_include()}/../../_env/provider/kubernetes.hcl"
 }

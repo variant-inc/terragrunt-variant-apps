@@ -22,17 +22,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Variant Setup
         id: setup
         uses: variant-inc/actions-setup@v1
-      - name: Pre-commit
-        run: pre-commit run -a --show-diff-on-failure
+
       - name: Package
         shell: pwsh
         run: |
           New-Item -ItemType Directory pack
           Move-Item -Path ./live -Destination ./pack
           Move-Item -Path ./modules -Destination ./pack
+
       - name: Determine Destination Spaces
         id: spaces
         shell: pwsh
@@ -40,6 +41,7 @@ jobs:
           $Spaces = If (${Env:GITHUB_REF} -eq "refs/heads/master") { ${Env:RELEASE_SPACES} } Else { ${Env:BRANCH_SPACES} }
           echo "Pushing to spaces: ${Spaces}"
           echo "::set-output name=spaces::${Spaces}"
+
       - name: Push Package
         shell: pwsh
         run: |
