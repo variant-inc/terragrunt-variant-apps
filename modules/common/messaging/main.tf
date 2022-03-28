@@ -1,5 +1,5 @@
 locals {
-  topic_map = { for topic in var.topics : topic.name => topic }
+  topic_map              = { for topic in var.topics : topic.name => topic }
   topic_subscription_map = { for topic_subscription in var.topic_subscriptions : topic_subscription.name => topic_subscription }
 }
 
@@ -57,7 +57,7 @@ module "sqs_queue" {
   content_based_deduplication       = lookup(each.value, "content_based_deduplication", null)
   kms_key_sns_arn                   = data.aws_kms_key.sns_alias.arn
   kms_data_key_reuse_period_seconds = lookup(each.value, "kms_data_key_reuse_period_seconds", null)
-  depends_on = [module.sns_topic]
+  depends_on                        = [module.sns_topic]
 }
 
 data "aws_sqs_queue" "queue_urls" {
@@ -77,4 +77,9 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
     "QUEUE__${each.key}__arn"  = module.sqs_queue[each.key].sqs_queue_arn
     "QUEUE__${each.key}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
   }
+}
+
+locals {
+  sns_policies = merge({ for label, cm in module.sns_topic : label => cm.sns_topic_publish_policy })
+  sqs_policies = { for label, cm in module.sqs_queue : label => cm.queue_receive_policy }
 }
