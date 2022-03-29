@@ -7,6 +7,10 @@ name: demo-variant-cron
 octopus:
   space: Default
   group: demo
+tags:
+  owner: CloudOps
+  team: CloudOps
+  purpose: Example
 infrastructure:
   buckets:
     managed:
