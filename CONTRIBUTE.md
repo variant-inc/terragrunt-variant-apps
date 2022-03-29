@@ -4,14 +4,15 @@
 
 1. Determine the environment variables required by terragrunt-variant-apps
    * Find the Variable Set "Terraform State Backup" for the devops-playground account
-        - Set the environment variable `TERRAGRUNT_S3_BUCKET` to be the value of `S3_BUCKET`
-        - Set the environment variable `TERRAGRUNT_DYNAMO_TABLE` to be the value of `DYNAMO_DB_TABLE`
-   * Set the environment variable `VARIANT_DEPLOY_YAML_LOCATION` to the location of the Variant YAML file 
-        -  Set `VARIANT_DEPLOY_YAML_LOCATION` to the full path of the YAML file
+        * Set the environment variable `TERRAGRUNT_S3_BUCKET` to be the value of `S3_BUCKET`
+        * Set the environment variable `TERRAGRUNT_DYNAMO_TABLE` to be the value of `DYNAMO_DB_TABLE`
+   * Set the environment variable `VARIANT_DEPLOY_YAML_LOCATION` to the location of the Variant YAML file
+        * Set `VARIANT_DEPLOY_YAML_LOCATION` to the full path of the YAML file
 
 2. Create a YAML following the [YAML Spec](./spec) at the location previously specified.
 
 3. Create terraform.tfvars.json file with the below json and fill in applicable live and dummy values to use in conjuction with make commands.The .tfvars.json file should be placed in the directory that you'd like to run demo-app.
+
     ```json
     {
       "cluster_name": "live",

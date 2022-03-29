@@ -6,6 +6,10 @@ name: demo-app-handler
 octopus:
   space: DevOps
   group: demo
+tags:
+  owner: CloudOps
+  team: CloudOps
+  purpose: Example
 infrastructure:
   sns_topics:
     - name: test-topic
