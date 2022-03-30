@@ -42,3 +42,5 @@ foreach ($Space in $Spaces) {
         --space="${Space}" `
         --overwrite-mode=OverwriteExisting
 }
+
+Write-Output "Version: ${Version}"

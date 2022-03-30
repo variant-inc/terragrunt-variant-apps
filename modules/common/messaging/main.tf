@@ -1,6 +1,6 @@
 locals {
-  topic_map              = { for topic in var.topics : topic.name => topic }
-  topic_subscription_map = { for topic_subscription in var.topic_subscriptions : topic_subscription.name => topic_subscription }
+  topic_map              = { for topic in var.sns_topics : topic.name => topic }
+  topic_subscription_map = { for topic_subscription in var.sns_sqs_subscriptions : topic_subscription.name => topic_subscription }
 }
 
 data "aws_kms_key" "sns_alias" {
@@ -30,8 +30,8 @@ resource "kubernetes_config_map" "sns_topics" {
   }
 
   data = {
-    "TOPIC__${each.key}__name" = module.sns_topic[each.key].sns_topic_name
-    "TOPIC__${each.key}__arn"  = module.sns_topic[each.key].sns_topic_arn
+    "SNS__${each.value.reference}__name" = module.sns_topic[each.key].sns_topic_name
+    "SNS__${each.value.reference}__arn"  = module.sns_topic[each.key].sns_topic_arn
   }
 }
 
@@ -73,13 +73,34 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   }
 
   data = {
-    "QUEUE__${each.key}__name" = module.sqs_queue[each.key].sqs_queue_name
-    "QUEUE__${each.key}__arn"  = module.sqs_queue[each.key].sqs_queue_arn
-    "QUEUE__${each.key}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
+    "SQS__${each.value.reference}__name" = module.sqs_queue[each.key].this_sqs_queue_name
+    "SQS__${each.value.reference}__arn"  = module.sqs_queue[each.key].this_sqs_queue_arn
+    "SQS__${each.value.reference}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
   }
 }
 
-locals {
-  sns_policies = merge({ for label, cm in module.sns_topic : label => cm.sns_topic_publish_policy })
-  sqs_policies = { for label, cm in module.sqs_queue : label => cm.queue_receive_policy }
+
+data "aws_iam_policy_document" "queue_receive_policy" {
+  for_each = length(local.topic_subscription_map) > 0 ? { "queue_subscription_policy" : {} } : {}
+  version  = "2012-10-17"
+  statement {
+    effect    = "Allow"
+    resources = local.sqs_queue_arns
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:ChangeMessageVisibilityBatch",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:ReceiveMessage"
+    ]
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = [data.aws_kms_key.sns_alias.arn]
+    actions = [
+      "kms:GenerateDataKey",
+      "kms:Decrypt"
+    ]
+  }
 }
