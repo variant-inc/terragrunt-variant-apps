@@ -34,7 +34,7 @@ resource "kubernetes_config_map" "existing_wo_configmap" {
   for_each = local.existing_wo_cm_map
 
   metadata {
-    name      = "${var.app_name}-bucket-${each.key}"
+    name      = "${var.app_name}-bucket-${replace(each.key, "_", "-")}"
     namespace = var.namespace
   }
 
