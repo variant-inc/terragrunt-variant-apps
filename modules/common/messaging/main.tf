@@ -73,34 +73,13 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   }
 
   data = {
-    "SQS__${each.value.reference}__name" = module.sqs_queue[each.key].this_sqs_queue_name
-    "SQS__${each.value.reference}__arn"  = module.sqs_queue[each.key].this_sqs_queue_arn
+    "SQS__${each.value.reference}__name" = module.sqs_queue[each.key].sqs_queue_name
+    "SQS__${each.value.reference}__arn"  = module.sqs_queue[each.key].sqs_queue_arn
     "SQS__${each.value.reference}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
   }
 }
 
-
-data "aws_iam_policy_document" "queue_receive_policy" {
-  for_each = length(local.topic_subscription_map) > 0 ? { "queue_subscription_policy" : {} } : {}
-  version  = "2012-10-17"
-  statement {
-    effect    = "Allow"
-    resources = local.sqs_queue_arns
-    actions = [
-      "sqs:ChangeMessageVisibility",
-      "sqs:ChangeMessageVisibilityBatch",
-      "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes",
-      "sqs:ReceiveMessage"
-    ]
-  }
-
-  statement {
-    effect    = "Allow"
-    resources = [data.aws_kms_key.sns_alias.arn]
-    actions = [
-      "kms:GenerateDataKey",
-      "kms:Decrypt"
-    ]
-  }
+locals {
+  sns_policies = merge({ for label, cm in module.sns_topic : label => cm.sns_topic_publish_policy })
+  sqs_policies = { for label, cm in module.sqs_queue : label => cm.queue_receive_policy }
 }

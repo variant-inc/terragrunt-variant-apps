@@ -27,6 +27,7 @@ infrastructure:
   sns_topics:
     - name: datascience-test-topic
       display_name: this-is-test
+      reference: hw
 ```
 
 The application will be deployed with the following `environnement variables`
@@ -41,10 +42,10 @@ The following attributes should be added under
 
 ```bash
 infrastructure:
-  sns:
+  sns_topics:
 ```
 
-[Inputs](../modules/common/sns/README.md#inputs)
+[Inputs](../../modules/common/messaging/README.md#inputs)
 
 ### Exposed Environment Variables - SNS
 
@@ -52,7 +53,7 @@ Below are the exposed env variables and can be referenced  in the code with belo
 
 | Env variable           | Description                     |
 | ---------------------- | ------------------------------- |
-| SNS__<TOPIC_NAME>__arn | Env variable to refer topic arn |
+| SNS__<REFERNCE>__arn   | Env variable to refer topic arn |
 
 ## SQS
 
@@ -94,7 +95,7 @@ infrastructure:
   sns_sqs_subscriptions:
 ```
 
-[Inputs](../modules/common/sqs/README.md#inputs)
+[Inputs](../../modules/common/messaging/README.md#inputs)
 
 ### Exposed Environment Variables - SQS
 
@@ -102,4 +103,4 @@ Below are the exposed env variables and can be referenced  in the code with belo
 
 | Env variable             | Description                     |
 | ------------------------ | ------------------------------- |
-| QUEUE__<QUEUE_NAME>__url | Env variable to refer queue url |
+| QUEUE__<REFERNCE>__url   | Env variable to refer queue url |
