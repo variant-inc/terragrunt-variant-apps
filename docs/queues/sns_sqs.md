@@ -72,6 +72,19 @@ infrastructure:
   sns_sqs_subscriptions:
     - name: <SQS_NAME> # Add .fifo suffix for FIFO QUEUE
       topic_name: devops-<TOPIC_NAME> # As exists in AWS (including team prefix)
+      reference : <SHORT_NAME>
+```
+
+## Supported Attributes - SQS
+
+The following attributes should be added under
+
+```bash
+infrastructure:
+  sns_sqs_subscriptions:
+    - name: <SQS_NAME> # Add .fifo suffix for FIFO QUEUE
+      topic_name: devops-<TOPIC_NAME> # As exists in AWS (including team prefix)
+      reference : <SHORT_NAME>
       # Optional Parameters and defaults
       raw_message_delivery: false
       fifo_queue: false
@@ -86,14 +99,7 @@ infrastructure:
       kms_data_key_reuse_period_seconds: 0
 ```
 
-## Supported Attributes - SQS
-
-The following attributes should be added under
-
-```bash
-infrastructure:
-  sns_sqs_subscriptions:
-```
+Detailed input decription are added in below link
 
 [Inputs](../../modules/common/messaging/README.md#inputs)
 
