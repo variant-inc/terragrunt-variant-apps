@@ -1,14 +1,18 @@
 locals {
   // Convert the list of inputs into map where each key is the bucket prefix
-  managed_map = { for bucket in var.managed : bucket.prefix => bucket }
+  managed_map = { for bucket in var.managed : bucket["prefix"] => bucket }
 }
 
 // Create the buckets that are managed and owned by this app
 module "buckets" {
-  for_each = local.managed_map
-  source   = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.1.0"
-
-  bucket_prefix = "${var.aws_resource_name_prefix}${each.value.prefix}"
+  for_each                   = local.managed_map
+  source                     = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.2.0"
+  bucket_prefix              = "${var.aws_resource_name_prefix}${each.key}"
+  tags                       = lookup(each.value, "tags", {})
+  lifecycle_rule             = lookup(each.value, "lifecycle_rule", [])
+  bucket_policy              = lookup(each.value, "bucket_policy", [])
+  enable_bucket_notification = lookup(each.value, "enable_bucket_notification", false)
+  force_destroy              = lookup(each.value, "force_destroy", false)
 }
 
 
@@ -22,9 +26,9 @@ resource "kubernetes_config_map" "managed" {
   }
 
   data = {
-    "BUCKET__${each.value.reference}__arn"  = module.buckets[each.key].bucket_arn
-    "BUCKET__${each.value.reference}__name" = module.buckets[each.key].bucket_name
-    "BUCKET__${each.value.prefix}"          = module.buckets[each.key].bucket_name
+    "BUCKET__${each.value["reference"]}__arn"  = module.buckets[each.key].bucket_arn
+    "BUCKET__${each.value["reference"]}__name" = module.buckets[each.key].bucket_name
+    "BUCKET__${each.key}"                      = module.buckets[each.key].bucket_name
   }
 }
 

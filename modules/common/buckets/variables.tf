@@ -1,10 +1,11 @@
 variable "managed" {
   description = "Buckets to be created and managed by terragrunt"
-  type = list(object({
-    prefix    = string
-    reference = string
-  }))
-  default = []
+  type        = any
+  default     = []
+  validation {
+    condition     = length([for k, v in var.managed : true if contains(keys(v), "prefix") && contains(keys(v), "reference")]) == length(var.managed)
+    error_message = "Each bucket must include prefix and reference."
+  }
 }
 
 variable "aws_resource_name_prefix" {
