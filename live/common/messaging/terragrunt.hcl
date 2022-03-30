@@ -27,8 +27,8 @@ locals {
 
 inputs = {
   app_name            = local.deploy_yaml.name
-  topics              = try(local.deploy_yaml.infrastructure.sns_topics, {})
-  topic_subscriptions = try(local.deploy_yaml.infrastructure.sns_sqs_subscriptions, {})
+  sns_topics              = try(local.deploy_yaml.infrastructure.sns_topics, {})
+  sns_sqs_subscriptions = try(local.deploy_yaml.infrastructure.sns_sqs_subscriptions, {})
   namespace           = dependency.namespace.outputs.namespace_name
 
 }
