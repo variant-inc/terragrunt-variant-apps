@@ -8,11 +8,11 @@ Contents
 
 ## Setup github workflow
 
-Variant Apps Terragrunt Module is available for use with actions-octopus =< v3(-beta)
+Variant Apps Terragrunt Module is available for use with actions-octopus =< v3
 
 ```yaml
 - name: Lazy Action Octopus
-  uses: variant-inc/actions-octopus@v3-beta
+  uses: variant-inc/actions-octopus@v3
   with:
     default_branch: ${{ env.MASTER_BRANCH }}
     version: ${{ steps.lazy-setup.outputs.image_version }}

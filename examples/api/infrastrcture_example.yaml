@@ -16,16 +16,20 @@ infrastructure:
   buckets:
     managed:
       - prefix: demo-flask-api
+        reference: hw
     existing:
       - project_name: demo-python-flask-variant-api
         project_group: demo
         bucket_prefix: demo-flask-api
+        reference: hw
   sns_topics:
     - name: test-topic
       fifo_topic: false
+      reference: hw
   sns_sqs_subscriptions:
     - name: test-queue
       topic_name: ops-test-queue
+      reference: hw
   postgres:
     - name: test-database
       role_name: admin

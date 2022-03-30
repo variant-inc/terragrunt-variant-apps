@@ -17,11 +17,10 @@ output "config_maps" {
 
 output "sns_topic_publish_policy" {
   description = "AWS IAM Policy document to allow publish to created topic(s)"
-  value       = data.aws_iam_policy_document.sns_publish_policy
+  value       = local.sns_policies
 }
 
 output "queue_receive_policy" {
   description = "AWS IAM Policy document to allow message recieve to created queue(s)"
-  value       = data.aws_iam_policy_document.queue_receive_policy
+  value       = local.sqs_policies
 }
-
