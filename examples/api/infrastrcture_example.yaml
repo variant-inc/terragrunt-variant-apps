@@ -8,6 +8,10 @@ name: demo-app
 octopus:
   space: DevOps
   group: demo
+tags:
+  owner: CloudOps
+  team: CloudOps
+  purpose: Example
 infrastructure:
   buckets:
     managed:

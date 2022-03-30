@@ -1,13 +1,13 @@
 # Variant Apps Terragrunt Module
 
 Contents
-- [Setup github action workflow](#setup-github-workflow)
-- [Define Variant Apps YAML file](#define-variant-apps-yaml-file)
-- [YAML Spec](./YAML.md) 
 
-<br>
+- [Variant Apps Terragrunt Module](#variant-apps-terragrunt-module)
+  - [Setup github workflow](#setup-github-workflow)
+  - [Define Variant Apps YAML file](#define-variant-apps-yaml-file)
 
 ## Setup github workflow
+
 Variant Apps Terragrunt Module is available for use with actions-octopus =< v3(-beta)
 
 ```yaml
@@ -20,18 +20,24 @@ Variant Apps Terragrunt Module is available for use with actions-octopus =< v3(-
     ecr_repository: ${{ env.ECR_REPOSITORY }}
 ```
 
-Refer [octopus action](https://github.com/variant-inc/actions-octopus/blob/master/README.md) for help settting up Varaint Github Actions.
-
-<br>
+Refer
+[octopus action](https://github.com/variant-inc/actions-octopus/blob/master/README.md)
+for help setting up Variant Github Actions.
 
 ## Define Variant Apps YAML file
 
-The Variant Apps YAML file defines your entire deployment. This includes Variant helm charts and infrastructure. Create your file with relative path of `.variant/deploy/api.yaml`. 
+The Variant Apps YAML file defines your entire deployment.
+This includes Variant helm charts and infrastructure.
+Create your file with relative path of `.variant/deploy/api.yaml`.
 
-Minimum required variables to create an Octopus project and an internal api. See [Variant Deploy YAML Spec](./YAML.md) for full attribute reference.
+Minimum required variables to create an Octopus project and an internal api.
 
 ```yaml
 name: demo-python-flask-variant-api
+tags:
+  owner: CloudOps
+  team: CloudOps
+  purpose: Example
 octopus:
   space: Default
   group: demo
@@ -39,11 +45,3 @@ chart:
   service:
     targetPort: 5000
 ```
-
-## Define required Ocotpus Variables 
-
-In the octopus project created by your *.yaml file, define thes variables
-
-- team
-- purpose 
-- owner
