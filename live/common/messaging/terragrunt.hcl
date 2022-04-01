@@ -26,10 +26,10 @@ locals {
 }
 
 inputs = {
-  app_name            = local.deploy_yaml.name
-  sns_topics              = try(local.deploy_yaml.infrastructure.sns_topics, {})
+  app_name              = local.deploy_yaml.name
+  sns_topics            = try(local.deploy_yaml.infrastructure.sns_topics, {})
   sns_sqs_subscriptions = try(local.deploy_yaml.infrastructure.sns_sqs_subscriptions, {})
-  namespace           = dependency.namespace.outputs.namespace_name
+  namespace             = dependency.namespace.outputs.namespace_name
 
 }
 
