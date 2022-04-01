@@ -46,7 +46,7 @@ resource "helm_release" "handler" {
   count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-handler"
-  version           = "1.1.3"
+  version           = "1.1.4"
   cleanup_on_fail   = true
   name              = var.name
   namespace         = local.namespace
