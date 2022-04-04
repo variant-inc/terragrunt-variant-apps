@@ -12,8 +12,8 @@ terraform {
 
 inputs = {
   user_tags = {
-    owner   = coalesce("#{owner}", try(local.deploy_yaml.tags.owner))
-    team    = coalesce("#{team}", try(local.deploy_yaml.tags.team))
+    owner   = coalesce("#{owner}", try(local.deploy_yaml.tags.owner, ""))
+    team    = coalesce("#{team}", try(local.deploy_yaml.tags.team, ""))
     purpose = coalesce("#{purpose}", try(local.deploy_yaml.tags.purpose, "Default Purpose"))
   }
 }
