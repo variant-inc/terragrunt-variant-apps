@@ -26,23 +26,6 @@ data "aws_db_instance" "physical_db" {
   db_instance_identifier = var.cluster_name
 }
 
-data "aws_iam_policy_document" "policies" {
-  count   = length(var.databases) > 0 ? 1 : 0
-  version = "2012-10-17"
-  dynamic "statement" {
-    for_each = module.database
-    content {
-      effect = "Allow"
-      resources = [
-        "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${data.aws_db_instance.physical_db.resource_id}/${statement.value.user}"
-      ]
-      actions = [
-        "rds-db:connect"
-      ]
-    }
-  }
-}
-
 resource "kubernetes_config_map" "postgres" {
   for_each = local.database_map
 
