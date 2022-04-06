@@ -90,7 +90,8 @@ infrastructure:
 
 ### Exposed Environment Variables
 
-Below are the exposed env variables and can be referenced  in the code with below names.
+Below are the exposed env variables and can be referenced
+in the code with below names.
 
 | Env variable               | Description                          |
 | -------------------------- | ------------------------------------ |

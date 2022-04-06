@@ -1,10 +1,12 @@
+<!-- markdownlint-disable MD033 MD013 MD041 -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.66 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.8 |
 | <a name="requirement_postgresql"></a> [postgresql](#requirement\_postgresql) | ~> 1.14 |
 
 ## Modules
@@ -35,7 +37,7 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_OIUGFITUYQVBLJKHFUDYRSTDUTFIGHOIJHUIOGYUFTYD"></a> [OIUGFITUYQVBLJKHFUDYRSTDUTFIGHOIJHUIOGYUFTYD](#output\_OIUGFITUYQVBLJKHFUDYRSTDUTFIGHOIJHUIOGYUFTYD) | n/a |
-| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | n/a |
-| <a name="output_policy"></a> [policy](#output\_policy) | n/a |
+| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | Config Map for Postgres |
+| <a name="output_database_map"></a> [database\_map](#output\_database\_map) | Database Map |
+| <a name="output_policy"></a> [policy](#output\_policy) | IAM Policy for Database |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

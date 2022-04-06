@@ -15,6 +15,6 @@ variable "app_name" {
 }
 
 variable "namespace" {
-  description = "Namespace name of the app"
   type        = string
+  description = "Namespace name of the app"
 }

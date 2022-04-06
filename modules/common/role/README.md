@@ -1,8 +1,10 @@
+<!-- markdownlint-disable MD033 MD013 MD041 -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.74 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.8 |
 
@@ -18,14 +20,14 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | n/a | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | n/a | yes |
+| <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | AWS Resource Name Prefix based on environment | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Role Name | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the app | `string` | n/a | yes |
 | <a name="input_policies"></a> [policies](#input\_policies) | Each value in the map should be an aws\_iam\_policy\_document resource | `map(any)` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | n/a |
+| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | Role ARN |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

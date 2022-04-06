@@ -1,10 +1,11 @@
 # Terraform S3
-
+<!-- markdownlint-disable MD033 MD013 MD041 -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.0.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.74 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.8 |
 
@@ -39,6 +40,6 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | n/a |
-| <a name="output_policies"></a> [policies](#output\_policies) | n/a |
+| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | Config Maps of Buckets |
+| <a name="output_policies"></a> [policies](#output\_policies) | Bucket Managed and Existing Policies |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

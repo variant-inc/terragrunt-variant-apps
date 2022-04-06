@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.0"
+  required_version = "~>1.0.0"
   required_providers {
     postgresql = {
       source  = "cyrilgdn/postgresql"
@@ -7,10 +7,13 @@ terraform {
 
       configuration_aliases = [postgresql.this]
     }
-
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.66"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.8"
     }
   }
 }
