@@ -24,13 +24,6 @@ dependency "namespace" {
   }
 }
 
-dependency "postgres" {
-  config_path = "${path_relative_from_include("root")}/common//postgres"
-  mock_outputs = {
-    policy = {}
-  }
-}
-
 dependency "messaging" {
   config_path = "${path_relative_from_include("root")}/common/messaging"
   mock_outputs = {
@@ -48,7 +41,6 @@ inputs = {
     dependency.buckets.outputs.policies,
     dependency.messaging.outputs.sns_topic_publish_policy,
     dependency.messaging.outputs.queue_receive_policy,
-    dependency.postgres.outputs.policy
   )
   namespace = dependency.namespace.outputs.namespace_name
 }
