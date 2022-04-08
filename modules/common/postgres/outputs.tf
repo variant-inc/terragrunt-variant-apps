@@ -1,13 +1,9 @@
-output "policy" {
-  value = length(data.aws_iam_policy_document.policies) == 0 ? {} : {
-    database_users = data.aws_iam_policy_document.policies[0]
-  }
-}
-
 output "config_maps" {
-  value = [for label, cm in kubernetes_config_map.postgres : cm.metadata[0].name]
+  value       = [for label, cm in kubernetes_config_map.postgres : cm.metadata[0].name]
+  description = "Config Map for Postgres"
 }
 
-output "OIUGFITUYQVBLJKHFUDYRSTDUTFIGHOIJHUIOGYUFTYD" {
-  value = local.database_map
+output "database_map" {
+  value       = local.database_map
+  description = "Database Map"
 }

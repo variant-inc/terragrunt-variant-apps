@@ -8,8 +8,10 @@ variable "release_data" {
     image             = string
     is_infrastructure = bool
   })
+  description = "Map of release data"
 }
 
 variable "namespace" {
-  type = string
+  type        = string
+  description = "Namespace of the app"
 }
