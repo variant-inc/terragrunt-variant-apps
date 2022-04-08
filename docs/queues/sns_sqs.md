@@ -16,7 +16,8 @@ Create SNS Topics with optional configuration.
 
 *If no sns is needed, do not add `sns` under `infrastructure`*
 
-Adding topic with below format will create an env variable and can be referenced as SNS__<TOPIC_NAME>__arn in the code
+Adding topic with below format will create an env variable and
+can be referenced as SNS__<TOPIC_NAME>__arn in the code.
 
 ### Examples - SNS
 
@@ -49,11 +50,12 @@ infrastructure:
 
 ### Exposed Environment Variables - SNS
 
-Below are the exposed env variables and can be referenced  in the code with below names.
+Below are the exposed env variables and can be referenced
+in the code with below names.
 
 | Env variable           | Description                     |
 | ---------------------- | ------------------------------- |
-| SNS__<REFERNCE>__arn   | Env variable to refer topic arn |
+| SNS__\<REFERENCE>__arn  | Env variable to refer topic arn |
 
 ## SQS
 
@@ -61,7 +63,8 @@ Create SQS Queues and subscribe to an SNS Topics with options.
 
 *If no sns is needed, do not add `sns_sqs_subscriptions` under `infrastructure`*
 
-Adding topic with below format will create an env variable and can be referenced as SQS__<QUEUE_NAME>__url in the code.
+Adding topic with below format will create an env variable and
+can be referenced as SQS__<QUEUE_NAME>__url in the code.
 
 ### Examples - SQS
 
@@ -105,8 +108,9 @@ Detailed input decription are added in below link
 
 ### Exposed Environment Variables - SQS
 
-Below are the exposed env variables and can be referenced  in the code with below names.
+Below are the exposed env variables and can be referenced
+in the code with below names.
 
 | Env variable             | Description                     |
 | ------------------------ | ------------------------------- |
-| QUEUE__<REFERNCE>__url   | Env variable to refer queue url |
+| QUEUE__\<REFERENCE>__url   | Env variable to refer queue url |

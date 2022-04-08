@@ -1,9 +1,9 @@
 locals {
-  // Convert the list of inputs into map where each key is the bucket prefix
+  # Convert the list of inputs into map where each key is the bucket prefix
   managed_map = { for bucket in var.managed : bucket["prefix"] => bucket }
 }
 
-// Create the buckets that are managed and owned by this app
+# Create the buckets that are managed and owned by this app
 module "buckets" {
   for_each                   = local.managed_map
   source                     = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.2.0"
@@ -16,7 +16,7 @@ module "buckets" {
 }
 
 
-// Create a ConfigMap per managed bucket for this app
+# Create a ConfigMap per managed bucket for this app
 resource "kubernetes_config_map" "managed" {
   for_each = local.managed_map
 
@@ -32,7 +32,7 @@ resource "kubernetes_config_map" "managed" {
   }
 }
 
-// Create a read/write policy for the managed buckets
+# Create a read/write policy for the managed buckets
 data "aws_iam_policy_document" "managed" {
   count = length(var.managed) > 0 ? 1 : 0
 

@@ -1,13 +1,16 @@
 variable "name" {
-  type = string
+  type        = string
+  description = "Role Name"
 }
 
 variable "aws_resource_name_prefix" {
-  type = string
+  type        = string
+  description = "AWS Resource Name Prefix based on environment"
 }
 
 variable "namespace" {
-  type = string
+  type        = string
+  description = "Namespace of the app"
 }
 
 variable "policies" {

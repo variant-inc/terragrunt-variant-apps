@@ -1,9 +1,12 @@
+<!-- markdownlint-disable MD033 MD013 MD041 -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.4.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.8 |
 
 ## Modules
 
@@ -36,7 +39,7 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | n/a |
+| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | Config Maps of SNS and SQS |
 | <a name="output_queue_receive_policy"></a> [queue\_receive\_policy](#output\_queue\_receive\_policy) | AWS IAM Policy document to allow message recieve to created queue(s) |
 | <a name="output_sns_topic_publish_policy"></a> [sns\_topic\_publish\_policy](#output\_sns\_topic\_publish\_policy) | AWS IAM Policy document to allow publish to created topic(s) |
 | <a name="output_sns_topics"></a> [sns\_topics](#output\_sns\_topics) | SNS Topics Output |
