@@ -3,4 +3,5 @@ output "namespace_name" {
   depends_on = [
     null_resource.create_namespace
   ]
+  description = "Namespace Name"
 }

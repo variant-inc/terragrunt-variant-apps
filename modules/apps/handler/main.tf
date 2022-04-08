@@ -1,4 +1,5 @@
 terraform {
+  required_version = "~> 1.1"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -16,8 +17,7 @@ terraform {
 }
 
 locals {
-  namespace   = data.kubernetes_namespace.namespace.metadata[0].name
-  oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
+  namespace = data.kubernetes_namespace.namespace.metadata[0].name
   chart_config_vars = [yamlencode({
     configVars = {
       for v in var.chart_config_vars : v.name => v.value

@@ -1,11 +1,11 @@
 locals {
-  // Convert the list of inputs into map where each key is the bucket prefix
+  # Convert the list of inputs into map where each key is the bucket prefix
   existing_with_cm_map = { for existing in var.existing : existing.bucket_prefix => defaults(existing, { read_only = true }) if existing.bucket_prefix != null }
   existing_wo_cm_map   = { for bucket in var.existing : bucket.reference => defaults(bucket, { read_only = true }) if bucket.full_name != null }
 }
 
 
-// Find ConfigMaps for each bucket owned by other apps
+# Find ConfigMaps for each bucket owned by other apps
 data "kubernetes_config_map" "existing" {
   for_each = local.existing_with_cm_map
 
@@ -15,7 +15,7 @@ data "kubernetes_config_map" "existing" {
   }
 }
 
-// Create a copy of the bucket configuration of another app for this app
+# Create a copy of the bucket configuration of another app for this app
 resource "kubernetes_config_map" "existing" {
   for_each = data.kubernetes_config_map.existing
 
@@ -62,7 +62,7 @@ locals {
     "s3:PutObjectAcl"
   ]
 }
-// Create a read policy for the existing buckets
+# Create a read policy for the existing buckets
 data "aws_iam_policy_document" "existing" {
   count = length(var.existing) > 0 ? 1 : 0
 
