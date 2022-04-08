@@ -22,10 +22,6 @@ module "database" {
   }
 }
 
-data "aws_db_instance" "physical_db" {
-  db_instance_identifier = var.cluster_name
-}
-
 resource "kubernetes_config_map" "postgres" {
   for_each = local.database_map
 

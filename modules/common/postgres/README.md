@@ -20,7 +20,6 @@
 | Name | Type |
 |------|------|
 | [kubernetes_config_map.postgres](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
-| [aws_db_instance.physical_db](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/db_instance) | data source |
 | [aws_secretsmanager_secret_version.database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 
 ## Inputs
@@ -28,7 +27,6 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Release name of the app | `string` | n/a | yes |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region | `string` | `"us-east-1"` | no |
 | <a name="input_databases"></a> [databases](#input\_databases) | List of Postgres Databases to create. [ name, reference, role\_name, read\_only (Optional: false), extensions (Optional: []) ] | `any` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
 
@@ -38,5 +36,4 @@
 |------|-------------|
 | <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | Config Map for Postgres |
 | <a name="output_database_map"></a> [database\_map](#output\_database\_map) | Database Map |
-| <a name="output_policy"></a> [policy](#output\_policy) | IAM Policy for Database |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
