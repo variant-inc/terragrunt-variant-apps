@@ -23,7 +23,7 @@ locals {
       roleArn = var.role_arn
     }
   })]
-  final_values     = concat(local.service_account_chart_values, local.chart_config_vars, var.chart_values)
+  final_values     = concat(local.service_account_chart_values, var.chart_values)
   oauth_server_url = "https://${var.okta_org_name}.${var.okta_base_url}/oauth2/default"
 }
 

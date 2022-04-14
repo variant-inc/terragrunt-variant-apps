@@ -26,7 +26,6 @@ locals {
 
   final_values = concat(
     local.service_account_chart_values,
-    local.chart_config_vars,
     var.chart_values
   )
 }
