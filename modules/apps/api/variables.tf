@@ -14,11 +14,6 @@ variable "chart_values" {
   description = "Chart values"
 }
 
-variable "chart_config_vars" {
-  type        = list(any)
-  description = "Chart Config Vars"
-}
-
 variable "namespace" {
   type        = string
   description = "Octopus ProjectGroup Name"

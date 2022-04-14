@@ -18,11 +18,6 @@ terraform {
 
 locals {
   namespace = data.kubernetes_namespace.namespace.metadata[0].name
-  chart_config_vars = [yamlencode({
-    configVars = {
-      for v in var.chart_config_vars : v.name => v.value
-    }
-  })]
   service_account_chart_values = [yamlencode({
     serviceAccount = {
       roleArn = var.role_arn
