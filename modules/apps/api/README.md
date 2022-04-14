@@ -21,7 +21,6 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_authentication_enabled"></a> [authentication\_enabled](#input\_authentication\_enabled) | Boolean value for Authentication | `bool` | `false` | no |
-| <a name="input_chart_config_vars"></a> [chart\_config\_vars](#input\_chart\_config\_vars) | Chart Config Vars | `list(any)` | n/a | yes |
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Chart values | `list(string)` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Boolean Value for Create | `bool` | `false` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | Domain | `string` | n/a | yes |

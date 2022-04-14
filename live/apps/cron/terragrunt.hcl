@@ -33,13 +33,13 @@ terraform {
 }
 
 locals {
-  deploy_yaml             = include.root.locals.deploy_yaml
-  chart_user_values       = try(local.deploy_yaml.cron, {})
-  create                  = local.chart_user_values == {} ? false : true
+  deploy_yaml       = include.root.locals.deploy_yaml
+  chart_user_values = try(local.deploy_yaml.cron, {})
+  create            = local.chart_user_values == {} ? false : true
 }
 
 inputs = {
-  create            = local.create
+  create = local.create
   chart_values = [
     yamlencode(local.chart_user_values),
     yamlencode({
