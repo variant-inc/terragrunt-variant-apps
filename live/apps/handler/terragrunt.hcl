@@ -26,23 +26,13 @@ terraform {
 }
 
 locals {
-  deploy_yaml             = include.root.locals.deploy_yaml
-  chart_user_values       = try(local.deploy_yaml.handler, {})
-  create                  = local.chart_user_values == {} ? false : true
-  config_vars_user_values = try(local.deploy_yaml.configVars, {})
-  config_vars = flatten(
-    [for k, v in local.config_vars_user_values : [
-      {
-        name  = k
-        value = v
-      }
-    ]]
-  )
+  deploy_yaml       = include.root.locals.deploy_yaml
+  chart_user_values = try(local.deploy_yaml.handler, {})
+  create            = local.chart_user_values == {} ? false : true
 }
 
 inputs = {
-  create            = local.create
-  chart_config_vars = local.config_vars
+  create = local.create
   chart_values = [
     yamlencode(local.chart_user_values),
     yamlencode({
