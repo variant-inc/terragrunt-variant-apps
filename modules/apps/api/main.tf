@@ -69,4 +69,12 @@ resource "helm_release" "api" {
     name  = "authentication.server"
     value = local.oauth_server_url
   }
+  
+  dynamic "set" {
+    for_each = var.tags
+    content {
+      name  = "tags.${set.key}"
+      value = set.value
+    }
+  }
 }

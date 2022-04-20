@@ -25,6 +25,13 @@ terraform {
   source = "../../../modules/apps//api"
 }
 
+dependency "tags" {
+  config_path = "../../common/tags"
+  mock_outputs = {
+    tags = {}
+  }
+}
+
 locals {
   deploy_yaml       = include.root.locals.deploy_yaml
   chart_user_values = try(local.deploy_yaml.api, {})
@@ -44,4 +51,5 @@ inputs = {
     })
   ]
   authentication_enabled = try(local.deploy_yaml.authentication, false)
+  tags = dependency.tags.outputs.tags
 }
