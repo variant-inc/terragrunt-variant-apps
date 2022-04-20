@@ -40,7 +40,7 @@ resource "helm_release" "handler" {
   count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-handler"
-  version           = "~1.1.0"
+  version           = "1.1.6-beta3"
   cleanup_on_fail   = true
   name              = var.name
   namespace         = local.namespace
@@ -67,7 +67,7 @@ resource "helm_release" "handler" {
   dynamic "set" {
     for_each = var.tags
     content {
-      name  = "tags.${set.key}"
+      name  = "tags.${replace(set.key, "/", "_")}"
       value = set.value
     }
   }
