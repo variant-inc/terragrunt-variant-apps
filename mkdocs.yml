@@ -1,4 +1,4 @@
-site_name: "DX Workflow Docs"
+site_name: DX Workflow Docs
 nav:
   - Home: index.md
 plugins:
