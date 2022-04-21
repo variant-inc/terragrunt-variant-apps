@@ -4,7 +4,7 @@ metadata:
   name: terragrunt-variant-apps
   annotations:
     github.com/project-slug: variant-inc/terragrunt-variant-apps
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-ref: dir:docs
 spec:
   type: other
   lifecycle: production
