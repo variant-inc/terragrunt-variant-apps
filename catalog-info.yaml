@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terragrunt-variant-apps
+  annotations:
+    github.com/project-slug: variant-inc/terragrunt-variant-apps
+spec:
+  type: other
+  lifecycle: unknown
+  owner: cloud-ops
