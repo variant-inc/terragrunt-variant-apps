@@ -50,6 +50,6 @@ inputs = {
       )
     })
   ]
+  tags                   = dependency.tags.outputs.tags
   authentication_enabled = try(local.deploy_yaml.authentication, false)
-  tags = dependency.tags.outputs.tags
 }
