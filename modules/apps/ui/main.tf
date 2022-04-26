@@ -37,7 +37,7 @@ resource "helm_release" "ui" {
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-ui"
   name              = var.name
-  version           = "~1.4.0"
+  version           = "1.4.2-beta3"
   namespace         = local.namespace
   lint              = true
   dependency_update = true
@@ -57,5 +57,13 @@ resource "helm_release" "ui" {
   set {
     name  = "deployment.image.tag"
     value = var.image
+  }
+
+  dynamic "set" {
+    for_each = var.tags
+    content {
+      name  = "tags.${replace(set.key, "/", "_")}"
+      value = set.value
+    }
   }
 }
