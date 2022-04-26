@@ -50,4 +50,5 @@ inputs = {
       )
     })
   ]
+  tags = dependency.tags.outputs.tags
 }
