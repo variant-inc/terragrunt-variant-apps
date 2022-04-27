@@ -58,4 +58,12 @@ resource "helm_release" "ui" {
     name  = "deployment.image.tag"
     value = var.image
   }
+
+  dynamic "set" {
+    for_each = var.tags
+    content {
+      name  = "tags.${set.key}"
+      value = set.value
+    }
+  }
 }
