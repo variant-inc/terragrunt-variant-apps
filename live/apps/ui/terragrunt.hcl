@@ -31,6 +31,13 @@ locals {
   create            = local.chart_user_values == {} ? false : true
 }
 
+dependency "tags" {
+  config_path = "../../common/tags"
+  mock_outputs = {
+    tags = {}
+  }
+}
+
 inputs = {
   create = local.create
   chart_values = [
@@ -43,4 +50,5 @@ inputs = {
       )
     })
   ]
+  tags = dependency.tags.outputs.tags
 }

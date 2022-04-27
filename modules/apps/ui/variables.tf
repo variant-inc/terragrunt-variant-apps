@@ -38,3 +38,8 @@ variable "role_arn" {
   type        = string
   description = "Role ARN from apps.hcl"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags Output from Tags Module"
+}

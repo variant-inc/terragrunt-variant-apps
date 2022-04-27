@@ -28,4 +28,5 @@
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Octopus ProjectGroup Name | `string` | n/a | yes |
 | <a name="input_revision"></a> [revision](#input\_revision) | Octopus Release Number | `string` | n/a | yes |
 | <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Role ARN from apps.hcl | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags Output from Tags Module | `map(string)` | n/a | yes |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
