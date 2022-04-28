@@ -43,6 +43,11 @@ inputs = {
   chart_values = [
     yamlencode(local.chart_user_values),
     yamlencode({
+      awsSecrets = concat(
+        dependency.postgres.outputs.secret_ids
+      )
+    }),
+    yamlencode({
       configMaps = concat(
         dependency.buckets.outputs.config_maps,
         dependency.postgres.outputs.config_maps,

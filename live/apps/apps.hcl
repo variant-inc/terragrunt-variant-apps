@@ -20,6 +20,7 @@ dependency "postgres" {
   config_path = "${get_terragrunt_dir()}/../../common/postgres"
   mock_outputs = {
     config_maps = []
+    secret_ids  = []
   }
 }
 

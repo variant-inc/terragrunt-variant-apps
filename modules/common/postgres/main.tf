@@ -17,6 +17,7 @@ module "database" {
   extensions      = lookup(each.value, "extensions", [])
   database_name   = each.value.name
   role_name       = each.value.role_name
+  host            = local.creds["host"]
   providers = {
     postgresql.this = postgresql
   }

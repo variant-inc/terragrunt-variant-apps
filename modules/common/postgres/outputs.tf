@@ -3,6 +3,11 @@ output "config_maps" {
   description = "Config Map for Postgres"
 }
 
+output "secret_ids" {
+  value       = [for db in module.database : db.secret_id]
+  description = "List of Secret IDs for Postgres"
+}
+
 output "database_map" {
   value       = local.database_map
   description = "Database Map"

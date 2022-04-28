@@ -36,4 +36,5 @@
 |------|-------------|
 | <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | Config Map for Postgres |
 | <a name="output_database_map"></a> [database\_map](#output\_database\_map) | Database Map |
+| <a name="output_secret_ids"></a> [secret\_ids](#output\_secret\_ids) | List of Secret IDs for Postgres |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
