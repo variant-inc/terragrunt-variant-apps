@@ -42,7 +42,7 @@ data "aws_sns_topic" "topics_to_subscribe" {
 }
 
 module "sqs_queue" {
-  source                            = "github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=v1"
+  source                            = "git::https://github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=feature/CLOUD-1732-add-dlq-queue"
   for_each                          = local.topic_subscription_map
   name                              = "${var.aws_resource_name_prefix}${each.key}"
   topic_arn                         = data.aws_sns_topic.topics_to_subscribe[each.key].arn
@@ -53,10 +53,10 @@ module "sqs_queue" {
   delay_seconds                     = lookup(each.value, "delay_seconds", null)
   receive_wait_time_seconds         = lookup(each.value, "receive_wait_time_seconds", null)
   policy                            = lookup(each.value, "policy", null)
-  redrive_policy                    = lookup(each.value, "redrive_policy", null)
   content_based_deduplication       = lookup(each.value, "content_based_deduplication", null)
   kms_key_sns_arn                   = data.aws_kms_key.sns_alias.arn
   kms_data_key_reuse_period_seconds = lookup(each.value, "kms_data_key_reuse_period_seconds", null)
+  dlq_options                       = lookup(each.value, "dlq", {})
   depends_on                        = [module.sns_topic]
 }
 
@@ -75,6 +75,7 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   data = {
     "SQS__${each.value.reference}__name" = module.sqs_queue[each.key].sqs_queue_name
     "SQS__${each.value.reference}__arn"  = module.sqs_queue[each.key].sqs_queue_arn
+    "DLQ__${each.value.reference}__arn"  = module.sqs_queue[each.key].sqs_queue_dlq_arn
     "SQS__${each.value.reference}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
   }
 }
