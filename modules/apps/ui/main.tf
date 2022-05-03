@@ -23,8 +23,7 @@ locals {
       roleArn = var.role_arn
     }
   })]
-  final_values     = concat(local.service_account_chart_values, var.chart_values)
-  oauth_server_url = "https://${var.okta_org_name}.${var.okta_base_url}/oauth2/default"
+  final_values = concat(local.service_account_chart_values, var.chart_values)
 }
 
 data "kubernetes_namespace" "namespace" {
@@ -33,12 +32,12 @@ data "kubernetes_namespace" "namespace" {
   }
 }
 
-resource "helm_release" "api" {
+resource "helm_release" "ui" {
   count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
-  chart             = "variant-api"
+  chart             = "variant-ui"
   name              = var.name
-  version           = "~2.1.0"
+  version           = "~1.4.0"
   namespace         = local.namespace
   lint              = true
   dependency_update = true
@@ -58,16 +57,6 @@ resource "helm_release" "api" {
   set {
     name  = "deployment.image.tag"
     value = var.image
-  }
-
-  set {
-    name  = "authentication.enabled"
-    value = var.authentication_enabled
-  }
-
-  set {
-    name  = "authentication.server"
-    value = local.oauth_server_url
   }
 
   dynamic "set" {

@@ -13,22 +13,19 @@
 
 | Name | Type |
 |------|------|
-| [helm_release.api](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.ui](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_namespace.namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/namespace) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_authentication_enabled"></a> [authentication\_enabled](#input\_authentication\_enabled) | Boolean value for Authentication | `bool` | `false` | no |
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Chart values | `list(string)` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Boolean Value for Create | `bool` | `false` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | Domain | `string` | n/a | yes |
 | <a name="input_image"></a> [image](#input\_image) | Deploy YAML git Image | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Octopus Project Name | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Octopus ProjectGroup Name | `string` | n/a | yes |
-| <a name="input_okta_base_url"></a> [okta\_base\_url](#input\_okta\_base\_url) | Okta Base URL | `string` | n/a | yes |
-| <a name="input_okta_org_name"></a> [okta\_org\_name](#input\_okta\_org\_name) | Okta Organization Name | `string` | n/a | yes |
 | <a name="input_revision"></a> [revision](#input\_revision) | Octopus Release Number | `string` | n/a | yes |
 | <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Role ARN from apps.hcl | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags Output from Tags Module | `map(string)` | n/a | yes |

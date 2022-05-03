@@ -34,22 +34,6 @@ variable "image" {
   description = "Deploy YAML git Image"
 }
 
-variable "okta_org_name" {
-  type        = string
-  description = "Okta Organization Name"
-}
-
-variable "okta_base_url" {
-  type        = string
-  description = "Okta Base URL"
-}
-
-variable "authentication_enabled" {
-  type        = bool
-  default     = false
-  description = "Boolean value for Authentication"
-}
-
 variable "role_arn" {
   type        = string
   description = "Role ARN from apps.hcl"

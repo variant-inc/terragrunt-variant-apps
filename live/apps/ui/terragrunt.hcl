@@ -22,7 +22,13 @@ include "helm_provider" {
 }
 
 terraform {
-  source = "../../../modules/apps//api"
+  source = "../../../modules/apps//ui"
+}
+
+locals {
+  deploy_yaml       = include.root.locals.deploy_yaml
+  chart_user_values = try(local.deploy_yaml.ui, {})
+  create            = local.chart_user_values == {} ? false : true
 }
 
 dependency "tags" {
@@ -30,12 +36,6 @@ dependency "tags" {
   mock_outputs = {
     tags = {}
   }
-}
-
-locals {
-  deploy_yaml       = include.root.locals.deploy_yaml
-  chart_user_values = try(local.deploy_yaml.api, {})
-  create            = local.chart_user_values == {} ? false : true
 }
 
 inputs = {
@@ -50,6 +50,5 @@ inputs = {
       )
     })
   ]
-  tags                   = dependency.tags.outputs.tags
-  authentication_enabled = try(local.deploy_yaml.authentication, false)
+  tags = dependency.tags.outputs.tags
 }
