@@ -12,7 +12,7 @@ variable "sns_topics" {
 variable "sns_sqs_subscriptions" {
   type        = any
   default     = {}
-  description = "Map of topic subscription objects. Accepts the following values as keys in each object: [fifo_queue, visibility_timeout_seconds, message_retention_seconds, max_message_size, delay_seconds, receive_wait_time_seconds, redrive_policy, content_based_deduplication, kms_data_key_reuse_period_seconds]"
+  description = "Map of topic subscription objects. Accepts the following values as keys in each object: [fifo_queue, visibility_timeout_seconds, message_retention_seconds, max_message_size, delay_seconds, receive_wait_time_seconds, content_based_deduplication, kms_data_key_reuse_period_seconds, dlq]"
 }
 
 variable "app_name" {
