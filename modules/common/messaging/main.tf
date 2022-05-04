@@ -42,7 +42,7 @@ data "aws_sns_topic" "topics_to_subscribe" {
 }
 
 module "sqs_queue" {
-  source                            = "git::https://github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=feature/CLOUD-1732-add-dlq-queue"
+  source                            = "github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=v1"
   for_each                          = local.topic_subscription_map
   name                              = "${var.aws_resource_name_prefix}${each.key}"
   topic_arn                         = data.aws_sns_topic.topics_to_subscribe[each.key].arn

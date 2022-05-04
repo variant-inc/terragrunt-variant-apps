@@ -13,7 +13,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | github.com/variant-inc/terraform-aws-sns.git | v1 |
-| <a name="module_sqs_queue"></a> [sqs\_queue](#module\_sqs\_queue) | github.com/github.com/variant-inc/terraform-aws-sns-subscription-sqs | feature/CLOUD-1732-add-dlq-queue |
+| <a name="module_sqs_queue"></a> [sqs\_queue](#module\_sqs\_queue) | github.com/variant-inc/terraform-aws-sns-subscription-sqs | v1 |
 
 ## Resources
 
