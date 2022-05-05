@@ -8,7 +8,7 @@ data "aws_kms_key" "sns_alias" {
 }
 
 module "sns_topic" {
-  source                           = "github.com/variant-inc/terraform-aws-sns.git?ref=v1"
+  source                           = "github.com/variant-inc/terraform-aws-sns.git?ref=v1.0.1"
   for_each                         = local.topic_map
   name                             = "${var.aws_resource_name_prefix}${each.key}"
   display_name                     = lookup(each.value, "display_name", null)
@@ -42,7 +42,7 @@ data "aws_sns_topic" "topics_to_subscribe" {
 }
 
 module "sqs_queue" {
-  source                            = "github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=v1"
+  source                            = "github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=v1.2.0"
   for_each                          = local.topic_subscription_map
   name                              = "${var.aws_resource_name_prefix}${each.key}"
   topic_arn                         = data.aws_sns_topic.topics_to_subscribe[each.key].arn
@@ -65,6 +65,15 @@ data "aws_sqs_queue" "queue_urls" {
   name     = each.value.sqs_queue_name
 }
 
+locals {
+  sqs_with_dlq = { for k, v in local.topic_subscription_map : k => v if contains(keys(v), "dlq") }
+}
+
+data "aws_sqs_queue" "dlq_queue_urls" {
+  for_each = local.sqs_with_dlq
+  name     = module.sqs_queue[each.key].sqs_queue_dlq_name
+}
+
 resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   for_each = local.topic_subscription_map
   metadata {
@@ -75,8 +84,20 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   data = {
     "SQS__${each.value.reference}__name" = module.sqs_queue[each.key].sqs_queue_name
     "SQS__${each.value.reference}__arn"  = module.sqs_queue[each.key].sqs_queue_arn
-    "DLQ__${each.value.reference}__arn"  = module.sqs_queue[each.key].sqs_queue_dlq_arn
     "SQS__${each.value.reference}__url"  = data.aws_sqs_queue.queue_urls[each.key].url
+  }
+}
+
+resource "kubernetes_config_map" "sns_sqs_subscription_dlqs" {
+  for_each = local.sqs_with_dlq
+  metadata {
+    name      = "${var.app_name}-sns-sqs-subscription-dlq-${each.key}"
+    namespace = var.namespace
+  }
+
+  data = {
+    "DLQ__${each.value.reference}__url" = data.aws_sqs_queue.dlq_queue_urls[each.key].url
+    "DLQ__${each.value.reference}__arn" = module.sqs_queue[each.key].sqs_queue_dlq_arn
   }
 }
 
