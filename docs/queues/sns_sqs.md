@@ -9,6 +9,8 @@
     - [Examples - SQS](#examples---sqs)
   - [Supported Attributes - SQS](#supported-attributes---sqs)
     - [Exposed Environment Variables - SQS](#exposed-environment-variables---sqs)
+  - [Supported Attributes - DLQ SQS](#supported-attributes---dlq-sqs)
+    - [Exposed Environment Variables - DLQ SQS](#exposed-environment-variables---dlq-sqs)
 
 ## SNS
 
@@ -97,7 +99,6 @@ infrastructure:
       delay_seconds: 0
       receive_wait_time_seconds: 0
       policy: ""
-      redrive_policy: ""
       content_based_deduplication: false
       kms_data_key_reuse_period_seconds: 0
 ```
@@ -114,3 +115,40 @@ in the code with below names.
 | Env variable             | Description                     |
 | ------------------------ | ------------------------------- |
 | QUEUE__\<REFERENCE>__url   | Env variable to refer queue url |
+
+## Supported Attributes - DLQ SQS
+
+Need to add dlq as key with the attributes supported in below example.
+With the dlq inputs passed it will create dlq queue and
+will get added as arn to the redrive policy.
+
+The following attributes should be added under and rest all other attributes
+will be set as defaults
+
+```bash
+infrastructure:
+  sns_sqs_subscriptions:
+    - name: <SQS_NAME> # Add .fifo suffix for FIFO QUEUE
+      topic_name: devops-<TOPIC_NAME> # As exists in AWS (including team prefix)
+      reference : <SHORT_NAME>
+      dlq:
+        # Required Parameter
+        max_message_receive_count: integer input (Required parameter)
+        # Optional Parameters
+        name: <QUEUE_NAME>_dlq
+        visibility_timeout_seconds: optional or can set integer input
+        message_retention_seconds: optional or can set integer input
+```
+
+Detailed input decription are added in below link
+
+[Inputs](../../modules/common/messaging/README.md#inputs)
+
+### Exposed Environment Variables - DLQ SQS
+
+Below are the exposed env variables and can be referenced
+in the code with below names.
+
+| Env variable             | Description                     |
+| ------------------------ | ------------------------------- |
+| DLQ__${each.value.reference}__arn   | Env variable to refer DLQ queue url |
