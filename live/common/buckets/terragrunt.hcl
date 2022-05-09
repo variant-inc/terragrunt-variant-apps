@@ -27,8 +27,9 @@ locals {
 }
 
 inputs = {
-  managed   = try(local.deploy_yaml.infrastructure.buckets.managed, [])
-  existing  = try(local.deploy_yaml.infrastructure.buckets.existing, [])
-  app_name  = local.deploy_yaml.name
-  namespace = dependency.namespace.outputs.namespace_name
+  managed       = try(local.deploy_yaml.infrastructure.buckets.managed, [])
+  existing      = try(local.deploy_yaml.infrastructure.buckets.existing, [])
+  octopus_space = try(local.deploy_yaml.octopus.space, "Space")
+  app_name      = local.deploy_yaml.name
+  namespace     = dependency.namespace.outputs.namespace_name
 }

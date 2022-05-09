@@ -15,6 +15,28 @@ module "buckets" {
   force_destroy              = lookup(each.value, "force_destroy", false)
 }
 
+# Get the DynamoDB Table for storing bucket info
+data "aws_dynamodb_table" "s3_table" {
+  name = "iaac_cake_s3"
+}
+
+# PUT an item in the DynamoDB Table to store bucket info
+resource "aws_dynamodb_table_item" "s3_table" {
+  for_each = local.managed_map
+
+  table_name = data.aws_dynamodb_table.s3_table.name
+  hash_key   = data.aws_dynamodb_table.s3_table.hash_key
+  range_key  = data.aws_dynamodb_table.s3_table.range_key
+
+  item = <<ITEM
+{
+  "project": {"S": "${var.octopus_space}-${var.namespace}-${var.app_name}"},
+  "bucket_prefix": {"S": "${each.key}"},
+  "bucket_name": {"S": "${module.buckets[each.key].bucket_name}"},
+  "bucket_arn": {"S": "${module.buckets[each.key].bucket_arn}"}
+}
+ITEM
+}
 
 # Create a ConfigMap per managed bucket for this app
 resource "kubernetes_config_map" "managed" {

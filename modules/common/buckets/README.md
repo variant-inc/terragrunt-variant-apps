@@ -19,9 +19,11 @@
 
 | Name | Type |
 |------|------|
+| [aws_dynamodb_table_item.s3_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table_item) | resource |
 | [kubernetes_config_map.existing](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.existing_wo_configmap](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.managed](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [aws_dynamodb_table.s3_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/dynamodb_table) | data source |
 | [aws_iam_policy_document.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [kubernetes_config_map.existing](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/config_map) | data source |
@@ -35,6 +37,7 @@
 | <a name="input_existing"></a> [existing](#input\_existing) | Existing buckets needing reference by the app | <pre>list(object(<br>    {<br>      full_name     = optional(string)<br>      reference     = optional(string)<br>      read_only     = optional(bool)<br>      project_group = optional(string)<br>      project_name  = optional(string)<br>      bucket_prefix = optional(string)<br>    }<br>  ))</pre> | `[]` | no |
 | <a name="input_managed"></a> [managed](#input\_managed) | Buckets to be created and managed by terragrunt | `any` | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
+| <a name="input_octopus_space"></a> [octopus\_space](#input\_octopus\_space) | Octopus Space of Project | `string` | n/a | yes |
 
 ## Outputs
 

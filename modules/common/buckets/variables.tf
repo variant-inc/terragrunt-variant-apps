@@ -18,6 +18,11 @@ variable "app_name" {
   description = "Release name of the app"
 }
 
+variable "octopus_space" {
+  type        = string
+  description = "Octopus Space of Project"
+}
+
 variable "namespace" {
   description = "Namespace name of the app"
   type        = string
