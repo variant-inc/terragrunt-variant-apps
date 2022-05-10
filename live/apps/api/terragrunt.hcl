@@ -44,7 +44,8 @@ inputs = {
     yamlencode(local.chart_user_values),
     yamlencode({
       awsSecrets = concat(
-        dependency.postgres.outputs.secret_ids
+        dependency.postgres.outputs.secret_ids,
+        try(local.deploy_yaml.api.awsSecrets, {})
       )
     }),
     yamlencode({
