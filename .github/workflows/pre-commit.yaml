@@ -11,6 +11,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      
+      - name: Install Pre-Commit Dependencies
+        run: |
+          curl -fsSL "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip &&\
+          unzip tflint.zip &&\
+          rm tflint.zip &&\
+          mv tflint /usr/local/bin/ &&\
+          tflint --version
 
       - name: Pre-commit
         run: |
