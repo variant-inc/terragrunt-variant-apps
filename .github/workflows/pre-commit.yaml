@@ -11,6 +11,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      
+      - name: Install Pre-Commit Dependencies
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
       - name: Pre-commit
         run: |

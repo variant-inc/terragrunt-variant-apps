@@ -2,8 +2,8 @@ locals {
   existing_policy = length(data.aws_iam_policy_document.existing) == 0 ? {} : {
     dynamodb-existing = data.aws_iam_policy_document.existing[0]
   }
-  managed_policy = length(local.dynamodb_policies) == 0 ? {} : {
-    dynamodb-managed = local.dynamodb_policies
+  managed_policy = length(data.aws_iam_policy_document.managed) == 0 ? {} : {
+    dynamodb-managed = data.aws_iam_policy_document.managed[0]
   }
 }
 

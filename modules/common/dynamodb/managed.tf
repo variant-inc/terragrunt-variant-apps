@@ -8,7 +8,7 @@ module "dynamodb_table" {
   source                   = "github.com/variant-inc/terraform-aws-dynamodb.git?ref=v1.2.0"
   for_each                 = local.dynamodb_managed_map
   table_name               = "${var.aws_resource_name_prefix}${each.key}"
-  billing_mode             = lookup(each.value, "billing_mode", null)
+  billing_mode             = lookup(each.value, "billing_mode", "PAY_PER_REQUEST")
   hash_key                 = lookup(each.value, "hash_key", null)
   range_key                = lookup(each.value, "range_key", null)
   attributes               = lookup(each.value, "attributes", null)
@@ -35,6 +35,18 @@ resource "kubernetes_config_map" "managed" {
   }
 }
 
-locals {
-  dynamodb_policies = merge({ for label, cm in module.dynamodb_table : label => cm.dynamo_db_policy })
+# Create a read/write policy for the managed dynamo db table
+data "aws_iam_policy_document" "managed" {
+  count = length(var.managed) > 0 ? 1 : 0
+
+  statement {
+    effect  = "Allow"
+    actions = ["dynamodb:*"]
+
+    resources = flatten([for k, v in module.dynamodb_table : [
+      v.dynamo_db_table_arn,
+      "${v.dynamo_db_table_arn}/*"
+      ]
+    ])
+  }
 }

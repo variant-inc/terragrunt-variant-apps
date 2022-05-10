@@ -35,7 +35,7 @@ dependency "messaging" {
 dependency "dynamodb" {
   config_path = "${path_relative_from_include("root")}/common/dynamodb"
   mock_outputs = {
-    dynamo_db_policy = {}
+    policies = {}
   }
 }
 
