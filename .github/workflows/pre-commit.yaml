@@ -14,11 +14,7 @@ jobs:
       
       - name: Install Pre-Commit Dependencies
         run: |
-          curl -fsSL "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip &&\
-          unzip tflint.zip &&\
-          rm tflint.zip &&\
-          mv tflint /usr/local/bin/ &&\
-          tflint --version
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
       - name: Pre-commit
         run: |
