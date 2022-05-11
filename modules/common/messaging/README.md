@@ -12,17 +12,19 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | github.com/variant-inc/terraform-aws-sns.git | v1 |
-| <a name="module_sqs_queue"></a> [sqs\_queue](#module\_sqs\_queue) | github.com/variant-inc/terraform-aws-sns-subscription-sqs | v1 |
+| <a name="module_sns_topic"></a> [sns\_topic](#module\_sns\_topic) | github.com/variant-inc/terraform-aws-sns.git | v1.0.1 |
+| <a name="module_sqs_queue"></a> [sqs\_queue](#module\_sqs\_queue) | github.com/variant-inc/terraform-aws-sns-subscription-sqs | v1.2.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [kubernetes_config_map.sns_sqs_subscription_dlqs](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.sns_sqs_subscriptions](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.sns_topics](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [aws_kms_key.sns_alias](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_key) | data source |
 | [aws_sns_topic.topics_to_subscribe](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sns_topic) | data source |
+| [aws_sqs_queue.dlq_queue_urls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
 | [aws_sqs_queue.queue_urls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
 
 ## Inputs
