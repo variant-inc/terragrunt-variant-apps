@@ -32,6 +32,13 @@ dependency "messaging" {
   }
 }
 
+dependency "role_policies" {
+  config_path = "${path_relative_from_include("root")}/common/role_policies"
+  mock_outputs = {
+    policies = {}
+  }
+}
+
 terraform {
   source = "${path_relative_from_include("root")}/../modules/common//role"
 }
@@ -41,6 +48,7 @@ inputs = {
     dependency.buckets.outputs.policies,
     dependency.messaging.outputs.sns_topic_publish_policy,
     dependency.messaging.outputs.queue_receive_policy,
+    dependency.role_policies.outputs.role_policies
   )
   namespace = dependency.namespace.outputs.namespace_name
 }
