@@ -1,3 +1,4 @@
 output "policies" {
-  value = aws_iam_policy.role_policies
+  value       = aws_iam_policy.role_policies
+  description = "Custom role policies to attach"
 }
