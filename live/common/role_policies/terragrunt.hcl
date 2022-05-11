@@ -16,5 +16,5 @@ locals {
 }
 
 inputs = {
-  policies = try(local.deploy_yaml.infrastructure.role_policies.policies, [])
+  policies = try(local.deploy_yaml.infrastructure.role_policies, [])
 }

@@ -1,4 +1,4 @@
-output "role_arn" {
-  value       = aws_iam_role.role.arn
-  description = "Role ARN"
+output "policies" {
+  value       = aws_iam_policy_document.role_policies
+  description = "IAM Policy Documents"
 }

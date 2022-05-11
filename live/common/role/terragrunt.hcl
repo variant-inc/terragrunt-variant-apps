@@ -48,7 +48,7 @@ inputs = {
     dependency.buckets.outputs.policies,
     dependency.messaging.outputs.sns_topic_publish_policy,
     dependency.messaging.outputs.queue_receive_policy,
-    dependency.role_policies.outputs.role_policies
+    dependency.role_policies.outputs.policies
   )
   namespace = dependency.namespace.outputs.namespace_name
 }
