@@ -26,8 +26,8 @@ resource "kubernetes_config_map" "existing" {
   }
 
   data = {
-    "DYNAMODB__${each.key}__arn"  = "arn:aws:dynamodb:::table/${each.value.name}"
-    "DYNAMODB__${each.key}__name" = each.value.name
+    "DYNAMODB__${each.key}__arn"                 = "arn:aws:dynamodb:::table/${each.value.name}"
+    "DYNAMODB__${each.key}__name"                = each.value.name
     "DYNAMODB__${each.value["reference"]}__name" = each.value.name
   }
 }
