@@ -15,7 +15,9 @@ terraform {
 data "aws_iam_policy_document" "role_policies" {
   for_each  = var.policies
 
-  actions   = each.actions
-  effect    = each.effect
-  resources = each.resources
+  statement {
+    actions   = each.actions
+    effect    = each.effect
+    resources = each.resources
+  }
 }
