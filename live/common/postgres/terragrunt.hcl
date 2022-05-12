@@ -19,10 +19,12 @@ dependency "namespace" {
 
 terraform {
   source = "${path_relative_from_include("root")}/../modules/common//postgres"
+  skip   = local.skip
 }
 
 locals {
   deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  skip        = length(try(local.deploy_yaml.infrastructure.postgres, [])) > 0 ? false : true
 }
 
 inputs = {
