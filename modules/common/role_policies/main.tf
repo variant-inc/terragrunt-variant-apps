@@ -12,7 +12,7 @@ terraform {
   }
 }
 
-resource "aws_iam_policy_document" "role_policies" {
+data "aws_iam_policy_document" "role_policies" {
   for_each  = var.policies
 
   actions   = each.actions
