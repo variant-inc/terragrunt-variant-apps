@@ -42,8 +42,8 @@ infrastructure:
 The application will be deployed with the following `environnement variables`
 
 ```bash
-DYNAMODB__hello__arn = "arn:aws:dynamodb:us-east-1:123456789:table/hello"
-DYNAMODB__hello = "hello"
+DYNAMODB__hw__arn = "arn:aws:dynamodb:us-east-1:123456789:table/hello"
+DYNAMODB__hw = "hello"
 ```
 
 ### Add Existing Dynamo DB Using Name
@@ -99,7 +99,7 @@ infrastructure:
     existing:
       - name: test
         reference: blah
-      - reference: hw
+      - reference: foo
         cross_account_arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
 ```
 
@@ -112,7 +112,7 @@ DYNAMODB__hello = "hello"
 DYNAMODB__blah__arn = "arn:aws:dynamodb:::table/test"
 DYNAMODB__blah__name = "test"
 
-DYNAMODB__hw__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
+DYNAMODB__foo__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
 ```
 
 ## Supported Attributes
