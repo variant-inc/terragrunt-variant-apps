@@ -14,7 +14,7 @@ variable "namespace" {
 }
 
 variable "existing" {
-  description = "Existing dynamo db needing reference by the app"
+  description = "Existing dynamo db needing reference by the app. Accepts the following values as keys in each object:[name, reference, cross_account_arn, read_only], In case of refering table from same account just add key name, Whereas in case of cross account table just add cross_account_arn as shown in sample examples and exclude name"
   type = list(object(
     {
       name              = optional(string)
@@ -27,7 +27,7 @@ variable "existing" {
 }
 
 variable "managed" {
-  description = "Dynamo db to be created and managed by terragrunt"
+  description = "Map of dynamo db objects. Accepts the following values as keys in each object: [name, reference, billing_mode, hash_key, range_key, attributes, global_secondary_indexes, local_secondary_indexes, read_capacity, write_capacity]"
   type        = any
   default     = []
   validation {
