@@ -24,9 +24,6 @@ In this guide, you will learn
 
 Consider that the infrastructure created below is for
 
-- name: hello-world
-- reference: demo
-
 ```bash
 infrastructure:
   dynamodb:
@@ -48,7 +45,7 @@ DYNAMODB__hw = "hello"
 
 ### Add Existing Dynamo DB Using Name
 
-To use the DynamoDB created in the above example in another project.
+To use the DynamoDB created in the same account. Just need to add table `name` and `reference` to use with the app and DX will create config map to add the table.
 
 ```bash
 infrastructure:
@@ -68,6 +65,8 @@ DYNAMODB__hw__name = "test"
 
 ### Add Existing Dynamo DB from cross account
 
+To use the DynamoDB created in different account. Just need to add `cross_account_arn` and reference to use with the app and DX will create config map with table arn and update the role policy to have required access.
+
 ```bash
 infrastructure:
   dynamodb:
@@ -76,7 +75,7 @@ infrastructure:
         cross_account_arn: arn:aws:dynamodb:us-east-1:123456789:table/test
 ```
 
-`full_name` is the full name of the bucket as provided in AWS console.
+`cross_account_arn` is the table arn as provided in AWS console.
 
 The application will be deployed with the following `environnement variables`
 
@@ -124,7 +123,7 @@ infrastructure:
   dynamodb:
 ```
 
-[Inputs](../modules/common/dynamodb/README.md#inputs)
+[Inputs](../../modules/common/dynamodb/README.md#inputs)
 
 ## Exposed Environment Variables
 
