@@ -24,7 +24,7 @@ In this guide, you will learn
 
 Consider that the infrastructure created below is for
 
-- name: hello-world
+- name: hello
 - reference: demo
 
 ```bash
