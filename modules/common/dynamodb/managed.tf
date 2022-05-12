@@ -31,7 +31,6 @@ resource "kubernetes_config_map" "managed" {
   data = {
     "DYNAMODB__${each.value["reference"]}__arn"  = module.dynamodb_table[each.key].dynamo_db_table_arn
     "DYNAMODB__${each.value["reference"]}__name" = module.dynamodb_table[each.key].dynamo_db_table.name
-    "DYNAMODB__${each.key}"                      = module.dynamodb_table[each.key].dynamo_db_table.name
   }
 }
 

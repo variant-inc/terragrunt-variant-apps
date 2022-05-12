@@ -64,8 +64,6 @@ The application will be deployed with the following `environnement variables`
 ```bash
 DYNAMODB__hw__arn = "arn:aws:dynamodb:::table/test"
 DYNAMODB__hw__name = "test"
-DYNAMODB__test__name = "test"
-
 ```
 
 ### Add Existing Dynamo DB from cross account
