@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "role_policies" {
   for_each  = var.policies
 
   statement {
-    actions   = each.actions
-    effect    = each.effect
-    resources = each.resources
+    actions   = each.value.actions
+    effect    = each.value.effect
+    resources = each.value.resources
   }
 }
