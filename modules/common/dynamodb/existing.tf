@@ -1,6 +1,6 @@
 locals {
   # Convert the list of inputs into map where each key is the bucket prefix
-  dynamodb_existing_map           = { for existing in var.existing : existing.name => defaults(existing, { read_only = true }) if existing.name != null }
+  dynamodb_existing_map     = { for existing in var.existing : existing.name => defaults(existing, { read_only = true }) if existing.name != null }
   dynamodb_arn_existing_map = { for existing in var.existing : existing.reference => defaults(existing, { read_only = true }) if existing.arn != null }
 }
 
