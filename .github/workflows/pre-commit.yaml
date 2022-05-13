@@ -23,4 +23,5 @@ jobs:
         run: |
           ls
           pre-commit install
+          tflint --init
           pre-commit run --color=always --show-diff-on-failure --all-files
