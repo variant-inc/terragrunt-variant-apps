@@ -45,7 +45,7 @@ DYNAMODB__hw = "hello"
 
 ### Add Existing Dynamo DB Using Name
 
-To use the DynamoDB created in the same account. Just need to add table `name` and `reference` to use with the app and DX will create config map to add the table.
+To use the DynamoDB created in the same account. Just need to add table `name` or `arn`  and `reference` to use with the app and DX will create config map to add the table.
 
 ```bash
 infrastructure:
@@ -53,6 +53,8 @@ infrastructure:
     existing:
       - name: test
         reference: hw
+      - arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
+        reference: hw1
 
 ```
 
@@ -61,21 +63,23 @@ The application will be deployed with the following `environnement variables`
 ```bash
 DYNAMODB__hw__arn = "arn:aws:dynamodb:::table/test"
 DYNAMODB__hw__name = "test"
+
+DYNAMODB__hw1__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
 ```
 
 ### Add Existing Dynamo DB from cross account
 
-To use the DynamoDB created in different account. Just need to add `cross_account_arn` and reference to use with the app and DX will create config map with table arn and update the role policy to have required access.
+To use the DynamoDB created in different account. Just need to add `arn` and reference to use with the app and DX will create config map with table arn and update the role policy to have required access.
 
 ```bash
 infrastructure:
   dynamodb:
     existing:
       - reference: hw
-        cross_account_arn: arn:aws:dynamodb:us-east-1:123456789:table/test
+        arn: arn:aws:dynamodb:us-east-1:123456789:table/test
 ```
 
-`cross_account_arn` is the table arn as provided in AWS console.
+`arn` is the table arn as provided in AWS console.
 
 The application will be deployed with the following `environnement variables`
 
@@ -98,8 +102,10 @@ infrastructure:
     existing:
       - name: test
         reference: blah
+      - arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
+        reference: hw1
       - reference: foo
-        cross_account_arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
+        arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
 ```
 
 The application will be deployed with the following `environnement variables`
@@ -110,6 +116,8 @@ DYNAMODB__hello = "hello"
 
 DYNAMODB__blah__arn = "arn:aws:dynamodb:::table/test"
 DYNAMODB__blah__name = "test"
+
+DYNAMODB__hw1__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
 
 DYNAMODB__foo__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
 ```

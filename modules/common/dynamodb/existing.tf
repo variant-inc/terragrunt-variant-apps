@@ -1,19 +1,19 @@
 locals {
   # Convert the list of inputs into map where each key is the bucket prefix
   dynamodb_existing_map           = { for existing in var.existing : existing.name => defaults(existing, { read_only = true }) if existing.name != null }
-  dynamodb_cross_act_existing_map = { for existing in var.existing : existing.reference => defaults(existing, { read_only = true }) if existing.cross_account_arn != null }
+  dynamodb_arn_existing_map = { for existing in var.existing : existing.reference => defaults(existing, { read_only = true }) if existing.arn != null }
 }
 
-resource "kubernetes_config_map" "existing_cross_account" {
-  for_each = local.dynamodb_cross_act_existing_map
+resource "kubernetes_config_map" "existing_arn" {
+  for_each = local.dynamodb_arn_existing_map
 
   metadata {
-    name      = "${var.app_name}-existing-cross-account-dynamodb"
+    name      = "${var.app_name}-dynamodb-arn-${local.dynamodb_arn_existing_map[each.key].reference}"
     namespace = var.namespace
   }
 
   data = {
-    "DYNAMODB__${local.dynamodb_cross_act_existing_map[each.key].reference}__arn" = "${each.value.cross_account_arn}"
+    "DYNAMODB__${local.dynamodb_arn_existing_map[each.key].reference}__arn" = "${each.value.arn}"
   }
 }
 
@@ -71,13 +71,13 @@ data "aws_iam_policy_document" "existing" {
   }
 
   dynamic "statement" {
-    for_each = local.dynamodb_cross_act_existing_map
+    for_each = local.dynamodb_arn_existing_map
     content {
       effect  = "Allow"
       actions = statement.value.read_only ? local.read_only_policy : local.rw_policy
       resources = [
-        "${statement.value.cross_account_arn}",
-        "${statement.value.cross_account_arn}/*"
+        "${statement.value.arn}",
+        "${statement.value.arn}/*"
       ]
     }
   }
