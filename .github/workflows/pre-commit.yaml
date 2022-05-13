@@ -21,6 +21,6 @@ jobs:
 
       - name: Pre-commit
         run: |
-          tflint --init
+          ls
           pre-commit install
           pre-commit run --color=always --show-diff-on-failure --all-files
