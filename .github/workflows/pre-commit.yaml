@@ -16,7 +16,8 @@ jobs:
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
           curl -fsSL "$(curl -s https://api.github.com/repos/gruntwork-io/terragrunt/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64")" > terragrunt
-            chmod +x terragrunt && terragrunt --version
+          chmod +x terragrunt
+          terragrunt --version
 
       - name: Pre-commit
         run: |
