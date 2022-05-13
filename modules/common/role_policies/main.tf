@@ -12,12 +12,8 @@ terraform {
   }
 }
 
-locals {
-  policies_map = yamldecode(var.policies)
-}
-
 data "aws_iam_policy_document" "role_policies" {
-  for_each  = local.policies_map
+  for_each  = local.policies
 
   statement {
     actions   = each.value.actions
