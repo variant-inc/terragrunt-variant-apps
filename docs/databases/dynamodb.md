@@ -40,7 +40,7 @@ The application will be deployed with the following `environnement variables`
 
 ```bash
 DYNAMODB__hw__arn = "arn:aws:dynamodb:us-east-1:123456789:table/hello"
-DYNAMODB__hw = "hello"
+DYNAMODB__hw__name = "hello"
 ```
 
 ### Add Existing Dynamo DB Using Name
@@ -58,10 +58,10 @@ infrastructure:
 
 ```
 
-The application will be deployed with the following `environnement variables`
+The application will be deployed with the following `environment variables`
 
 ```bash
-DYNAMODB__hw__arn = "arn:aws:dynamodb:::table/test"
+DYNAMODB__hw__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test"
 DYNAMODB__hw__name = "test"
 
 DYNAMODB__hw1__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
@@ -81,7 +81,7 @@ infrastructure:
 
 `arn` is the table arn as provided in AWS console.
 
-The application will be deployed with the following `environnement variables`
+The application will be deployed with the following `environment variables`
 
 ```bash
 DYNAMODB__hw__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test"
@@ -112,9 +112,9 @@ The application will be deployed with the following `environnement variables`
 
 ```bash
 DYNAMODB__hello__arn = "arn:aws:dynamodb:us-east-1:123456789:table/hello"
-DYNAMODB__hello = "hello"
+DYNAMODB__hello__name = "hello"
 
-DYNAMODB__blah__arn = "arn:aws:dynamodb:::table/test"
+DYNAMODB__blah__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test"
 DYNAMODB__blah__name = "test"
 
 DYNAMODB__hw1__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"

@@ -26,9 +26,14 @@ resource "kubernetes_config_map" "existing" {
   }
 
   data = {
-    "DYNAMODB__${each.value["reference"]}__arn"  = "arn:aws:dynamodb:::table/${each.value.name}"
+    "DYNAMODB__${each.value["reference"]}__arn"  = "${data.aws_dynamodb_table.table[each.key].arn}"
     "DYNAMODB__${each.value["reference"]}__name" = each.value.name
   }
+}
+
+data "aws_dynamodb_table" "table" {
+  for_each = local.dynamodb_existing_map
+  name     = each.value.name
 }
 
 locals {
@@ -64,8 +69,8 @@ data "aws_iam_policy_document" "existing" {
       effect  = "Allow"
       actions = statement.value.read_only ? local.read_only_policy : local.rw_policy
       resources = [
-        "arn:aws:dynamodb:::table/${statement.value.name}",
-        "arn:aws:dynamodb:::table/${statement.value.name}/*"
+        "${data.aws_dynamodb_table.table[statement.key].arn}",
+        "${data.aws_dynamodb_table.table[statement.key].arn}/*"
       ]
     }
   }
