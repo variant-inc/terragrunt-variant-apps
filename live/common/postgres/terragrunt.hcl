@@ -19,7 +19,6 @@ dependency "namespace" {
 
 terraform {
   source = "${path_relative_from_include("root")}/../modules/common//postgres"
-  skip   = local.skip
 }
 
 locals {

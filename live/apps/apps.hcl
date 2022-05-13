@@ -1,5 +1,6 @@
 locals {
   deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+  skip_pg     = length(try(local.deploy_yaml.infrastructure.postgres, [])) > 0 ? false : true
 }
 
 inputs = {
@@ -17,7 +18,7 @@ dependency "buckets" {
 }
 
 dependency "postgres" {
-  config_path = "${get_terragrunt_dir()}/../../common/postgres"
+  config_path = local.skip_pg ? "${get_terragrunt_dir()}/../../common/mock" : "${get_terragrunt_dir()}/../../common/postgres"
   mock_outputs = {
     config_maps = []
   }
