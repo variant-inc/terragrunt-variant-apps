@@ -17,7 +17,7 @@ locals {
 }
 
 data "aws_iam_policy_document" "role_policies" {
-  for_each  = locals.policies_map
+  for_each  = local.policies_map
 
   statement {
     actions   = each.value.actions
