@@ -105,7 +105,7 @@ infrastructure:
       - arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
         reference: hw1
       - reference: foo
-        arn: arn:aws:dynamodb:us-east-1:123456789:table/test1
+        arn: arn:aws:dynamodb:us-east-1:987654321:table/test2
 ```
 
 The application will be deployed with the following `environnement variables`
@@ -119,7 +119,7 @@ DYNAMODB__blah__name = "test"
 
 DYNAMODB__hw1__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
 
-DYNAMODB__foo__arn = "arn:aws:dynamodb:us-east-1:123456789:table/test1"
+DYNAMODB__foo__arn = "arn:aws:dynamodb:us-east-1:987654321:table/test2"
 ```
 
 ## Supported Attributes
