@@ -23,6 +23,14 @@ dependency "postgres" {
   }
 }
 
+dependency "dynamodb" {
+  config_path = "${get_terragrunt_dir()}/../../common/dynamodb"
+  mock_outputs = {
+    config_maps = []
+    policies    = {}
+  }
+}
+
 dependency "namespace" {
   config_path = "${get_terragrunt_dir()}/../../common/namespace"
   mock_outputs = {
