@@ -1,5 +1,35 @@
 # Terraform Dynamo DB
+
+## DX Inputs
 <!-- markdownlint-disable MD033 MD013 MD041 -->
+### Managed
+
+| Key                      | Type                                                      | Default         | Description                                                                            | Example               | Required |
+| ------------------------ | --------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------- | --------------------- | -------- |
+| name                     | string                                                    |                 | Name of the table to be created                                                        | hello                 | yes      |
+| reference                | string                                                    |                 | Short name to refer the table                                                          | hw                    | yes      |
+| billing_mode             | string                                                    | PAY_PER_REQUEST | Controls how you are charged for read and write throughput and how you manage capacity | PAY_PER_REQUEST       | optional |
+| hash_key                 | string                                                    |                 | The attribute to use as the hash (partition) key                                       | [AWS Docs](#aws-docs) | yes      |
+| range_key                | string                                                    | null            | The attribute to use as the range (sort) key                                           | [AWS Docs](#aws-docs) | optional |
+| attributes               | list ( object ({ name  =   string , type  =   string  })) | null            | List of nested attribute definitions.                                                  | [AWS Docs](#aws-docs) | optional |
+| global_secondary_indexes | any                                                       | null            | GSI for the table                                                                      | [AWS Docs](#aws-docs) | optional |
+| local_secondary_indexes  | any                                                       | null            | LSI on the table                                                                       | [AWS Docs](#aws-docs) | optional |
+| read_capacity            | number                                                    | 2               | The number of read units for this table                                                | 2                     | optional |
+| write_capacity           | number                                                    | 2               | The number of write units for this table                                               | 2                     | optional |
+
+#### AWS Docs
+
+- [Amazon Dynamo DB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.TablesItemsAttributes)
+
+### Existing
+
+| Key       | Type    | Default | Description                                      | Example                                         | Required |
+|-----------|---------|---------|--------------------------------------------------|-------------------------------------------------|----------|
+| name      | string  |         | Name of the table to referred by the app         | hello                                           | yes      |
+| reference | string  |         | Short name to refer the table                    | hw                                              | yes      |
+| arn       | string  |         | Arn of the same or cross account dynamo db table | arn:aws:dynamodb:us-east-1:123456789:table/test | optional |
+| read_only | boolean |         | Permissions to be assigned to the app role       | true                                            | optional |
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
