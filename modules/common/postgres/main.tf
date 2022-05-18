@@ -12,7 +12,7 @@ locals {
 
 module "database" {
   for_each        = local.database_map
-  source          = "github.com/variant-inc/terraform-postgres-database?ref=v1"
+  source          = "github.com/variant-inc/terraform-postgres-database?ref=v0.1.0"
   create_database = lookup(each.value, "read_only", false) == true ? false : true
   extensions      = lookup(each.value, "extensions", [])
   database_name   = each.value.name
