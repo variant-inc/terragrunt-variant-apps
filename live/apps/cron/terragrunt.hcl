@@ -44,6 +44,7 @@ inputs = {
     yamlencode(local.chart_user_values),
     yamlencode({
       configMaps = concat(
+        dependency.dynamodb.outputs.config_maps,
         dependency.buckets.outputs.config_maps,
         dependency.postgres.outputs.config_maps,
         dependency.messaging.outputs.config_maps
