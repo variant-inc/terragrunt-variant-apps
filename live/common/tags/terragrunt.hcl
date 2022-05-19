@@ -7,7 +7,7 @@ locals {
 }
 
 terraform {
-  source = "github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1.9.0"
+  source = "github.com/variant-inc/lazy-terraform//submodules/tags?ref=v1.9"
 }
 
 inputs = {

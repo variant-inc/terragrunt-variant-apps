@@ -6,7 +6,7 @@ locals {
 # Create the buckets that are managed and owned by this app
 module "buckets" {
   for_each                   = local.managed_map
-  source                     = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.2.0"
+  source                     = "github.com/variant-inc/terraform-aws-s3.git?ref=v1.2"
   bucket_prefix              = "${var.aws_resource_name_prefix}${each.key}"
   tags                       = lookup(each.value, "tags", {})
   lifecycle_rule             = lookup(each.value, "lifecycle_rule", [])

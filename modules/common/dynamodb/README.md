@@ -13,7 +13,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | github.com/variant-inc/terraform-aws-dynamodb.git | v1.2.0 |
+| <a name="module_dynamodb_table"></a> [dynamodb\_table](#module\_dynamodb\_table) | github.com/variant-inc/terraform-aws-dynamodb.git | v1.2 |
 
 ## Resources
 
