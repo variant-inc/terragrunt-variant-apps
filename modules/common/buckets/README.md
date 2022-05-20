@@ -30,11 +30,6 @@
 | Key  | Type | Default | Description                                                                                   | Example |
 | ---- | ---- | ------- | --------------------------------------------------------------------------------------------- | ------- |
 | days | int  |         | Specifies the number of days after object creation when the specific rule action takes effect | 183     |
-
-OR
-
-| Key                          | Type | Default | Description                                                                                                                                                                                                                                                               | Example |
-| ---------------------------- | ---- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | expired_object_delete_marker | bool |         | a versioned bucket (versioning-enabled or versioning-suspended bucket), you can add this element in the lifecycle configuration to direct Amazon S3 to delete expired object delete markers. This cannot be specified with Days or Date in a Lifecycle Expiration Policy. | true    |
 
 ##### Transition Storage Class
