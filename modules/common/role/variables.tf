@@ -17,3 +17,8 @@ variable "policies" {
   type        = map(any)
   description = "Each value in the map should be an aws_iam_policy_document resource"
 }
+
+variable "custom_policy" {
+  type        = string
+  description = "A string containing an list of actions, an effect and list of resources"
+}
