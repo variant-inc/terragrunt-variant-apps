@@ -1,4 +1,13 @@
 <!-- markdownlint-disable MD033 MD013 MD041 -->
+## DX Inputs
+
+| Key                      | Type                                                      | Default         | Description                                                                            | Example                                                                                                                                     | Required |
+| ------------------------ | --------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| name                     | string                                                    |                 | Name of the database to be created                                                     | test-database                                                                                                                               | yes      |
+| reference                | string                                                    |                 | Short name to reference the database                                                   | test                                                                                                                                        | yes      |
+| role_name                | string                                                    |                 | Name of the role                                                                       | admin                                                                                                                                       | yes      |
+| read_only                | bool                                                      |                 | Create database with read-only-user                                                    | true                                                                                                                                        | optional |
+| extensions               | list(string)                                              | [ ]             | Array of extensions                                                                    | ["postgis"]                                                                                                                                 | optional |
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -13,7 +22,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_database"></a> [database](#module\_database) | github.com/variant-inc/terraform-postgres-database | v1 |
+| <a name="module_database"></a> [database](#module\_database) | github.com/variant-inc/terraform-postgres-database | v1.0 |
 
 ## Resources
 
