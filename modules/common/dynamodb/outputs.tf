@@ -16,7 +16,7 @@ output "config_maps" {
   value = concat(
     [for label, cm in kubernetes_config_map.managed : cm.metadata[0].name],
     [for label, cm in kubernetes_config_map.existing : cm.metadata[0].name],
-    [for label, cm in kubernetes_config_map.existing_cross_account : cm.metadata[0].name]
+    [for label, cm in kubernetes_config_map.existing_arn : cm.metadata[0].name]
   )
   description = "Config Maps of Dynamodb"
 }

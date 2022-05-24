@@ -14,13 +14,13 @@ variable "namespace" {
 }
 
 variable "existing" {
-  description = "Existing dynamo db needing reference by the app. Accepts the following values as keys in each object:[name, reference, cross_account_arn, read_only], In case of refering table from same account just add key name, Whereas in case of cross account table just add cross_account_arn as shown in sample examples and exclude name"
+  description = "Existing dynamo db needing reference by the app. Accepts the following values as keys in each object:[name, reference, arn, read_only], In case of refering table from same account just add key name or arn, Whereas in case of cross account table just add arn as shown in sample examples and exclude name"
   type = list(object(
     {
-      name              = optional(string)
-      reference         = optional(string)
-      cross_account_arn = optional(string)
-      read_only         = optional(bool)
+      name      = optional(string)
+      reference = optional(string)
+      arn       = optional(string)
+      read_only = optional(bool)
     }
   ))
   default = []
