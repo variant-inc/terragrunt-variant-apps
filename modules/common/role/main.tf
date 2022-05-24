@@ -1,21 +1,6 @@
-terraform {
-  required_version = "~> 1.1"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.74"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.8"
-    }
-  }
-}
-
 locals {
   namespace   = data.kubernetes_namespace.namespace.metadata[0].name
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
-
 }
 
 data "kubernetes_namespace" "namespace" {
@@ -61,4 +46,10 @@ resource "aws_iam_role" "role" {
       policy = inline_policy.value.json
     }
   }
+
+  inline_policy {
+    name   = "custom_policy"
+    policy = trimspace(var.custom_policy)
+  }
+
 }

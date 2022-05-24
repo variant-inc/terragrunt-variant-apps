@@ -1,5 +1,77 @@
 # Terraform S3
+
+## DX Inputs
 <!-- markdownlint-disable MD033 MD013 MD041 -->
+### Managed
+
+| Key                        | Type                                  | Default | Description                                                      | Example     |
+| -------------------------- | ------------------------------------- | ------- | ---------------------------------------------------------------- | ----------- |
+| prefix                     | string                                |         | Creates a unique bucket name beginning with the specified prefix | hello-world |
+| reference                  | string                                |         | Reference to Bucket                                              | hw          |
+| lifecycle_rule             | list([Lifecycle](#lifecycle-rule))    | []      | A configuration of lifecycle management                          |             |
+| bucket_policy              | list([Bucket Policy](#bucket-policy)) | []      | A valid bucket policy JSON document                              |             |
+| enable_bucket_notification | bool                                  | false   | Enabling Bucket Notification                                     | false       |
+| force_destroy              | bool                                  | false   | Enabling Force Destroy                                           | false       |
+
+#### Lifecycle Rule
+
+| Key                                    | Type                                                                                  | Default | Description                                                                                                  | Example |
+| -------------------------------------- | ------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| prefix                                 | string                                                                                |         | Bucket Prefix                                                                                                | staged/ |
+| enabled                                | bool                                                                                  |         | Reference to Bucket                                                                                          | true    |
+| abort_incomplete_multipart_upload_days | int                                                                                   |         | Specifies the number of days after initiating a multipart upload when the multipart upload must be completed | 1       |
+| expiration                             | [Expiration](#expiration)                                                             | []      | Specifies a period in the object's expire                                                                    | Example |
+| transition_storage_class               | [Transition Storage Class](#transition-storage-class)                                 | false   | Specifies a period in the object's transitions                                                               | Example |
+| noncurrent_version_transition          | [Noncurrent Version Transition](#noncurrent-version-transition)                       | false   | Specifies when noncurrent object versions transitions                                                        | Example |
+| noncurrent_version_expiration_days     | [Noncurrent Version Expiration Transition](#noncurrent-version-expiration-transition) |         | Specifies when noncurrent object versions transitions                                                        | 92      |
+
+##### Expiration
+
+| Key  | Type | Default | Description                                                                                   | Example |
+| ---- | ---- | ------- | --------------------------------------------------------------------------------------------- | ------- |
+| days | int  |         | Specifies the number of days after object creation when the specific rule action takes effect | 183     |
+| expired_object_delete_marker | bool |         | a versioned bucket (versioning-enabled or versioning-suspended bucket), you can add this element in the lifecycle configuration to direct Amazon S3 to delete expired object delete markers. This cannot be specified with Days or Date in a Lifecycle Expiration Policy. | true    |
+
+##### Transition Storage Class
+
+| Key           | Type | Default | Description                                                                                   | Example             |
+| ------------- | ---- | ------- | --------------------------------------------------------------------------------------------- | ------------------- |
+| days          | int  |         | Specifies the number of days after object creation when the specific rule action takes effect | 7                   |
+| storage_class | int  |         | Specifies the Amazon S3 storage class to which you want the object to transition.             | INTELLIGENT_TIERING |
+
+##### Noncurrent Version Transition
+
+| Key           | Type | Default | Description                                                                                   | Example             |
+| ------------- | ---- | ------- | --------------------------------------------------------------------------------------------- | ------------------- |
+| days          | int  |         | Specifies the number of days after object creation when the specific rule action takes effect | 7                   |
+| storage_class | int  |         | Specifies the Amazon S3 storage class to which you want the object to transition.             | INTELLIGENT_TIERING |
+
+##### Noncurrent Version Expiration Transition
+
+| Key  | Type | Default | Description                                                                                   | Example |
+| ---- | ---- | ------- | --------------------------------------------------------------------------------------------- | ------- |
+| days | int  |         | Specifies the number of days after object creation when the specific rule action takes effect | 92      |
+
+#### Bucket Policy
+
+Additional bucket policy statements. Default policy allows only SSL requests
+
+### Existing
+
+| Key           | Type   | Default | Description                       | Example     |
+| ------------- | ------ | ------- | --------------------------------- | ----------- |
+| project_name  | string |         | Bucket Prefix                     | hello-world |
+| project_group | string |         | Project Group for Existing Bucket | demo        |
+| bucket_prefix | string |         | Bucket Prefix for Existing Bucket | jupiter     |
+| reference     | string |         | Reference to Bucket               | hw          |
+
+OR
+
+| Key       | Type   | Default | Description         | Example                               |
+| --------- | ------ | ------- | ------------------- | ------------------------------------- |
+| full_name | string |         | Bucket Full Name    | hello-world20220112134106599600000001 |
+| reference | string |         | Reference to Bucket | hw                                    |
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
