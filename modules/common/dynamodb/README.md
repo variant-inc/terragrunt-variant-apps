@@ -17,10 +17,6 @@
 | read_capacity            | number                                                    | 2               | The number of read units for this table                                                | 2                                                                                                                                           | optional |
 | write_capacity           | number                                                    | 2               | The number of write units for this table                                               | 2                                                                                                                                           | optional |
 
-#### AWS Docs
-
-- [Amazon Dynamo DB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.TablesItemsAttributes)
-
 ### Existing
 
 | Key       | Type    | Default | Description                                              | Example                                         | Required |
