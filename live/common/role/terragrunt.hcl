@@ -43,6 +43,10 @@ terraform {
   source = "${path_relative_from_include("root")}/../modules/common//role"
 }
 
+locals {
+  deploy_yaml = read_terragrunt_config(find_in_parent_folders()).locals.deploy_yaml
+}
+
 inputs = {
   policies = merge(
     dependency.buckets.outputs.policies,
@@ -50,5 +54,6 @@ inputs = {
     dependency.messaging.outputs.queue_receive_policy,
     dependency.dynamodb.outputs.policies,
   )
-  namespace = dependency.namespace.outputs.namespace_name
+  custom_policy = try(jsonencode(local.deploy_yaml.infrastructure.custom_policy), {})
+  namespace     = dependency.namespace.outputs.namespace_name
 }
