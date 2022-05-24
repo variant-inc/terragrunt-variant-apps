@@ -8,9 +8,7 @@
 | role_name                | string                                                    |                 | Name of the role                                                                       | admin                                                                                                                                       | yes      |
 | read_only                | bool                                                      |                 | Create database with read-only-user                                                    | true                                                                                                                                        | optional |
 | extensions               | list(string)                                              | [ ]             | Array of extensions                                                                    | ["postgis"]                                                                                                                                 | optional |
-
-
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
