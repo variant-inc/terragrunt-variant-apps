@@ -1,5 +1,4 @@
 <!-- markdownlint-disable MD033 MD013 MD041 -->
-
 ## DX Postgres Inputs
 
 | Key                      | Type                                                      | Default         | Description                                                                            | Example                                                                                                                                     | Required |
