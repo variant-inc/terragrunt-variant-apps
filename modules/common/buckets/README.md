@@ -85,7 +85,7 @@ OR
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_buckets"></a> [buckets](#module\_buckets) | github.com/variant-inc/terraform-aws-s3.git | v1.2.0 |
+| <a name="module_buckets"></a> [buckets](#module\_buckets) | github.com/variant-inc/terraform-aws-s3.git | v1.2 |
 
 ## Resources
 

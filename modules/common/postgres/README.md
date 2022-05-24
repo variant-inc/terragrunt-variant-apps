@@ -22,7 +22,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_database"></a> [database](#module\_database) | github.com/variant-inc/terraform-postgres-database | v1 |
+| <a name="module_database"></a> [database](#module\_database) | github.com/variant-inc/terraform-postgres-database | v1.0 |
 
 ## Resources
 

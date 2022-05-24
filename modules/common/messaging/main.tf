@@ -8,7 +8,7 @@ data "aws_kms_key" "sns_alias" {
 }
 
 module "sns_topic" {
-  source                           = "github.com/variant-inc/terraform-aws-sns.git?ref=v1.0.1"
+  source                           = "github.com/variant-inc/terraform-aws-sns.git?ref=v1.0"
   for_each                         = local.topic_map
   name                             = "${var.aws_resource_name_prefix}${each.key}"
   display_name                     = lookup(each.value, "display_name", null)
@@ -42,7 +42,7 @@ data "aws_sns_topic" "topics_to_subscribe" {
 }
 
 module "sqs_queue" {
-  source                            = "github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=v1.2.0"
+  source                            = "github.com/variant-inc/terraform-aws-sns-subscription-sqs?ref=v1.2"
   for_each                          = local.topic_subscription_map
   name                              = "${var.aws_resource_name_prefix}${each.key}"
   topic_arn                         = data.aws_sns_topic.topics_to_subscribe[each.key].arn
