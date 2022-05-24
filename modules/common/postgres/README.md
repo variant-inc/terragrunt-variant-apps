@@ -1,5 +1,17 @@
 <!-- markdownlint-disable MD033 MD013 MD041 -->
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## DX Postgres Inputs
+
+| Key                      | Type                                                      | Default         | Description                                                                            | Example                                                                                                                                     | Required |
+| ------------------------ | --------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| name                     | string                                                    |                 | Name of the database to be created                                                     | test-database                                                                                                                               | yes      |
+| reference                | string                                                    |                 | Short name to refer the database                                                       | test-user                                                                                                                                   | yes      |
+| role_name                | string                                                    |                 | Name of the role                                                                       | admin                                                                                                                                       | yes      |
+| read_only                | bool                                                      |                 | Create database with read-only-user                                                    | true                                                                                                                                        | optional |
+| extensions               | list(string)                                              | [ ]             | Array of extensions                                                                    | ["postgis"]                                                                                                                                 | optional |
+
+
+
 ## Requirements
 
 | Name | Version |
