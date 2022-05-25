@@ -17,8 +17,8 @@
 | -------------------------- | ------------------------------------ | ------- | ---------------------------------------------------------------- | ----------- |
 | prefix                     | string                               |         | Creates a unique bucket name beginning with the specified prefix | hello-world |
 | reference                  | string                               |         | Reference to Bucket                                              | hw          |
-| lifecycle_rule             | list([lifecycle](#lifecycle\_rule))    | []      | A configuration of lifecycle management                          |             |
-| bucket_policy              | list([bucket Policy](#bucket\_policy)) | []      | A valid bucket policy JSON document                              |             |
+| lifecycle_rule             | list([lifecycle_rule](#lifecycle\_rule))    | []      | A configuration of lifecycle management                          |             |
+| bucket_policy              | list([bucket_policy](#bucket\_policy)) | []      | A valid bucket policy JSON document                              |             |
 | enable_bucket_notification | bool                                 | false   | Enabling Bucket Notification                                     | false       |
 | force_destroy              | bool                                 | false   | Enabling Force Destroy                                           | false       |
 
@@ -30,9 +30,9 @@
 | enabled                                | bool                                                                               |         | Reference to Bucket                                                                                          | true    |
 | abort_incomplete_multipart_upload_days | int                                                                                |         | Specifies the number of days after initiating a multipart upload when the multipart upload must be completed | 1       |
 | expiration                             | [expiration](#expiration)                                                          | []      | Specifies a period in the object's expire                                                                    | Example |
-| transition_storage_class               | [transition storage class](#transition\_storage\_class)                                | false   | Specifies a period in the object's transitions                                                               | Example |
-| noncurrent_version_transition          | [noncurrent version transition](#noncurrent\_version\_transition)                      | false   | Specifies when noncurrent object versions transitions                                                        | Example |
-| noncurrent_version_expiration_days     | [noncurrent version expiration transition](#noncurrent\_version\_expiration\_transition) |         | Specifies when noncurrent object versions transitions                                                        | 92      |
+| transition_storage_class               | [transition_storage_class](#transition\_storage\_class)                                | false   | Specifies a period in the object's transitions                                                               | Example |
+| noncurrent_version_transition          | [noncurrent_version_transition](#noncurrent\_version\_transition)                      | false   | Specifies when noncurrent object versions transitions                                                        | Example |
+| noncurrent_version_expiration_days     | [noncurrent_version_expiration_transition](#noncurrent\_version\_expiration\_transition) |         | Specifies when noncurrent object versions transitions                                                        | 92      |
 
 ##### expiration
 
