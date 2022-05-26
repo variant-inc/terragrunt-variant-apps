@@ -23,6 +23,7 @@ resource "kubernetes_config_map" "managed" {
   metadata {
     name      = "${var.app_name}-bucket-${each.key}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {

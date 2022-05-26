@@ -37,3 +37,8 @@ variable "existing" {
   ))
   default = []
 }
+
+variable "labels" {
+  description = "Map of Labels to be applied to config maps"
+  type        = map(string)
+}
