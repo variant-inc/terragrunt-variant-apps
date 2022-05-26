@@ -26,6 +26,7 @@ resource "kubernetes_config_map" "managed" {
   metadata {
     name      = "${var.app_name}-dynamodb-${each.key}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {

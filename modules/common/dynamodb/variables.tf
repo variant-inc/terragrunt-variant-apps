@@ -35,3 +35,8 @@ variable "managed" {
     error_message = "Each dynamo db must include name and reference."
   }
 }
+
+variable "labels" {
+  description = "Map of Labels to be applied to config maps"
+  type        = map(string)
+}
