@@ -37,6 +37,7 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Release name of the app | `string` | n/a | yes |
 | <a name="input_databases"></a> [databases](#input\_databases) | List of Postgres Databases to create. [ name, reference, role\_name, read\_only (Optional: false), extensions (Optional: []) ] | `any` | n/a | yes |
+| <a name="input_labels"></a> [labels](#input\_labels) | Map of Labels to be applied to config maps | `map(string)` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
 
 ## Outputs
