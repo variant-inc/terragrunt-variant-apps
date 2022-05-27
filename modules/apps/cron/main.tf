@@ -40,7 +40,7 @@ resource "helm_release" "cron" {
   count             = var.create == true ? 1 : 0
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-cron"
-  version           = "~1.2.0"
+  version           = "1.2.9-beta"
   cleanup_on_fail   = true
   name              = var.name
   namespace         = local.namespace
