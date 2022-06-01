@@ -5,7 +5,7 @@ output "config_maps" {
 
 output "secret_ids" {
   value       = [for db in module.database : db.secret_id]
-  description = "List of Secret IDs for Postgres"
+  description = "List of Secret IDs for Postgres in AWS SecretManager"
 }
 
 output "database_map" {
