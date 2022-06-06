@@ -22,6 +22,7 @@ resource "kubernetes_config_map" "existing" {
   metadata {
     name      = "${var.app_name}-bucket-${each.key}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {
@@ -36,6 +37,7 @@ resource "kubernetes_config_map" "existing_wo_configmap" {
   metadata {
     name      = "${var.app_name}-bucket-${replace(each.key, "_", "-")}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {
