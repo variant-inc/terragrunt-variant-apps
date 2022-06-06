@@ -19,7 +19,7 @@ dependency "namespace" {
 }
 
 dependency "tags" {
-  config_path = "../tags"
+  config_path = "${path_relative_from_include("root")}/common/tags"
   mock_outputs = {
     tags = {}
   }
