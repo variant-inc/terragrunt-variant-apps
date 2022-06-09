@@ -38,3 +38,31 @@ resource "kubernetes_config_map" "postgres" {
     "DATABASE__${each.value.reference}__password" = module.database[each.key].password
   }
 }
+
+resource "kubernetes_manifest" "probe" {
+  for_each = { for k, v in local.database_map : k => v if(
+  var.app_type ? lookup(v, "create_probe", true) : false) }
+  manifest = {
+    "kind" : "Probe",
+    "apiVersion" : "monitoring.coreos.com/v1",
+    "metadata" : {
+      "name" : "${each.value.name}"
+      "namespace" : "${var.namespace}"
+      "labels" : "${var.labels}"
+    },
+    "spec" : {
+      "interval" : "10s",
+      "module" : "http_2xx",
+      "prober" : {
+        "url" : "prometheus-blackbox-prometheus-blackbox-exporter.prometheus:9115"
+      },
+      "targets" : {
+        "staticConfig" : {
+          "static" : [
+            "${var.app_name}.${var.namespace}.svc:${var.service_port}/${lookup(each.value, "db_health_endpoint", "health/db")}"
+          ]
+        }
+      }
+    }
+  }
+}
