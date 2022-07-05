@@ -55,10 +55,15 @@ terraform.rc
 
 # End of https://www.toptal.com/developers/gitignore/api/helm
 
-/terraform.tfvars.json
-/tests
-
 # General
 **/.DS_Store
 .AppleDouble
 .LSOverride
+
+
+/terraform.tfvars.json
+/tests
+/modules/**/cake.tfvars.json
+/modules/**/aws.tf
+/modules/**/k8s.tf
+/modules/**/**/tfplan

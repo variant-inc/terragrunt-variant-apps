@@ -36,10 +36,10 @@ resource "kubernetes_config_map" "sns_topics" {
   }
 }
 
-
 data "aws_sns_topic" "topics_to_subscribe" {
-  for_each = local.topic_subscription_map
-  name     = each.value.topic_name
+  for_each   = local.topic_subscription_map
+  name       = each.value.topic_name
+  depends_on = [module.sns_topic]
 }
 
 module "sqs_queue" {

@@ -58,6 +58,8 @@
 | [kubernetes_config_map.existing_arn](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.managed](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [aws_dynamodb_table.table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/dynamodb_table) | data source |
+| [aws_eks_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
+| [aws_eks_cluster_auth.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_iam_policy_document.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
@@ -67,10 +69,12 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Release name of the app | `string` | n/a | yes |
 | <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | Prefix of team name to be applied to created resources. | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_existing"></a> [existing](#input\_existing) | Existing dynamo db needing reference by the app. Accepts the following values as keys in each object:[name, reference, arn, read\_only], In case of refering table from same account just add key name or arn, Whereas in case of cross account table just add arn as shown in sample examples and exclude name | <pre>list(object(<br>    {<br>      name      = optional(string)<br>      reference = optional(string)<br>      arn       = optional(string)<br>      read_only = optional(bool)<br>    }<br>  ))</pre> | `[]` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | Map of Labels to be applied to config maps | `map(string)` | n/a | yes |
 | <a name="input_managed"></a> [managed](#input\_managed) | Map of dynamo db objects. Accepts the following values as keys in each object: [name, reference, billing\_mode, hash\_key, range\_key, attributes, global\_secondary\_indexes, local\_secondary\_indexes, read\_capacity, write\_capacity] | `any` | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to be applied to resources | `map(any)` | n/a | yes |
 
 ## Outputs
 

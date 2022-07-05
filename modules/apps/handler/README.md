@@ -6,7 +6,7 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.74 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.5.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.4 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.8 |
 
 ## Resources
@@ -14,6 +14,8 @@
 | Name | Type |
 |------|------|
 | [helm_release.handler](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [aws_eks_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
+| [aws_eks_cluster_auth.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [kubernetes_namespace.namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/namespace) | data source |
 
 ## Inputs
@@ -21,6 +23,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Chart values | `list(string)` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Boolean Value for Create | `bool` | `false` | no |
 | <a name="input_image"></a> [image](#input\_image) | Deploy YAML git Image | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Octopus Project Name | `string` | n/a | yes |

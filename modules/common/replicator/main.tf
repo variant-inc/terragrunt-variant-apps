@@ -1,19 +1,8 @@
-terraform {
-  required_version = "~> 1.1"
-  required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.8"
-    }
-  }
-}
-
 data "kubernetes_namespace" "namespace" {
   metadata {
     name = var.namespace
   }
 }
-
 
 resource "kubernetes_config_map" "iaac_replicator" {
   metadata {

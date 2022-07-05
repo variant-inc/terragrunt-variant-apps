@@ -3,6 +3,8 @@ locals {
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
 }
 
+data "aws_caller_identity" "current" {}
+
 data "kubernetes_namespace" "namespace" {
   metadata {
     name = var.namespace
@@ -43,7 +45,7 @@ resource "aws_iam_role" "role" {
     for_each = var.policies
     content {
       name   = inline_policy.key
-      policy = inline_policy.value.json
+      policy = replace(inline_policy.value.json, "\n", "")
     }
   }
 
