@@ -41,6 +41,8 @@ resource "helm_release" "ui" {
   namespace         = local.namespace
   lint              = true
   dependency_update = true
+  atomic            = var.atomic
+  timeout           = var.timeout
 
   values = local.final_values
 

@@ -43,3 +43,15 @@ variable "tags" {
   type        = map(string)
   description = "Tags Output from Tags Module"
 }
+
+variable "atomic" {
+  type        = bool
+  description = "If true, sets atomic flag on helm upgrade, if upgrade fails it reverts it"
+  default     = true
+}
+
+variable "timeout" {
+  type        = number
+  description = "Timeout for helm upgrade to finish, in seconds, if not set defaults to 600"
+  default     = 600
+}
