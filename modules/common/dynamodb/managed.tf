@@ -5,7 +5,7 @@ locals {
 
 
 module "dynamodb_table" {
-  source                   = "github.com/variant-inc/terraform-aws-dynamodb.git?ref=v1.2"
+  source                   = "github.com/variant-inc/terraform-aws-dynamodb.git?ref=f%2Fcloud-1763-v4-bump"
   for_each                 = local.dynamodb_managed_map
   table_name               = "${var.aws_resource_name_prefix}${each.key}"
   billing_mode             = lookup(each.value, "billing_mode", "PAY_PER_REQUEST")
