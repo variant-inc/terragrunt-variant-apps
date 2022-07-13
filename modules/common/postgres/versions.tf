@@ -9,7 +9,7 @@ terraform {
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.66"
+      version = "~> 4.22"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
