@@ -22,3 +22,9 @@ variable "custom_policy" {
   type        = string
   description = "A string containing an list of actions, an effect and list of resources"
 }
+
+variable "boundary_extra" {
+  type        = any
+  description = "Additional boundary policies, use when you need to access resources that have different prefix than your app."
+  default     = {}
+}
