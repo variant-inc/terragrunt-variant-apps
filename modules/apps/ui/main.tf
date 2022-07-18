@@ -37,7 +37,7 @@ resource "helm_release" "ui" {
   repository        = "https://variant-inc.github.io/lazy-helm-charts/"
   chart             = "variant-ui"
   name              = var.name
-  version           = "1.4.8-beta"
+  version           = "1.4.10-beta"
   namespace         = local.namespace
   lint              = true
   dependency_update = true
