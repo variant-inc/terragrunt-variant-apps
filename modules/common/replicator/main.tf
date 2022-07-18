@@ -32,5 +32,6 @@ resource "kubernetes_config_map" "iaac_replicator" {
     "Version" : "${var.release_data.version}"
     "Image" : "${var.release_data.image}"
     "IsInfrastructure" : "${var.release_data.is_infrastructure}"
+    "Actions_Octopus_Version" : "${var.actions_octopus_version}"
   }
 }

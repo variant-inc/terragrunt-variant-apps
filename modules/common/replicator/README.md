@@ -18,6 +18,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_actions_octopus_version"></a> [actions\_octopus\_version](#input\_actions\_octopus\_version) | Actions Octopus version | `string` | `"v3"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the app | `string` | n/a | yes |
 | <a name="input_release_data"></a> [release\_data](#input\_release\_data) | Map of release data | <pre>object({<br>    space             = string<br>    project           = string<br>    repository        = string<br>    user              = string<br>    version           = string<br>    image             = string<br>    is_infrastructure = bool<br>  })</pre> | n/a | yes |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
