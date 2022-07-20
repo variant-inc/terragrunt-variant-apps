@@ -166,7 +166,7 @@ resource "aws_iam_role" "role" {
     for_each = var.policies
     content {
       name   = inline_policy.key
-      policy = replace(inline_policy.value.json, "\n", "")
+      policy = inline_policy.value.json
     }
   }
 
