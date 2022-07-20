@@ -32,3 +32,9 @@ variable "tags" {
   type        = map(any)
   description = "Tags to be applied to resources"
 }
+
+variable "boundary_extra" {
+  type        = any
+  description = "Additional boundary policies, use when you need to access resources that have different prefix than your app."
+  default     = {}
+}
