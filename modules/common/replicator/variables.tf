@@ -11,6 +11,12 @@ variable "release_data" {
   description = "Map of release data"
 }
 
+variable "actions_octopus_version" {
+  type        = string
+  default     = "v3"
+  description = "Actions Octopus version"
+}
+
 variable "namespace" {
   type        = string
   description = "Namespace of the app"
