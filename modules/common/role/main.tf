@@ -2,6 +2,7 @@ locals {
   namespace   = data.kubernetes_namespace.namespace.metadata[0].name
   oidc_issuer = replace(data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://", "")
 
+  boundary_name     = "${var.aws_resource_name_prefix}${var.name}-boundaryPolicy"
   infra_policy_json = [for k, v in var.policies : v.json]
 }
 
@@ -124,7 +125,7 @@ data "aws_iam_policy_document" "boundary_source" {
       "iam:SetDefaultPolicyVersion"
     ]
     resources = [
-      "arn:aws:iam::*:policy/TestPolicyBoundary"
+      "arn:aws:iam::*:policy/${local.boundary_name}"
     ]
   }
   statement {
@@ -147,7 +148,7 @@ data "aws_iam_policy_document" "boundary_policy" {
 }
 
 resource "aws_iam_policy" "boundary_policy" {
-  name        = "${var.aws_resource_name_prefix}${var.name}-boundaryPolicy"
+  name        = local.boundary_name
   description = "Boundary policy used for roles created by DX"
 
   policy = data.aws_iam_policy_document.boundary_policy.json
