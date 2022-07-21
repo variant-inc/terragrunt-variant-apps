@@ -17,3 +17,13 @@ variable "labels" {
   description = "Map of Labels to be applied to config maps"
   type        = map(string)
 }
+
+variable "service_port" {
+  type        = string
+  description = "Exposed Port of application"
+}
+
+variable "app_type" {
+  type        = bool
+  description = "Returns true if the application is a handler or api"
+}

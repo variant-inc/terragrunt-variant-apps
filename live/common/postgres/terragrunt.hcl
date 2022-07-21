@@ -33,9 +33,11 @@ locals {
 }
 
 inputs = {
-  databases = try(local.deploy_yaml.infrastructure.postgres, [])
-  app_name  = local.deploy_yaml.name
-  namespace = dependency.namespace.outputs.namespace_name
+  databases    = try(local.deploy_yaml.infrastructure.postgres, [])
+  app_name     = local.deploy_yaml.name
+  app_type     = try(local.deploy_yaml.api, false) != false || try(local.deploy.handler, false) != false
+  namespace    = dependency.namespace.outputs.namespace_name
+  service_port = try(local.deploy_yaml.api.service.port, try(local.deploy_yaml.handler.service.port, 80))
   labels = merge(
     {
       "app" : local.deploy_yaml.name,
