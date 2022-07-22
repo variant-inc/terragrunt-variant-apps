@@ -38,6 +38,15 @@ variable "existing" {
   default = []
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "Name of cluster to deploy app into."
+}
+
+variable "tags" {
+  type        = map(any)
+  description = "Tags to be applied to resources"
+}
 variable "labels" {
   description = "Map of Labels to be applied to config maps"
   type        = map(string)

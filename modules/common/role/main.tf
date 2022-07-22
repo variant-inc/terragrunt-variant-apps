@@ -6,6 +6,8 @@ locals {
   infra_policy_json = [for k, v in var.policies : v.json]
 }
 
+data "aws_caller_identity" "current" {}
+
 data "kubernetes_namespace" "namespace" {
   metadata {
     name = var.namespace

@@ -21,3 +21,13 @@ variable "namespace" {
   type        = string
   description = "Namespace of the app"
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "Name of cluster to deploy app into."
+}
+
+variable "tags" {
+  type        = map(any)
+  description = "Tags to be applied to resources"
+}

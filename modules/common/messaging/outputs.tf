@@ -17,12 +17,7 @@ output "config_maps" {
   description = "Config Maps of SNS and SQS"
 }
 
-output "sns_topic_publish_policy" {
+output "policies" {
   description = "AWS IAM Policy document to allow publish to created topic(s)"
-  value       = local.sns_policies
-}
-
-output "queue_receive_policy" {
-  description = "AWS IAM Policy document to allow message recieve to created queue(s)"
-  value       = local.sqs_policies
+  value       = merge(local.sns_policies, local.sqs_policies)
 }

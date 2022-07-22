@@ -1,21 +1,3 @@
-terraform {
-  required_version = "~> 1.1"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.74"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.8"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.5"
-    }
-  }
-}
-
 locals {
   namespace = data.kubernetes_namespace.namespace.metadata[0].name
   service_account_chart_values = [yamlencode({

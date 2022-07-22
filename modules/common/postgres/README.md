@@ -33,6 +33,8 @@
 | Name | Type |
 |------|------|
 | [kubernetes_config_map.postgres](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [aws_eks_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
+| [aws_eks_cluster_auth.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_secretsmanager_secret_version.database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 
 ## Inputs
@@ -40,9 +42,11 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Release name of the app | `string` | n/a | yes |
-| <a name="input_databases"></a> [databases](#input\_databases) | List of Postgres Databases to create. [ name, reference, role\_name, read\_only (Optional: false), extensions (Optional: []) ] | `any` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_labels"></a> [labels](#input\_labels) | Map of Labels to be applied to config maps | `map(string)` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
+| <a name="input_postgres"></a> [postgres](#input\_postgres) | List of Postgres Databases to create. [ name, reference, role\_name, read\_only (Optional: false), extensions (Optional: []) ] | `any` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to be applied to resources | `map(any)` | n/a | yes |
 
 ## Outputs
 

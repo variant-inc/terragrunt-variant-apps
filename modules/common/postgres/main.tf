@@ -1,5 +1,5 @@
 locals {
-  database_map = { for db in var.databases : db.reference => db }
+  database_map = { for db in var.postgres : db.reference => db }
 }
 
 data "aws_secretsmanager_secret_version" "database" {

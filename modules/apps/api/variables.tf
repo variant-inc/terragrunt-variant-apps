@@ -55,6 +55,11 @@ variable "role_arn" {
   description = "Role ARN from apps.hcl"
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "Name of cluster to deploy app into."
+}
+
 variable "tags" {
   type        = map(string)
   description = "Tags Output from Tags Module"

@@ -1,5 +1,0 @@
-site_name: DX Workflow Docs
-nav:
-  - Home: index.md
-plugins:
-  - techdocs-core
