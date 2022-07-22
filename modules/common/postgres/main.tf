@@ -29,6 +29,7 @@ resource "kubernetes_config_map" "postgres" {
   metadata {
     name      = "${var.app_name}-postgres-${replace(each.key, "_", "-")}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {

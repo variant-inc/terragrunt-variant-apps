@@ -27,6 +27,7 @@ resource "kubernetes_config_map" "sns_topics" {
   metadata {
     name      = "${var.app_name}-sns-topic-${each.key}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {
@@ -79,6 +80,7 @@ resource "kubernetes_config_map" "sns_sqs_subscriptions" {
   metadata {
     name      = "${var.app_name}-sns-sqs-subscription-${each.key}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {
@@ -93,6 +95,7 @@ resource "kubernetes_config_map" "sns_sqs_subscription_dlqs" {
   metadata {
     name      = "${var.app_name}-sns-sqs-subscription-dlq-${each.key}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {

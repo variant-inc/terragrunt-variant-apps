@@ -17,6 +17,13 @@ dependency "namespace" {
   }
 }
 
+dependency "tags" {
+  config_path = "${path_relative_from_include("root")}/common/tags"
+  mock_outputs = {
+    tags = {}
+  }
+}
+
 terraform {
   source = "${path_relative_from_include("root")}/../modules/common//dynamodb"
 }
@@ -30,4 +37,12 @@ inputs = {
   existing  = try(local.deploy_yaml.infrastructure.dynamodb.existing, [])
   app_name  = local.deploy_yaml.name
   namespace = dependency.namespace.outputs.namespace_name
+  labels = merge(
+    {
+      "app" : local.deploy_yaml.name,
+      "revision" : local.deploy_yaml.git.version
+    },
+    {
+      for k, v in dependency.tags.outputs.tags : "cloudops.io.${k}" => replace(v, " ", "-")
+  })
 }

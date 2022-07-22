@@ -24,3 +24,8 @@ variable "namespace" {
   description = "Namespace name of the app"
   type        = string
 }
+
+variable "labels" {
+  description = "Map of Labels to be applied to config maps"
+  type        = map(string)
+}

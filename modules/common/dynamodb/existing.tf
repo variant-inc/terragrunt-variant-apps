@@ -10,6 +10,7 @@ resource "kubernetes_config_map" "existing_arn" {
   metadata {
     name      = "${var.app_name}-dynamodb-arn-${local.dynamodb_arn_existing_map[each.key].reference}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {
@@ -23,6 +24,7 @@ resource "kubernetes_config_map" "existing" {
   metadata {
     name      = "${var.app_name}-dynamodb-${replace(each.key, "_", "-")}"
     namespace = var.namespace
+    labels    = var.labels
   }
 
   data = {
