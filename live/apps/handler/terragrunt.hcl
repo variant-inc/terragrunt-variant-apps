@@ -42,6 +42,12 @@ inputs = {
         dependency.postgres.outputs.config_maps,
         dependency.messaging.outputs.config_maps
       )
+    }),
+    yamlencode({
+      awsSecrets = concat(
+        dependency.postgres.outputs.secret_ids,
+        try(local.deploy_yaml.api.awsSecrets, {})
+      )
     })
   ]
   tags = dependency.tags.outputs.tags
