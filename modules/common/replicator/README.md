@@ -21,8 +21,8 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_actions_octopus_version"></a> [actions\_octopus\_version](#input\_actions\_octopus\_version) | Actions Octopus version | `string` | `"v3"` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the app | `string` | n/a | yes |
 | <a name="input_release_data"></a> [release\_data](#input\_release\_data) | Map of release data | <pre>object({<br>    space             = string<br>    project           = string<br>    repository        = string<br>    user              = string<br>    version           = string<br>    image             = string<br>    is_infrastructure = bool<br>  })</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to be applied to resources | `map(any)` | n/a | yes |
