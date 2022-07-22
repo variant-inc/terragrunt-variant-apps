@@ -31,7 +31,6 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory pack
-          Move-Item -Path ./live -Destination ./pack
           Move-Item -Path ./modules -Destination ./pack
 
       - name: Determine Destination Spaces
@@ -46,7 +45,7 @@ jobs:
         shell: pwsh
         run: |
           ./.variant/deploy/push_package.ps1 `
-            -PackageName ${{ github.event.repository.name }} `
+            -PackageName terraform-variant-apps `
             -Version ${{ steps.setup.outputs.image_version }} `
             -BasePackagePath ./pack `
             -Spaces ${{ steps.spaces.outputs.spaces }}

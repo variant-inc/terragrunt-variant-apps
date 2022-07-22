@@ -1,7 +1,4 @@
 provider "aws" {
-  default_tags {
-    tags = var.tags
-  }
 }
 
 data "aws_eks_cluster" "cluster" {

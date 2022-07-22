@@ -103,6 +103,8 @@ OR
 | [kubernetes_config_map.existing](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.existing_wo_configmap](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
 | [kubernetes_config_map.managed](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [aws_eks_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
+| [aws_eks_cluster_auth.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_iam_policy_document.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [kubernetes_config_map.existing](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/config_map) | data source |
@@ -113,10 +115,12 @@ OR
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_name"></a> [app\_name](#input\_app\_name) | Release name of the app | `string` | n/a | yes |
 | <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | Team prefix to prepend to managed buckets | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_existing"></a> [existing](#input\_existing) | Existing buckets needing reference by the app | <pre>list(object(<br>    {<br>      full_name     = optional(string)<br>      reference     = optional(string)<br>      read_only     = optional(bool)<br>      project_group = optional(string)<br>      project_name  = optional(string)<br>      bucket_prefix = optional(string)<br>    }<br>  ))</pre> | `[]` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | Map of Labels to be applied to config maps | `map(string)` | n/a | yes |
 | <a name="input_managed"></a> [managed](#input\_managed) | Buckets to be created and managed by terragrunt | `any` | `[]` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name of the app | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to be applied to resources | `map(any)` | n/a | yes |
 
 ## Outputs
 

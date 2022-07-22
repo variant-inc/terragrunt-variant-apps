@@ -18,9 +18,19 @@ variable "policies" {
   description = "Each value in the map should be an aws_iam_policy_document resource"
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "Name of cluster to deploy app into."
+}
+
 variable "custom_policy" {
   type        = string
   description = "A string containing an list of actions, an effect and list of resources"
+}
+
+variable "tags" {
+  type        = map(any)
+  description = "Tags to be applied to resources"
 }
 
 variable "boundary_extra" {

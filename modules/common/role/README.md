@@ -14,6 +14,9 @@
 |------|------|
 | [aws_iam_policy.boundary_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_eks_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
+| [aws_eks_cluster_auth.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
 | [aws_iam_policy_document.assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.boundary_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.boundary_source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -25,10 +28,12 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_resource_name_prefix"></a> [aws\_resource\_name\_prefix](#input\_aws\_resource\_name\_prefix) | AWS Resource Name Prefix based on environment | `string` | n/a | yes |
 | <a name="input_boundary_extra"></a> [boundary\_extra](#input\_boundary\_extra) | Additional boundary policies, use when you need to access resources that have different prefix than your app. | `any` | `{}` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of cluster to deploy app into. | `string` | n/a | yes |
 | <a name="input_custom_policy"></a> [custom\_policy](#input\_custom\_policy) | A string containing an list of actions, an effect and list of resources | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Role Name | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the app | `string` | n/a | yes |
 | <a name="input_policies"></a> [policies](#input\_policies) | Each value in the map should be an aws\_iam\_policy\_document resource | `map(any)` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to be applied to resources | `map(any)` | n/a | yes |
 
 ## Outputs
 
