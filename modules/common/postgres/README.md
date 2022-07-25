@@ -32,7 +32,8 @@
 
 | Name | Type |
 |------|------|
-| [kubernetes_config_map.postgres](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [aws_secretsmanager_secret.postgress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret_version.postgress_secret_version](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_secretsmanager_secret_version.database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 
 ## Inputs
@@ -48,6 +49,6 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_config_maps"></a> [config\_maps](#output\_config\_maps) | Config Map for Postgres |
 | <a name="output_database_map"></a> [database\_map](#output\_database\_map) | Database Map |
+| <a name="output_secret_names"></a> [secret\_names](#output\_secret\_names) | Secret name for Postgres |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
