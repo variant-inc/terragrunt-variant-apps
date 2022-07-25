@@ -46,8 +46,14 @@ inputs = {
       configMaps = concat(
         dependency.dynamodb.outputs.config_maps,
         dependency.buckets.outputs.config_maps,
-        dependency.postgres.outputs.config_maps,
+        # dependency.postgres.outputs.config_maps,
         dependency.messaging.outputs.config_maps
+      )
+    }),
+    yamlencode({
+      awsSecrets = concat(
+        local.deploy_yaml.awsSecrets,
+        dependency.postgres.outputs.secret_names
       )
     })
   ]
