@@ -4,7 +4,7 @@
 # }
 
 output "secret_names" {
-  value       = [for label, s in aws_secretsmanager_secret.postgres : {name = s.name}]
+  value       = [for label, s in aws_secretsmanager_secret.postgres : { name = s.name }]
   description = "Secret name for Postgres"
 }
 
