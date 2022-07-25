@@ -7,13 +7,13 @@ variable "app_name" {
   type        = string
   description = "Release name of the app"
 }
+# 
+# variable "namespace" {
+#   type        = string
+#   description = "Namespace name of the app"
+# }
 
-variable "namespace" {
-  type        = string
-  description = "Namespace name of the app"
-}
-
-variable "labels" {
-  description = "Map of Labels to be applied to config maps"
-  type        = map(string)
-}
+# variable "labels" {
+#   description = "Map of Labels to be applied to config maps"
+#   type        = map(string)
+# }
