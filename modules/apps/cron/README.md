@@ -20,6 +20,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_atomic"></a> [atomic](#input\_atomic) | If true, sets atomic flag on helm upgrade, if upgrade fails it reverts it | `bool` | `true` | no |
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Chart values | `list(string)` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Boolean Value for Create | `bool` | `false` | no |
 | <a name="input_image"></a> [image](#input\_image) | Deploy YAML git Image | `string` | n/a | yes |
@@ -28,4 +29,5 @@
 | <a name="input_revision"></a> [revision](#input\_revision) | Octopus Release Number | `string` | n/a | yes |
 | <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Role ARN from apps.hcl | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags Output from Tags Module | `map(string)` | n/a | yes |
+| <a name="input_timeout"></a> [timeout](#input\_timeout) | Timeout for helm upgrade to finish, in seconds, if not set defaults to 600 | `number` | `600` | no |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
